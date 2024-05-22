@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import SignUp from "../auth/SignUp";
+import SignUp from "../auth/signup/SignUp";
+import ClientSignUp from "../auth/signup/ClientSignUp";
+import ProfessionalSignUp from "../auth/signup/ProfessionalSignUp";
 import Login from "../auth/Login";
 import ProfessionnelDashboard from "../professionnel";
 import ClientDashboard from "../client";
@@ -12,6 +14,8 @@ const AppRoutes = () => {
     <>
       <Routes>
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup/client" element={<ClientSignUp />} />
+        <Route path="/signup/professional" element={<ProfessionalSignUp />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/professionnel"
@@ -37,10 +41,7 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/"
-          render={() => <div>Bienvenue à notre application !</div>}
-        />
+        <Route path="/" element={<Login />} />
       </Routes>
     </>
   );

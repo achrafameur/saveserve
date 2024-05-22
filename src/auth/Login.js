@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -24,8 +25,6 @@ const Login = () => {
       console.log(response.data);
       const { token, id_service } = response.data;
       console.log(id_service, token)
-    //   alert(`Connexion réussie ! Token: ${token}`);
-      // Enregistrer le token dans le stockage local pour une utilisation ultérieure
       localStorage.setItem('token', token);
       switch(id_service) {
         case 0:
@@ -87,6 +86,9 @@ const Login = () => {
           >
             Se connecter
           </Button>
+          <Typography sx={{ mt: 2 }}>
+            Pas encore de compte ? <Link to="/signup">S'inscrire</Link>
+          </Typography>
         </Box>
       </Box>
     </Container>
