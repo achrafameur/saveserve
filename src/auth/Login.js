@@ -4,7 +4,7 @@ import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
   const [formData, setFormData] = useState({
     adresse_mail: '',
     password: ''
@@ -26,6 +26,7 @@ const Login = () => {
       const { token, id_service } = response.data;
       console.log(id_service, token)
       localStorage.setItem('token', token);
+      setIsAuthenticated(true);
       switch(id_service) {
         case 0:
           navigate('/super_admin');

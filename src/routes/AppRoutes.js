@@ -8,40 +8,59 @@ import ProfessionnelDashboard from "../professionnel";
 import ClientDashboard from "../client";
 import SuperAdminDashboard from "../super_admin";
 import ProtectedRoute from "../auth/ProtectedRoute";
+import Profile from "../shared/Profile";
 
-const AppRoutes = () => {
+const AppRoutes = ({ isAuthenticated, setIsAuthenticated }) => {
   return (
     <>
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signup/client" element={<ClientSignUp />} />
         <Route path="/signup/professional" element={<ProfessionalSignUp />} />
-        <Route path="/login" element={<Login />} />
         <Route
-          path="/professionnel"
-          element={
-            <ProtectedRoute>
-              <ProfessionnelDashboard />
-            </ProtectedRoute>
-          }
+          path="/login"
+          element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
+        {isAuthenticated && (
+          <>
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/professionnel"
+              element={
+                <ProtectedRoute>
+                  <ProfessionnelDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/client"
+              element={
+                <ProtectedRoute>
+                  <ClientDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/super_admin"
+              element={
+                <ProtectedRoute>
+                  <SuperAdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+          </>
+        )}
         <Route
-          path="/client"
-          element={
-            <ProtectedRoute>
-              <ClientDashboard />
-            </ProtectedRoute>
-          }
+          path="/"
+          element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
-        <Route
-          path="/super_admin"
-          element={
-            <ProtectedRoute>
-              <SuperAdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/" element={<Login />} />
       </Routes>
     </>
   );
