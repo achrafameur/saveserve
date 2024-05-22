@@ -1,17 +1,28 @@
-import { useState } from "react";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
-import Footer from "./shared/Foorter";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from "./shared/Navbar";
+import Footer from "./shared/Foorter";
+import AuthProvider from "./auth/AuthContext";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log(token)
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   return (
-    <>
-      {isAuthenticated && <Navbar />}
-      <AppRoutes isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/> 
-      {isAuthenticated && <Footer />}
-    </>
+    <AuthProvider>
+      <Navbar />
+      <AppRoutes />
+      <Footer />
+    </AuthProvider>
   );
 }
 

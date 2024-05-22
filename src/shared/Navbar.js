@@ -1,10 +1,14 @@
-import React from 'react';
+// Navbar.js
+import React, { useContext } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/material';
-import { AccountCircle, ExitToApp } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { AccountCircle } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../auth/AuthContext';
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -14,14 +18,26 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-  const handleProfileClick = () => {
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('id');
+    setIsAuthenticated(false);
     setAnchorEl(null);
+    navigate('/login');
   };
+
+  const handleProfile = () => {
+    setAnchorEl(null);
+    navigate('/profile')
+  };
+
+  if (!isAuthenticated) return null;
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" sx={{flexGrow: 1}}>
+        <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Save&Serve
         </Typography>
         <div>
@@ -49,8 +65,8 @@ const Navbar = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem component={Link} to="/profile" onClick={handleProfileClick}>Profil</MenuItem>
-            <MenuItem onClick={handleClose}>Déconnexion</MenuItem>
+            <MenuItem onClick={handleProfile}>Profil</MenuItem>
+            <MenuItem onClick={handleLogout}>Déconnexion</MenuItem>
           </Menu>
         </div>
       </Toolbar>
