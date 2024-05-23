@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthContext';
 
 const Login = () => {
@@ -21,6 +21,25 @@ const Login = () => {
       const { token, id_service, id } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('id', id);
+
+      let role;
+      switch(id_service) {
+        case 0:
+          role = 'super_admin';
+          break;
+        case 1:
+          role = 'client';
+          break;
+        case 2:
+          role = 'professionnel';
+          break;
+        default:
+          role = 'guest';
+          break;
+      }
+      localStorage.setItem('role', role);
+
+
       setIsAuthenticated(true);
       localStorage.setItem('isAuthenticated', 'true');
       switch(id_service) {
@@ -51,6 +70,9 @@ const Login = () => {
           <TextField margin="normal" required fullWidth label="Adresse e-mail" name="adresse_mail" onChange={handleChange} type="email" />
           <TextField margin="normal" required fullWidth label="Mot de passe" name="password" onChange={handleChange} type="password" />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Se connecter</Button>
+          <Typography variant="body2" align="center">
+            Vous n'avez pas de compte ? <Link to="/signup">Inscrivez-vous</Link>
+          </Typography>
         </Box>
       </Box>
     </Container>

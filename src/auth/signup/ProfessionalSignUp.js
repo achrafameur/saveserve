@@ -24,8 +24,7 @@ const ProfessionalSignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:7000/api/inscription/`, formData);
-      console.log(response.data);
+      await axios.post(`http://localhost:7000/api/inscription/`, formData);
       alert('Inscription réussie !');
     } catch (error) {
       console.error(error);
