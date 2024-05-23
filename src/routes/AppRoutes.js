@@ -11,11 +11,15 @@ import Profile from "../shared/Profile";
 import SuperAdminsTable from "../super_admin/SuperAdminTable";
 import ClientsTable from "../client/ClientsTable";
 import ProfessionnelsTable from "../professionnel/ProfessionnelsTable";
+import ClientSignUp from "../auth/signup/ClientSignUp";
+import ProfessionalSignUp from "../auth/signup/ProfessionalSignUp";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/signup/client" element={<ClientSignUp />} />
+      <Route path="/signup/professionnel" element={<ProfessionalSignUp />} />
       <Route path="/login" element={<Login />} />
       <Route
         path="/professionnel"
