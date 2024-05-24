@@ -14,14 +14,14 @@ const ProfessionnelsTable = () => {
 
   useEffect(() => {
     const fetchProfessionnels = async () => {
-      const response = await axios.get('http://localhost:7000/admins/professionnels/');
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/admins/professionnels/`);
       setProfessionnels(response.data);
     };
     fetchProfessionnels();
   }, []);
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:7000/admin/delete/${id}/`);
+    await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/admin/delete/${id}/`);
     setProfessionnels(professionnels.filter(professionnel => professionnel.id !== id));
     setOpen(false);
   };
@@ -37,7 +37,7 @@ const ProfessionnelsTable = () => {
   };
 
   const handleEditSubmit = async () => {
-    await axios.put(`http://localhost:7000/admin/update/${selectedProfessionnel.id}/`, professionnelData);
+    await axios.put(`${process.env.REACT_APP_BACKEND_URL}/admin/update/${selectedProfessionnel.id}/`, professionnelData);
     setProfessionnels(professionnels.map(professionnel => professionnel.id === selectedProfessionnel.id ? { ...professionnel, ...professionnelData } : professionnel));
     setEditOpen(false);
   };

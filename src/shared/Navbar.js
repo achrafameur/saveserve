@@ -14,6 +14,7 @@ import { AccountCircle } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 import axios from "axios";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -55,7 +56,7 @@ const Navbar = () => {
     const fetchUserProfile = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:7000/api/profile/",
+          `${process.env.REACT_APP_BACKEND_URL}/api/profile/`,
           { admin_id: userId }
         );
         const userProfile = response.data;
@@ -81,10 +82,37 @@ const Navbar = () => {
     fetchUserProfile();
   }, []);
 
+  const handleNavigate = async (event) => {
+    try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/profile/`,
+          { admin_id: userId }
+        );
+        const userProfile = response.data;
+        const userRole = userProfile.id_service;
+
+        switch (userRole) {
+          case 0:
+            navigate('/super_admin')
+            break;
+          case 1:
+            navigate('/client')
+            break;
+          case 2:
+            navigate('/professionnel')
+            break;
+          default:
+            break;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" sx={{ flexGrow: 1 }} onClick={handleNavigate}>
           Save&Serve
         </Typography>
         {isAuthenticated && (
@@ -123,6 +151,31 @@ const Navbar = () => {
                     Professionnels
                   </MenuItem>
                 </Menu>
+              </>
+            )}
+            {userAcess === 2 && (
+              <>
+                <Button color="inherit" component={Link} to="/ajouter-menu">
+                  Ajouter un menu
+                </Button>
+                <Button color="inherit" component={Link} to="/gerer-disponibilites">
+                  Gérer les disponibilités
+                </Button>
+                <Button color="inherit" onClick={handleAdminMenu}>
+                  Gérer les commandes
+                </Button>
+              </>
+            )}
+            {userAcess === 1 && (
+              <>
+              <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <ShoppingCartIcon />
+            </IconButton>
               </>
             )}
             <IconButton

@@ -14,14 +14,14 @@ const ClientsTable = () => {
 
   useEffect(() => {
     const fetchClients = async () => {
-      const response = await axios.get('http://localhost:7000/admins/clients/');
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/admins/clients/`);
       setClients(response.data);
     };
     fetchClients();
   }, []);
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:7000/admin/delete/${id}/`);
+    await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/admin/delete/${id}/`);
     setClients(clients.filter(client => client.id !== id));
     setOpen(false);
   };
@@ -37,7 +37,7 @@ const ClientsTable = () => {
   };
 
   const handleEditSubmit = async () => {
-    await axios.put(`http://localhost:7000/admin/update/${selectedClient.id}/`, clientData);
+    await axios.put(`${process.env.REACT_APP_BACKEND_URL}/admin/update/${selectedClient.id}/`, clientData);
     setClients(clients.map(client => client.id === selectedClient.id ? { ...client, ...clientData } : client));
     setEditOpen(false);
   };

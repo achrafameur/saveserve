@@ -13,7 +13,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:7000/api/profile/",
+          `${process.env.REACT_APP_BACKEND_URL}/api/profile/`,
           { admin_id: userId }
         );
         setProfileData(response.data);

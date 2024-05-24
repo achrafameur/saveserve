@@ -33,7 +33,7 @@ const SuperAdminsTable = () => {
   useEffect(() => {
     const fetchSuperAdmins = async () => {
       const response = await axios.get(
-        "http://localhost:7000/admins/super_admins/"
+        `${process.env.REACT_APP_BACKEND_URL}/admins/super_admins/`
       );
       setSuperAdmins(response.data);
     };
@@ -41,7 +41,7 @@ const SuperAdminsTable = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:7000/admin/delete/${id}/`);
+    await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/admin/delete/${id}/`);
     setSuperAdmins(superAdmins.filter((admin) => admin.id !== id));
     setOpen(false);
   };
@@ -62,7 +62,7 @@ const SuperAdminsTable = () => {
 
   const handleEditSubmit = async () => {
     await axios.put(
-      `http://localhost:7000/admin/update/${selectedAdmin.id}/`,
+      `${process.env.REACT_APP_BACKEND_URL}/admin/update/${selectedAdmin.id}/`,
       adminData
     );
     setSuperAdmins(

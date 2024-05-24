@@ -13,6 +13,9 @@ import ClientsTable from "../client/ClientsTable";
 import ProfessionnelsTable from "../professionnel/ProfessionnelsTable";
 import ClientSignUp from "../auth/signup/ClientSignUp";
 import ProfessionalSignUp from "../auth/signup/ProfessionalSignUp";
+import ManageAvailability from "../professionnel/menus/ManageAvailability";
+import AddMenu from "../professionnel/menus/AddMenu";
+import MenuDetails from "../professionnel/menus/MenuDetails";
 
 const AppRoutes = () => {
   return (
@@ -77,6 +80,31 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/ajouter-menu"
+        element={
+          <ProtectedRoute>
+            <AddMenu />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/gerer-disponibilites"
+        element={
+          <ProtectedRoute>
+            <ManageAvailability />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/menu/:menu_id"
+        element={
+          <ProtectedRoute>
+            <MenuDetails />
+          </ProtectedRoute>
+        }
+      />
+
       <Route path="/" element={<Login />} />
     </Routes>
   );
