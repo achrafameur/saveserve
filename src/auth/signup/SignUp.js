@@ -28,7 +28,7 @@ const SignUp = () => {
           </Button>
           <Button
             variant="contained"
-            onClick={() => navigate("/signup/professional")}
+            onClick={() => navigate("/signup/professionnel")}
           >
             Professionnel
           </Button>
