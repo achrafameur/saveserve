@@ -1,16 +1,25 @@
 import React from 'react';
-import Navbar from '../shared/Navbar';
-import Footer from '../shared/Foorter';
+// import DashboardNavbar from '../shared/dashboard-navbar';
+// import Footer from '../shared/Foorter';
+import { DashboardLayout } from '../shared/dashboard-layout';
+// import { DashboardLayout } from '../shared/dashboard-layout';
+// import {AdminProtectedRoute } from '../auth/ProtectedRoutes/AdminProtectedRoute'
 
 const ProfessionnelDashboard = () => {
   return (
-    <div>
-      <Navbar />
+      <DashboardLayout>
       <h1>Bienvenue, Professionnel</h1>
       <p>Ceci est votre tableau de bord professionnel.</p>
-      <Footer />
-    </div>
+      </DashboardLayout>
   );
 };
+
+// ProfessionnelDashboard.getLayout = (page) => (
+//   <AdminProtectedRoute>
+//     <DashboardLayout>
+//       {page}
+//     </DashboardLayout>
+//   </AdminProtectedRoute>
+// );
 
 export default ProfessionnelDashboard;

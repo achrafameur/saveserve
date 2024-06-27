@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Button, TextField, Container, Typography, Box } from "@mui/material";
-import Navbar from "../../shared/Navbar";
+import Navbar from "../../shared/dashboard-navbar";
 import Footer from "../../shared/Foorter";
 import { useNavigate } from "react-router-dom";
 
@@ -59,7 +59,7 @@ const AddMenu = () => {
 
   return (
     <>
-      <Navbar />
+      
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
@@ -117,7 +117,7 @@ const AddMenu = () => {
           </Box>
         </Box>
       </Container>
-      <Footer />
+      
     </>
   );
 };

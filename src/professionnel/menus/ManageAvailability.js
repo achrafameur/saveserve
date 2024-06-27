@@ -9,7 +9,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import Navbar from "../../shared/Navbar";
+import Navbar from "../../shared/dashboard-navbar";
 import Footer from "../../shared/Foorter";
 import { Link } from "react-router-dom";
 
@@ -76,7 +76,7 @@ const ManageAvailability = () => {
 
   return (
     <>
-      <Navbar />
+      
       <Container>
         <Typography variant="h4" gutterBottom>
           Gérer les disponibilités
@@ -131,7 +131,7 @@ const ManageAvailability = () => {
           ))}
         </Box>
       </Container>
-      <Footer />
+      
     </>
   );
 };

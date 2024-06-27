@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Typography, Box } from "@mui/material";
-import Navbar from "./Navbar";
+import Navbar from "./dashboard-navbar";
 import Footer from "./Foorter";
 
 const Profile = () => {
@@ -26,7 +26,7 @@ const Profile = () => {
 
   return (
     <>
-      <Navbar />
+      
       <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
         <Box
           sx={{
@@ -47,7 +47,7 @@ const Profile = () => {
           </Box>
         </Box>
       </Container>
-      <Footer />
+      
     </>
   );
 };

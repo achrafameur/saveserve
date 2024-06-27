@@ -1,267 +1,176 @@
-import { useMemo, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import {
-  Box,
-  Button,
-  Link,
-  Divider,
-  Drawer,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import HomeIcon from "@mui/icons-material/Home";
-import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
-import PeopleIcon from "@mui/icons-material/People";
-import ErrorIcon from "@mui/icons-material/Error";
-import ChecklistIcon from "@mui/icons-material/Checklist";
+import React, { useState, useEffect } from 'react';
+import { Box, Drawer, List, ListItem, ListItemText, Toolbar, Typography, Divider } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home'; // Example icons
+import PeopleIcon from '@mui/icons-material/People';
+import SettingsIcon from '@mui/icons-material/Settings';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ListIcon from '@mui/icons-material/List';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 
-const getSections = (t) => [
-  {
-    title: t("General"),
-    items: [
-      {
-        title: t("Overview"),
-        path: "/dashboard",
-        icon: <HomeIcon fontSize="small" />,
-      },
-    ],
-  },
-  {
-    title: t("Management"),
-    items: [
-      {
-        title: t("Customers"),
-        path: "/dashboard/customers",
-        icon: <PeopleIcon fontSize="small" />,
-        children: [
-          {
-            title: t("List"),
-            path: "/dashboard/customers",
-          },
-          {
-            title: t("Details"),
-            path: "/dashboard/customers/1",
-          },
-          {
-            title: t("Edit"),
-            path: "/dashboard/customers/1/edit",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: t("Platforms"),
-    items: [
-      {
-        title: t("Job Listings"),
-        path: "/dashboard/jobs",
-        icon: <MapsHomeWorkIcon fontSize="small" />,
-        children: [
-          {
-            title: t("Browse"),
-            path: "/dashboard/jobs",
-          },
-          {
-            title: t("Details"),
-            path: "/dashboard/jobs/companies/1",
-          },
-          {
-            title: t("Create"),
-            path: "/dashboard/jobs/new",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: t("Apps"),
-    items: [
-      {
-        title: t("Calendar"),
-        path: "/dashboard/calendar",
-        icon: <CalendarMonthIcon fontSize="small" />,
-      },
-    ],
-  },
-  {
-    title: t("Pages"),
-    items: [
-      {
-        title: t("Error"),
-        path: "/error",
-        icon: <ErrorIcon fontSize="small" />,
-        children: [
-          {
-            title: "401",
-            path: "/401",
-          },
-          {
-            title: "404",
-            path: "/404",
-          },
-          {
-            title: "500",
-            path: "/500",
-          },
-        ],
-      },
-    ],
-  },
-];
+const drawerWidth = 240;
 
-export const DashboardSidebar = (props) => {
-  const { onClose, open } = props;
-  const { t } = useTranslation();
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
-    noSsr: true,
-  });
-  const sections = useMemo(() => getSections(t), [t]);
-  const organizationsRef = useRef(null);
-  const [openOrganizationsPopover, setOpenOrganizationsPopover] =
-    useState(false);
-
-  const handleOpenOrganizationsPopover = () => {
-    setOpenOrganizationsPopover(true);
+const getSections = (userAccess) => {
+  const sectionsByRole = {
+    0: [ // Super Admin
+      {
+        title: 'Super Admin Dashboard',
+        icon: <HomeIcon />,
+        items: [
+          { title: 'Super Admin Dashboard', path: '/super_admin', icon: <HomeIcon /> }
+        ]
+      },
+      {
+        title: 'Gestion des Admins',
+        icon: <SettingsIcon />,
+        items: [
+          { title: 'Super Admins', path: '/admin/super_admins', icon: <PeopleIcon /> },
+          { title: 'Clients', path: '/admin/clients', icon: <PeopleIcon /> },
+          { title: 'Professionnels', path: '/admin/professionnels', icon: <PeopleIcon /> },
+        ]
+      }
+    ],
+    1: [ // Client
+      {
+        title: 'Client Dashboard',
+        icon: <HomeIcon />,
+        items: [
+          { title: 'Tableau de bord', path: '/client', icon: <HomeIcon /> }
+        ]
+      },
+      {
+        title: 'Client',
+        icon: <PeopleIcon />,
+        items: [
+          { title: 'Mon Panier', path: '/panier', icon: <ShoppingCartIcon /> },
+          { title: 'Mes Commandes', path: '/commandes', icon: <ListIcon /> }
+        ]
+      }
+    ],
+    2: [ // Professionnel
+      {
+        title: 'Général',
+        icon: <HomeIcon />,
+        items: [
+          { title: 'Tableau de bord', path: '/professionnel', icon: <HomeIcon /> }
+        ]
+      },
+      {
+        title: 'Gestion',
+        icon: <PeopleIcon />,
+        items: [
+          { title: 'Ajouter un menu', path: '/ajouter-menu', icon: <MenuBookIcon /> },
+          { title: 'Liste des menus', path: '/gerer-disponibilites', icon: <ListIcon /> },
+          { title: 'Liste des commandes', path: '/commandes', icon: <ListIcon /> },
+        ]
+      }
+    ]
   };
 
-  const handleCloseOrganizationsPopover = () => {
-    setOpenOrganizationsPopover(false);
-  };
+  return sectionsByRole[userAccess] || [];
+};
 
-  const content = (
-    <>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
-        }}
-      >
-        <div>
-          <Box sx={{ p: 3 }}>
-            <Link href="/" underline="none">
-              {/* Utilisation d'une image MUI */}
-              <img
-                src="/path/vers/votre/logo.jpg"
-                alt="Logo"
-                style={{ height: 42, width: 42 }}
-              />
-            </Link>
-          </Box>
-          <Box sx={{ px: 2 }}>
-            <Box
-              onClick={handleOpenOrganizationsPopover}
-              ref={organizationsRef}
-              sx={{
-                alignItems: "center",
-                backgroundColor: "rgba(255, 255, 255, 0.04)",
-                cursor: "pointer",
-                display: "flex",
-                justifyContent: "space-between",
-                px: 3,
-                py: "11px",
-                borderRadius: 1,
-              }}
-            >
-              <div>
-                <Typography color="inherit" variant="subtitle1">
-                  Acme Inc
-                </Typography>
-                <Typography color="neutral.400" variant="body2">
-                  {t("Your tier")} : Premium
-                </Typography>
-              </div>
-              <ChecklistIcon
-                sx={{
-                  color: "neutral.500",
-                  width: 14,
-                  height: 14,
-                }}
-              />
-            </Box>
-          </Box>
-        </div>
-        <Divider
-          sx={{
-            borderColor: "#2D3748",
-            my: 3,
-          }}
-        />
-        <Divider
-          sx={{
-            borderColor: "#2D3748", // dark divider
-          }}
-        />
-        <Box sx={{ p: 2 }}>
-          <Typography color="neutral.100" variant="subtitle2">
-            {t("Need Help?")}
-          </Typography>
-          <Typography color="neutral.500" variant="body2">
-            {t("Check our docs")}
-          </Typography>
-          <Link href="/docs/welcome" underline="none">
-            <Button
-              color="secondary"
-              component="a"
-              fullWidth
-              sx={{ mt: 2 }}
-              variant="contained"
-            >
-              {t("Documentation")}
-            </Button>
-          </Link>
-        </Box>
-      </Box>
-    </>
-  );
+const DashboardSidebar = ({ open, onClose }) => {
+  const [userAccess, setUserAccess] = useState(null);
+  const userId = localStorage.getItem("id");
+  const location = useLocation();
 
-  if (lgUp) {
-    return (
-      <Drawer
-        anchor="left"
-        open
-        PaperProps={{
-          sx: {
-            backgroundColor: "neutral.900",
-            borderRightColor: "divider",
-            borderRightStyle: "solid",
-            borderRightWidth: (theme) =>
-              theme.palette.mode === "dark" ? 1 : 0,
-            color: "#FFFFFF",
-            width: 280,
-          },
-        }}
-        variant="permanent"
-      >
-        {content}
-      </Drawer>
-    );
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/profile/`,
+          { admin_id: userId }
+        );
+        const userProfile = response.data;
+        const userRole = userProfile.id_service;
+        setUserAccess(userRole);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserProfile();
+  }, [userId]);
+
+  if (userAccess === null) {
+    return null; // or a loader
   }
 
   return (
     <Drawer
-      anchor="left"
-      onClose={onClose}
-      open={open}
-      PaperProps={{
-        sx: {
-          backgroundColor: "neutral.900",
-          color: "#FFFFFF",
-          width: 280,
-        },
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: drawerWidth,
+          boxSizing: 'border-box',
+          backgroundColor: '#111827',
+          color: 'white'
+        }
       }}
-      sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
-      variant="temporary"
+      variant="permanent"
+      anchor="left"
+      open={open}
+      onClose={onClose}
+      ModalProps={{ keepMounted: true }}
     >
-      {content}
+      <Toolbar>
+        <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+          <img src="/logo.png" alt="Logo" style={{ height: 30, marginRight: 10 }} />
+          <Typography variant="h6" noWrap>
+            Save&Serve
+          </Typography>
+        </Box>
+      </Toolbar>
+      <Divider />
+      <List>
+        {getSections(userAccess).map((section) => (
+          <Box key={section.title}>
+            <ListItem>
+              <ListItemText 
+                primary={section.title} 
+                sx={{ 
+                  marginLeft: 2, 
+                  color: 'grey', 
+                  fontFamily: 'Arial', // Change to your preferred font
+                  fontWeight: 'bold' 
+                }} 
+              />
+            </ListItem>
+            <List component="div" disablePadding>
+              {section.items.map((item) => (
+                <ListItem 
+                  button 
+                  component={Link} 
+                  to={item.path} 
+                  key={item.title} 
+                  sx={{ 
+                    pl: 4, 
+                    marginLeft: 2,
+                    backgroundColor: location.pathname === item.path ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+                    borderLeft: location.pathname === item.path ? '4px solid grey' : 'none',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                    }
+                  }}
+                >
+                  {item.icon}
+                  <ListItemText primary={item.title} sx={{ marginLeft: 2 }} />
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        ))}
+      </List>
     </Drawer>
   );
 };
 
 DashboardSidebar.propTypes = {
-  onClose: PropTypes.func,
-  open: PropTypes.bool,
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
+
+export default DashboardSidebar;

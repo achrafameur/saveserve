@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, IconButton, Modal, Button, Box, TextField } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
-import Navbar from '../shared/Navbar';
+import Navbar from '../shared/dashboard-navbar';
 import Footer from '../shared/Foorter';
 
 const ProfessionnelsTable = () => {
@@ -57,7 +57,7 @@ const ProfessionnelsTable = () => {
 
   return (
     <>
-    <Navbar />
+    
     <TableContainer component={Paper}>
       <Typography variant="h6" component="div" sx={{ flexGrow: 1, padding: 2 }}>
         Professionnels
@@ -168,7 +168,7 @@ const ProfessionnelsTable = () => {
         </Box>
       </Modal>
     </TableContainer>
-    <Footer />
+    
     </>
   );
 };

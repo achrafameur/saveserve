@@ -1,8 +1,18 @@
 // Login.js
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import { TextField, Button, Container, Typography, Box, FormHelperText, Card, Divider, Link } from "@mui/material";
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Box,
+  FormHelperText,
+  Card,
+  Divider,
+  Link,
+} from "@mui/material";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 
 const Login = () => {
@@ -61,81 +71,76 @@ const Login = () => {
       }
     } catch (error) {
       console.error(error);
-      setSubmitError('Erreur lors de la connexion.');
+      setSubmitError("Erreur lors de la connexion.");
     }
   };
 
   return (
-    // <Container component="main" maxWidth="xs">
-    //   <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    //     <Typography component="h1" variant="h5">Se connecter</Typography>
-    //     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-    //       <TextField margin="normal" required fullWidth label="Adresse e-mail" name="adresse_mail" onChange={handleChange} type="email" />
-    //       <TextField margin="normal" required fullWidth label="Mot de passe" name="password" onChange={handleChange} type="password" />
-    //       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Se connecter</Button>
-    //       <Typography variant="body2" align="center">
-    //         Vous n'avez pas de compte ? <Link to="/signup">Inscrivez-vous</Link>
-    //       </Typography>
-    //     </Box>
-    //   </Box>
-    // </Container>
-    <Container component="main" maxWidth="sm" sx={{ mt : '5%'}}>
-    <Card elevation={16} sx={{ p: 4 }}>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center'
-        }}
-      >
-        <RouterLink to="/">
-          <img src="/logo.jpg" alt="Logo" style={{ height: 80, width: 80 }} />
-        </RouterLink>
-        <Typography variant="h4">Se connecter</Typography>
-        <Typography color="textSecondary" sx={{ mt: 2 }} variant="body2">
-          Connectez-vous à notre plateforme
-        </Typography>
-      </Box>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          label="Adresse e-mail"
-          name="adresse_mail"
-          onChange={handleChange}
-          type="email"
-          autoComplete="email"
-          autoFocus
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          label="Mot de passe"
-          name="password"
-          onChange={handleChange}
-          type="password"
-          autoComplete="current-password"
-        />
-        {submitError && (
-          <Box sx={{ mt: 3 }}>
-            <FormHelperText error>{submitError}</FormHelperText>
-          </Box>
-        )}
-        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-          Se connecter
-        </Button>
-        <Divider sx={{ my: 3 }} />
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="body2">
-            Vous n'avez pas de compte ? <Link component={RouterLink} to="/signup">Inscrivez-vous</Link>
+    <Container component="main" maxWidth="sm" sx={{ mt: "5%" }}>
+      <Card elevation={16} sx={{ p: 4 }}>
+        <Box
+          sx={{
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <RouterLink to="/">
+            <img src="/logo.jpg" alt="Logo" style={{ height: 80, width: 80 }} />
+          </RouterLink>
+          <Typography variant="h4">Se connecter</Typography>
+          <Typography color="textSecondary" sx={{ mt: 2 }} variant="body2">
+            Connectez-vous à notre plateforme
           </Typography>
         </Box>
-      </Box>
-    </Card>
-  </Container>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            label="Adresse e-mail"
+            name="adresse_mail"
+            onChange={handleChange}
+            type="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            label="Mot de passe"
+            name="password"
+            onChange={handleChange}
+            type="password"
+            autoComplete="current-password"
+          />
+          {submitError && (
+            <Box sx={{ mt: 3 }}>
+              <FormHelperText error>{submitError}</FormHelperText>
+            </Box>
+          )}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Se connecter
+          </Button>
+          <Divider sx={{ my: 3 }} />
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant="body2">
+              Vous n'avez pas de compte ?{" "}
+              <Link component={RouterLink} to="/signup">
+                Inscrivez-vous
+              </Link>
+            </Typography>
+          </Box>
+        </Box>
+      </Card>
+    </Container>
   );
 };
 

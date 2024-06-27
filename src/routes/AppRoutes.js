@@ -16,6 +16,7 @@ import ProfessionalSignUp from "../auth/signup/ProfessionalSignUp";
 import ManageAvailability from "../professionnel/menus/ManageAvailability";
 import AddMenu from "../professionnel/menus/AddMenu";
 import MenuDetails from "../professionnel/menus/MenuDetails";
+import { DashboardLayout } from "../shared/dashboard-layout";
 
 const AppRoutes = () => {
   return (

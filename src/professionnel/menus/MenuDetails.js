@@ -12,7 +12,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Navbar from "../../shared/Navbar";
+import Navbar from "../../shared/dashboard-navbar";
 import Footer from "../../shared/Foorter";
 
 const MenuDetails = () => {
@@ -83,7 +83,7 @@ const MenuDetails = () => {
 
   return (
     <Box>
-      <Navbar />
+      
       <Typography variant="h4" gutterBottom>
         Fiche du Menu
       </Typography>
@@ -209,7 +209,7 @@ const MenuDetails = () => {
           </Box>
         </Box>
       </Modal>
-      <Footer />
+      
     </Box>
   );
 };

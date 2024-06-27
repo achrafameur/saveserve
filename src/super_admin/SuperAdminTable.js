@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 import Footer from "../shared/Foorter";
-import Navbar from "../shared/Navbar";
+import Navbar from "../shared/dashboard-navbar";
 
 const SuperAdminsTable = () => {
   const [superAdmins, setSuperAdmins] = useState([]);
@@ -88,7 +88,7 @@ const SuperAdminsTable = () => {
 
   return (
     <>
-      <Navbar />
+      
       <TableContainer component={Paper}>
         <Typography
           variant="h6"
@@ -239,7 +239,7 @@ const SuperAdminsTable = () => {
           </Box>
         </Modal>
       </TableContainer>
-      <Footer />
+      
     </>
   );
 };
