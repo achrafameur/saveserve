@@ -36,9 +36,8 @@ const AppLayout = ({ children }) => {
         sx={{
           flexGrow: 1,
           bgcolor: "background.default",
-          p: 3,
           mt: isAuthenticated ? "64px" : 0, // Adjust top margin when navbar is present
-          ml: isAuthenticated ? (isSmallScreen ? "0" : "240px") : "0", // Adjust left margin for sidebar on larger screens
+          ml: isAuthenticated ? (isSmallScreen ? "0" : "2%") : "0", // Adjust left margin for sidebar on larger screens
         }}
       >
         {children}
