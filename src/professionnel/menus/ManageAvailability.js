@@ -9,8 +9,6 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import Navbar from "../../shared/dashboard-navbar";
-import Footer from "../../shared/Foorter";
 import { Link } from "react-router-dom";
 
 const ManageAvailability = () => {

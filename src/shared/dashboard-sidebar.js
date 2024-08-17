@@ -18,6 +18,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { Link as RouterLink, useLocation } from "react-router-dom";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const drawerWidth = 240;
 
@@ -67,7 +68,8 @@ const getSections = (userAccess) => {
         title: "Client",
         icon: <PeopleIcon />,
         items: [
-          { title: "Mon Panier", path: "/panier", icon: <ShoppingCartIcon /> },
+          { title: "Mon panier", path: "/panier", icon: <ShoppingCartIcon /> },
+          { title: "Mes Favoris", path: "/favoris", icon: <FavoriteIcon /> },
           { title: "Mes Commandes", path: "/commandes", icon: <ListIcon /> },
         ],
       },
