@@ -110,7 +110,7 @@ const DashboardNavbar = ({ onToggleSidebar }) => {
   };
 
   return (
-    <AppBar position="fixed" sx={{ height: "9%", backgroundColor: "white" }}>
+    <AppBar position="fixed" sx={{ height: 65,backgroundColor: 'transparent',backdropFilter:'blur(1px)' }}>
       <Toolbar>
         <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
           <IconButton

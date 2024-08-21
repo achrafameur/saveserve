@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import altImage from '../../../src/imgs/food.png'
 
 const ManageAvailability = () => {
   const [menus, setMenus] = useState([]);
@@ -76,18 +77,23 @@ const ManageAvailability = () => {
     <>
       
       <Container>
-        <Typography variant="h4" gutterBottom>
+        <div
+          className="pageTitleHeader">
           Gérer les disponibilités
-        </Typography>
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+        </div>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
           {menus.map((menu, index) => (
-            <Card key={menu.id} sx={{ flexBasis: "30%", minWidth: 300 }}>
+            <Card key={menu.id} sx={{ flexBasis: "30%", minWidth: 300 }}
+            style={{ borderRadius: 10, boxShadow: 'grey 1px 0px 10px 0px' }}>
               <Link to={`/menu/${menu.id}`}>
                 <CardMedia
                   component="img"
                   height="140"
-                  image={`${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`} // Assurez-vous que l'API renvoie l'URL de l'image du menu
-                  alt={menu.nom}
+                  image={
+                    menu.image !== 'image/upload/null'
+                      ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`
+                      : altImage 
+                  }                  alt={menu.nom}
                 />
               </Link>
               <CardContent>
@@ -109,6 +115,9 @@ const ManageAvailability = () => {
                       variant="contained"
                       color="success"
                       onClick={() => handleIncrement(menu.id)}
+                      style={{
+                        background:'linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)'
+                      }}
                     >
                       +
                     </Button>
@@ -119,6 +128,9 @@ const ManageAvailability = () => {
                       variant="contained"
                       color="error"
                       onClick={() => handleDecrement(menu.id)}
+                      style={{
+                        background:'linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)'
+                      }}
                     >
                       -
                     </Button>

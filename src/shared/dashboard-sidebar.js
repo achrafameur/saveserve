@@ -148,7 +148,7 @@ const DashboardSidebar = ({ open, onClose }) => {
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
-          backgroundColor: "#111827",
+          background: 'linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)',
           color: "white",
         },
       }}
@@ -157,13 +157,16 @@ const DashboardSidebar = ({ open, onClose }) => {
       open={open}
       onClose={onClose}
       ModalProps={{ keepMounted: true }}
+      style={{
+      }}
     >
       <Toolbar>
-        <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
+        <Box sx={{ display: "flex", alignItems: "center", width: "100%",border:0 }}>
           <RouterLink to="/">
             <img src="/logo.jpg" alt="Logo" style={{ height: 25, width: 25 }} />
           </RouterLink>
-          <Typography variant="h6" noWrap sx={{ marginLeft: 2 }}>
+          <Typography variant="h6" noWrap sx={{ marginLeft: 0 }}
+          style={{fontFamily:'italic',fontWeight:800}}>
             Save&Serve
           </Typography>
         </Box>
@@ -177,7 +180,7 @@ const DashboardSidebar = ({ open, onClose }) => {
                 primary={section.title}
                 sx={{
                   marginLeft: 2,
-                  color: "grey",
+                  color: "white",
                   fontFamily: "Arial", // Change to your preferred font
                   fontWeight: "bold",
                 }}

@@ -106,18 +106,21 @@ const Profile = () => {
 
   return (
     <>
-      <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
+      <Container component="main" maxWidth="md" sx={{ mt: 4 }} 
+      >
         <Grid container justifyContent="space-between" spacing={3}>
           <Grid item>
             <Typography variant="h4">Profile</Typography>
           </Grid>
         </Grid>
-        <Card sx={{ mt: 3 }}>
+        <Card sx={{ mt: 3 }}
+        style={{borderRadius:15,boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px'}}>
           <CardContent>
+            <Grid item md={4} xs={12}>
+              <Typography variant="h6">Détails de base</Typography>
+            </Grid>
             <Grid container spacing={3}>
-              <Grid item md={4} xs={12}>
-                <Typography variant="h6">Détails de base</Typography>
-              </Grid>
+
               <Grid item md={8} xs={12}>
                 <Box
                   sx={{
