@@ -27,7 +27,7 @@ const MenuDetails = () => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/menu/${menu_id}/`
+          `${process.env.REACT_APP_BACKEND_URL}/professionnel/menu/${menu_id}/`
         );
         setMenu(response.data);
         setEditableFields(response.data);
@@ -55,7 +55,7 @@ const MenuDetails = () => {
   const handleSave = async () => {
     try {
       await axios.put(
-        `${process.env.REACT_APP_BACKEND_URL}/menu/update/${menu_id}/`,
+        `${process.env.REACT_APP_BACKEND_URL}/professionnel/menu/update/${menu_id}/`,
         editableFields
       );
       setMenu(editableFields);
@@ -68,7 +68,7 @@ const MenuDetails = () => {
   const handleConfirmDelete = async () => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/menu/delete/${menu_id}/`
+        `${process.env.REACT_APP_BACKEND_URL}/professionnel/menu/delete/${menu_id}/`
       );
       setShowModal(false);
       navigate("/gerer-disponibilites");

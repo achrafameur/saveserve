@@ -22,7 +22,7 @@ const ClientDashboard = () => {
     const fetchMenus = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/menus/`
+          `${process.env.REACT_APP_BACKEND_URL}/professionnel/menus/`
         );
         setMenus(response.data);
       } catch (error) {

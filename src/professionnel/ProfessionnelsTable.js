@@ -44,7 +44,7 @@ const ProfessionnelsTable = () => {
   useEffect(() => {
     const fetchProfessionnels = async () => {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/admins/professionnels/`
+        `${process.env.REACT_APP_BACKEND_URL}/superadmin/admins/professionnels/`
       );
       setProfessionnels(response.data);
     };
@@ -53,7 +53,7 @@ const ProfessionnelsTable = () => {
 
   const handleDelete = async (id) => {
     await axios.delete(
-      `${process.env.REACT_APP_BACKEND_URL}/admin/delete/${id}/`
+      `${process.env.REACT_APP_BACKEND_URL}/superadmin/admin/delete/${id}/`
     );
     setProfessionnels(
       professionnels.filter((professionnel) => professionnel.id !== id)
@@ -80,7 +80,7 @@ const ProfessionnelsTable = () => {
 
   const handleEditSubmit = async () => {
     await axios.put(
-      `${process.env.REACT_APP_BACKEND_URL}/admin/update/${selectedProfessionnel.id}/`,
+      `${process.env.REACT_APP_BACKEND_URL}/superadmin/admin/update/${selectedProfessionnel.id}/`,
       professionnelData
     );
     setProfessionnels(
@@ -112,7 +112,7 @@ const ProfessionnelsTable = () => {
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/admins/search_professionnels/?query=${query}`
+        `${process.env.REACT_APP_BACKEND_URL}/superadmin/admins/search_professionnels/?query=${query}`
       );
       setProfessionnels(response.data);
     } catch (error) {

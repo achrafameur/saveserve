@@ -20,7 +20,7 @@ const ManageAvailability = () => {
     const fetchMenus = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/admin/${userId}/menus/`
+          `${process.env.REACT_APP_BACKEND_URL}/superadmin/admin/${userId}/menus/`
         );
         setMenus(response.data);
       } catch (error) {
@@ -32,7 +32,7 @@ const ManageAvailability = () => {
 
   const handleIncrement = async (id) => {
     try {
-      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/menu/update/${id}/`, {
+      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/professionnel/menu/update/${id}/`, {
         number_dispo:
           (menus.find((menu) => menu.id === id).number_dispo || 0) + 1,
       });
@@ -55,7 +55,7 @@ const ManageAvailability = () => {
       menus.find((menu) => menu.id === id).number_dispo || 0;
     if (currentNumberDispo > 0) {
       try {
-        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/menu/update/${id}/`, {
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/professionnel/menu/update/${id}/`, {
           number_dispo: currentNumberDispo - 1,
         });
         // Mettre à jour la liste des menus avec la nouvelle valeur de number_dispo

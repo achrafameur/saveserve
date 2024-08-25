@@ -40,7 +40,7 @@ const AddMenu = () => {
       formData.append("admin", userId);
       console.log(formData);
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/menu/add/`,
+        `${process.env.REACT_APP_BACKEND_URL}/professionnel/menu/add/`,
         formData,
         {
           headers: {
