@@ -58,7 +58,7 @@ const Profile = () => {
       }
 
       const response = await axios.put(
-        `${process.env.REACT_APP_BACKEND_URL}/admin/update/${userId}/`,
+        `${process.env.REACT_APP_BACKEND_URL}/superadmin/admin/update/${userId}/`,
         formData,
         {
           headers: {

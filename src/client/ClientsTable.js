@@ -39,7 +39,7 @@ const ClientsTable = () => {
   useEffect(() => {
     const fetchClients = async () => {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/admins/clients/`
+        `${process.env.REACT_APP_BACKEND_URL}/superadmin/admins/clients/`
       );
       setClients(response.data);
     };
@@ -48,7 +48,7 @@ const ClientsTable = () => {
 
   const handleDelete = async (id) => {
     await axios.delete(
-      `${process.env.REACT_APP_BACKEND_URL}/admin/delete/${id}/`
+      `${process.env.REACT_APP_BACKEND_URL}/superadmin/admin/delete/${id}/`
     );
     setClients(clients.filter((client) => client.id !== id));
     setOpen(false);
@@ -70,7 +70,7 @@ const ClientsTable = () => {
 
   const handleEditSubmit = async () => {
     await axios.put(
-      `${process.env.REACT_APP_BACKEND_URL}/admin/update/${selectedClient.id}/`,
+      `${process.env.REACT_APP_BACKEND_URL}/superadmin/admin/update/${selectedClient.id}/`,
       clientData
     );
     setClients(
@@ -100,7 +100,7 @@ const ClientsTable = () => {
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/admins/search_clients/?query=${query}`
+        `${process.env.REACT_APP_BACKEND_URL}/superadmin/admins/search_clients/?query=${query}`
       );
       setClients(response.data);
     } catch (error) {

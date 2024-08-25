@@ -39,7 +39,7 @@ const SuperAdminsTable = () => {
   useEffect(() => {
     const fetchSuperAdmins = async () => {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/admins/super_admins/`
+        `${process.env.REACT_APP_BACKEND_URL}/superadmin/admins/super_admins/`
       );
       setSuperAdmins(response.data);
     };
@@ -48,7 +48,7 @@ const SuperAdminsTable = () => {
 
   const handleDelete = async (id) => {
     await axios.delete(
-      `${process.env.REACT_APP_BACKEND_URL}/admin/delete/${id}/`
+      `${process.env.REACT_APP_BACKEND_URL}/superadmin/admin/delete/${id}/`
     );
     setSuperAdmins(superAdmins.filter((admin) => admin.id !== id));
     setOpen(false);
@@ -70,7 +70,7 @@ const SuperAdminsTable = () => {
 
   const handleEditSubmit = async () => {
     await axios.put(
-      `${process.env.REACT_APP_BACKEND_URL}/admin/update/${selectedAdmin.id}/`,
+      `${process.env.REACT_APP_BACKEND_URL}/superadmin/admin/update/${selectedAdmin.id}/`,
       adminData
     );
     setSuperAdmins(
@@ -100,7 +100,7 @@ const SuperAdminsTable = () => {
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/admins/search_super_admins/?query=${query}`
+        `${process.env.REACT_APP_BACKEND_URL}/superadmin/admins/search_super_admins/?query=${query}`
       );
       setSuperAdmins(response.data);
     } catch (error) {
