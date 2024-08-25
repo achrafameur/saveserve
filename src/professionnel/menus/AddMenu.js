@@ -59,65 +59,145 @@ const AddMenu = () => {
 
   return (
     <>
-      
-      <Container component="main" maxWidth="xs">
+
+      <Container component="main"
+        style={{
+          width: 800,
+
+        }}>
         <Box
           sx={{
             marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+
+            borderRadius: 10,
+            boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px'
+
           }}
         >
-          <Typography component="h1" variant="h5">
-            Ajouter un menu
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Nom"
-              name="nom"
-              onChange={handleNomChange}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Description"
-              name="description"
-              onChange={handleDescriptionChange}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              name="image"
-              type="file"
-              onChange={handleImageChange}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Prix"
-              name="prix"
-              type="number"
-              step="0.01"
-              onChange={handlePrixChange}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Ajouter
-            </Button>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 80,
+              fontSize: 30,
+              fontWeight: 600,
+              color:'#2894a3'
+            }}>
+           Ajouter un Menu
+          </div>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, width: '100%' }}
+            style={{ padding: 0 }}>
+            <div
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Nom"
+                name="nom"
+                onChange={handleNomChange}
+                style={{
+                  width: '90%',
+                }}
+                InputProps={{
+                  style: {
+                    borderRadius: '10px',
+                    borderColor: 'rgba(42,161,92,1)',
+                  },
+                }}
+              />
+            </div>
+
+
+            <div
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Description"
+                name="description"
+                onChange={handleDescriptionChange}
+                style={{
+                  width: '90%',
+
+                }}
+                InputProps={{
+                  style: {
+                    borderRadius: '10px',
+                    borderColor: 'rgba(42,161,92,1)',
+                  },
+                }}
+              />
+            </div>
+
+            <div
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+              <TextField
+                margin="normal"
+                fullWidth
+                name="image"
+                type="file"
+                onChange={handleImageChange}
+                style={{
+                  width: '90%',
+
+                }}
+                InputProps={{
+                  style: {
+                    borderRadius: '10px',
+                    borderColor: 'rgba(42,161,92,1)',
+                  },
+                }}
+              />
+            </div>
+
+            <div
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Prix"
+                name="prix"
+                type="number"
+                step="0.01"
+                onChange={handlePrixChange}
+                style={{
+                  width: '90%',
+
+                }}
+                InputProps={{
+                  style: {
+                    borderRadius: '10px',
+                    borderColor: 'rgba(42,161,92,1)',
+                  },
+                }}
+              />
+            </div>
+            <div
+              style={{ width: '100%', justifyContent: 'center', alignItems: 'center', display: 'flex', height: 80 }}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                style={{
+                  width: '30%',
+                  background: 'linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)',
+                  borderRadius: 8
+                }}
+              >
+                Ajouter
+              </Button>
+            </div>
           </Box>
         </Box>
       </Container>
-      
+
     </>
   );
 };

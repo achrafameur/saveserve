@@ -132,6 +132,16 @@ const DashboardNavbar = ({ onToggleSidebar }) => {
                 <ShoppingCartIcon color="black" />
               </IconButton>
             )}
+            <div
+            style={{
+              zIndex:1110,
+              color:'black',
+              fontSize:18,
+              fontWeight:500
+            }}>
+              {userProfile.prenom}
+             
+            </div>
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"

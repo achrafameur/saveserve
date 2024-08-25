@@ -13,6 +13,7 @@ import {
   Avatar,
 } from "@mui/material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import CreateRoundedIcon from '@mui/icons-material/CreateRounded';
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
@@ -106,77 +107,94 @@ const Profile = () => {
 
   return (
     <>
-      <Container component="main" maxWidth="md" sx={{ mt: 4 }} 
+      <Container component="main" maxWidth="md" sx={{ mt: 4 }}
       >
-        <Grid container justifyContent="space-between" spacing={3}>
+        {/* <Grid container justifyContent="space-between" spacing={3}>
           <Grid item>
             <Typography variant="h4">Profile</Typography>
           </Grid>
-        </Grid>
+        </Grid> */}
         <Card sx={{ mt: 3 }}
-        style={{borderRadius:15,boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px'}}>
+          style={{ borderRadius: 15, boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px' }}>
           <CardContent>
-            <Grid item md={4} xs={12}>
-              <Typography variant="h6">Détails de base</Typography>
-            </Grid>
-            <Grid container spacing={3}>
+            <div
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Typography variant="h4"
+              style={{
+                color:'#2894a3',
+                fontWeight:600
+              }}>Profile</Typography>
+            </div>
+            <Grid>
 
               <Grid item md={8} xs={12}>
-                <Box
-                  sx={{
+                <div
+                  style={{
                     alignItems: "center",
                     display: "flex",
+                    justifyContent: 'center',
+                    height: 200
                   }}
                 >
-                  <Avatar
-                    src={
-                      avatar instanceof File
-                        ? URL.createObjectURL(avatar)
-                        : avatar
-                    }
-                    sx={{
-                      height: 64,
-                      mr: 2,
-                      width: 64,
-                    }}
-                  >
-                    {avatar === "" ? (
-                      <PersonOutlineIcon fontSize="small" />
-                    ) : (
-                      <img
-                        src={`${process.env.REACT_APP_CLOUDINARY_URL}/${avatar}`}
-                        alt={avatar}
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          maxHeight: "400px",
-                        }}
-                      />
-                    )}
-                  </Avatar>
-                  <input
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    id="avatar-upload"
-                    type="file"
-                    onChange={handleAvatarChange}
-                  />
-                  <label htmlFor="avatar-upload">
-                    <Button component="span">Changer</Button>
-                  </label>
-                </Box>
+                  <div>
+                    
+                    <Avatar
+                      src={
+                        avatar instanceof File
+                          ? URL.createObjectURL(avatar)
+                          : avatar
+                      }
+                      sx={{
+                        height: 120,
+                        
+                        width: 120,
+                        border:'2px solid #7FFFD4'
+                      }}
+                    >
+                      {avatar === "" ? (
+                        <PersonOutlineIcon fontSize="small" />
+                      ) : (
+                        <img
+                          src={`${process.env.REACT_APP_CLOUDINARY_URL}/${avatar}`}
+                          alt={avatar}
+                          style={{
+                            width: "100%",
+                            height: "auto",
+                            maxHeight: "400px",
+                          }}
+                        />
+                      )}
+                    </Avatar>
+                    <div
+                    style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                    <input
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      id="avatar-upload"
+                      type="file"
+                      onChange={handleAvatarChange}
+                    />
+                    <label htmlFor="avatar-upload">
+                      <Button component="span">
+                        < CreateRoundedIcon />
+                      </Button>
+                    </label>
+                    </div>
+                  </div>
+                </div>
                 <Box
                   sx={{
                     display: "flex",
                     mt: 3,
                     alignItems: "center",
+                    height: 100
                   }}
                 >
                   <TextField
                     value={nom}
                     onChange={(e) => setNom(e.target.value)}
                     label="Nom"
-                    size="small"
+                    size="medium"
                     sx={{
                       flexGrow: 1,
                       mr: 3,
@@ -186,19 +204,20 @@ const Profile = () => {
                     value={prenom}
                     onChange={(e) => setPrenom(e.target.value)}
                     label="Prénom"
-                    size="small"
+                    size="medium"
                     sx={{
                       flexGrow: 1,
                       mr: 3,
                     }}
                   />
-                  <Button onClick={handleSave}>Enregistrer</Button>
+
                 </Box>
                 <Box
                   sx={{
                     display: "flex",
                     mt: 3,
                     alignItems: "center",
+                    height: 100
                   }}
                 >
                   <TextField
@@ -206,7 +225,7 @@ const Profile = () => {
                     disabled
                     label="Adresse Email"
                     required
-                    size="small"
+                    size="medium"
                     sx={{
                       flexGrow: 1,
                       mr: 3,
@@ -215,9 +234,20 @@ const Profile = () => {
                       },
                     }}
                   />
-                  <Button>Modifier</Button>
+
                 </Box>
               </Grid>
+              <div
+                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 20, height: 80 }}>
+                <Button>Modifier</Button>
+                <Button onClick={handleSave}
+                  style={{
+                    background: 'linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)',
+                    color: 'white',
+                    borderRadius: 10
+                  }}
+                >Enregistrer</Button>
+              </div>
             </Grid>
           </CardContent>
         </Card>
