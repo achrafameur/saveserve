@@ -38,7 +38,12 @@
 .App-link {
   color: #61dafb;
 }
-
+#deleteButton{
+  
+  border-radius: 100%;
+  width: 10px;
+  height: 20px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

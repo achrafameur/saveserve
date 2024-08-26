@@ -5,6 +5,8 @@ import SignUp from "../auth/signup/SignUp";
 import Login from "../auth/Login";
 import ProfessionnelDashboard from "../professionnel";
 import ClientDashboard from "../client";
+import FavoriteDashboard from '../client/favorite'
+import Panier from '../client/panier'
 import SuperAdminDashboard from "../super_admin";
 import ProtectedRoute from "../auth/ProtectedRoutes/ProtectedRoute";
 import Profile from "../shared/Profile";
@@ -38,6 +40,24 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <ClientDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/favoris"
+        element={
+          <ProtectedRoute>
+
+            <FavoriteDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/panier"
+        element={
+          <ProtectedRoute>
+
+            <Panier />
           </ProtectedRoute>
         }
       />

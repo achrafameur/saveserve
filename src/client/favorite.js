@@ -11,18 +11,21 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import altImage from '../../src/imgs/food.png'
 
-const ClientDashboard = () => {
+const FavoriteDashboard = () => {
   const [menus, setMenus] = useState([]);
+  const [reload, setReload] = useState(false);
   const userId = localStorage.getItem("id");
 
   useEffect(() => {
     const fetchMenus = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/professionnel/menus/`
+          `${process.env.REACT_APP_BACKEND_URL}/client/favoris/menus/list/`, {
+            params: { user_id: userId }
+          }
         );
         setMenus(response.data);
       } catch (error) {
@@ -30,7 +33,8 @@ const ClientDashboard = () => {
       }
     };
     fetchMenus();
-  }, [userId]);
+  }, [userId,reload]);
+  
 
   const addToFavMenu = async (menuId) => {
     try {
@@ -55,29 +59,31 @@ const ClientDashboard = () => {
     }
   };
 
-  const addToChart = async (menuId) => {
+  const removeFromFavMenu = async (menuId) => {
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/client/panier/add/`,
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/client/favoris/menus/${menuId}/`,
         {
-          user_id: userId,
-          menu_id: menuId,
-        },
-        {
+          data: {
+            user_id: userId,
+          },
           headers: {
-            "Content-Type": "application/json", // Set content type to JSON
+            "Content-Type": "application/json",
           },
         }
       );
-
+  
       console.log(response.data);
-      alert('menu added to chart successfully!')
-
+      alert('Menu removed from favorite menus successfully');
+      setReload(!reload);
     } catch (error) {
       console.error(error);
-      // Handle errors
+      
     }
   };
+  
+  
+
 
   return (
     <>
@@ -86,7 +92,7 @@ const ClientDashboard = () => {
         <div
           className="pageTitleHeader"
         >
-          Consulter les menus disponibles
+          Favoris
         </div>
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
           {menus.map((menu, index) => (
@@ -120,14 +126,14 @@ const ClientDashboard = () => {
                 >
                   <Typography variant="body1">{menu.prix} €</Typography>
                   <Box display="flex" alignItems="center">
-                    <Button onClick={() => addToFavMenu(menu.id)}>
-                      <FavoriteBorderIcon />
+                    <Button onClick={() => removeFromFavMenu(menu.id)}>
+                      <FavoriteIcon />
                     </Button>
                     <Button
                       variant="contained"
                       color="success"
                       style={{ background: 'linear-gradient(45deg, rgba(57,197,116,1) 14%, rgba(3,162,194,1) 100%)' }}
-                      onClick={() => addToChart(menu.id)}
+
                     >
                       <AddShoppingCartIcon />
                     </Button>
@@ -143,5 +149,5 @@ const ClientDashboard = () => {
   );
 };
 
-export default ClientDashboard;
+export default FavoriteDashboard;
 
