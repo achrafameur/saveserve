@@ -65,6 +65,7 @@ export const DashboardSidebarSection = (props) => {
             fontSize: '0.75rem',
             fontWeight: 700,
             lineHeight: 2.5,
+            
             ml: 4,
             textTransform: 'uppercase'
           }}

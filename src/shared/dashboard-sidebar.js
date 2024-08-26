@@ -20,7 +20,7 @@ import axios from "axios";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const getSections = (userAccess) => {
   const sectionsByRole = {
@@ -150,6 +150,8 @@ const DashboardSidebar = ({ open, onClose }) => {
           boxSizing: "border-box",
           background: 'linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)',
           color: "white",
+          width :300,
+          overflowY:'none'
         },
       }}
       variant="permanent"
