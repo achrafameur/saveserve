@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   TextField,
@@ -10,7 +10,8 @@ import {
   Link,
   Dialog,
   DialogContent,
-  DialogActions
+  DialogActions,
+  Autocomplete
 } from "@mui/material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -18,6 +19,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 const ProfessionalSignUp = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const [cityOptions, setCityOptions] = useState([]);
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -26,7 +28,39 @@ const ProfessionalSignUp = () => {
     nom_organisme: "",
     password: "",
     id_service: 2,
+    localisation: ""
   });
+
+  const fetchCities = async (query) => {
+    try {
+      const response = await axios.get(
+        `https://geo.api.gouv.fr/communes?nom=${query}&fields=nom&format=json&geometry=centre`
+      );
+      const cities = response.data.map(city => ({
+        value: city.nom,
+        label: city.nom
+      }));
+      setCityOptions(cities);
+    } catch (error) {
+      console.error("Erreur lors du chargement des villes :", error);
+    }
+  };
+
+  const handleCitySearch = (event) => {
+    const query = event.target.value;
+    if (query && query.length > 2) {  // Vérification que query est défini et a une longueur supérieure à 2
+      fetchCities(query);
+    } else {
+      setCityOptions([]); // Réinitialiser les options si l'utilisateur supprime tout ou si query est indéfini
+    }
+  };
+
+  const handleCitySelectChange = (event, value) => {
+    setFormData({
+      ...formData,
+      localisation: value ? value.value : ""
+    });
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -55,87 +89,6 @@ const ProfessionalSignUp = () => {
   };
 
   return (
-    // <Container component="main" maxWidth="xs">
-    //   <Box
-    //     sx={{
-    //       marginTop: 8,
-    //       display: 'flex',
-    //       flexDirection: 'column',
-    //       alignItems: 'center',
-    //     }}
-    //   >
-    //     <Typography component="h1" variant="h5">
-    //       Inscription Professionnel
-    //     </Typography>
-    //     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-    //       <TextField
-    //         margin="normal"
-    //         fullWidth
-    //         label="Nom"
-    //         name="nom"
-    //         onChange={handleChange}
-    //       />
-    //       <TextField
-    //         margin="normal"
-    //         fullWidth
-    //         label="Prénom"
-    //         name="prenom"
-    //         onChange={handleChange}
-    //       />
-    //       <TextField
-    //         margin="normal"
-    //         required
-    //         fullWidth
-    //         label="Adresse e-mail"
-    //         name="adresse_mail"
-    //         onChange={handleChange}
-    //         type="email"
-    //       />
-    //       <TextField
-    //         margin="normal"
-    //         fullWidth
-    //         label="Numéro SIRET"
-    //         name="num_siret"
-    //         onChange={handleChange}
-    //       />
-    //       <TextField
-    //         margin="normal"
-    //         fullWidth
-    //         label="Nom de l'organisme"
-    //         name="nom_organisme"
-    //         onChange={handleChange}
-    //       />
-    //       <TextField
-    //         margin="normal"
-    //         required
-    //         fullWidth
-    //         label="Mot de passe"
-    //         name="password"
-    //         onChange={handleChange}
-    //         type="password"
-    //       />
-    //       <Button
-    //         type="submit"
-    //         fullWidth
-    //         variant="contained"
-    //         sx={{ mt: 3, mb: 2 }}
-    //       >
-    //         S'inscrire
-    //       </Button>
-    //       <Button
-    //         component={Link}
-    //         to="/signup"
-    //         fullWidth
-    //         sx={{ mt: 1 }}
-    //       >
-    //         Retour
-    //       </Button>
-    //       <Typography sx={{ mt: 2 }}>
-    //         Déjà un compte ? <Link to="/login">Se connecter</Link>
-    //       </Typography>
-    //     </Box>
-    //   </Box>
-    // </Container>
     <Container component="main" maxWidth="sm" sx={{ mt: "5%" }}>
       <Card elevation={16} sx={{ p: 4 }}>
         <Box
@@ -153,18 +106,6 @@ const ProfessionalSignUp = () => {
             Inscrivez-vous en tant que professionnel
           </Typography>
         </Box>
-        {/* <Box
-          sx={{
-            alignItems: "center",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            Inscription Professionnel
-          </Typography>
-        </Box> */}
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <TextField
             margin="normal"
@@ -211,6 +152,20 @@ const ProfessionalSignUp = () => {
             name="password"
             onChange={handleChange}
             type="password"
+          />
+          <Autocomplete
+            options={cityOptions}
+            getOptionLabel={(option) => option.label}
+            onInputChange={(event, value) => handleCitySearch({ target: { value } })}
+            onChange={handleCitySelectChange}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Choisir une ville"
+                fullWidth
+              />
+            )}
+            value={formData.localisation ? { label: formData.localisation } : null}
           />
           <Button
             type="submit"
