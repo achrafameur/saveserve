@@ -16,6 +16,7 @@ import altImage from '../../src/imgs/food.png'
 
 const FavoriteDashboard = () => {
   const [menus, setMenus] = useState([]);
+  const [resto, setResto] = useState([]);
   const [reload, setReload] = useState(false);
   const userId = localStorage.getItem("id");
 
@@ -28,6 +29,23 @@ const FavoriteDashboard = () => {
           }
         );
         setMenus(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchMenus();
+  }, [userId,reload]);
+  
+
+  useEffect(() => {
+    const fetchMenus = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/client/favoris/restaurants/list/`, {
+            params: { user_id: userId }
+          }
+        );
+        setResto(response.data);
       } catch (error) {
         console.error(error);
       }

@@ -12,11 +12,16 @@ import {
 import { Link } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
+import BookmarkRoundedIcon from '@mui/icons-material/BookmarkRounded';
 import altImage from "../../src/imgs/food.png";
 
 const ClientDashboard = () => {
   const [menus, setMenus] = useState([]);
   const userId = localStorage.getItem("id");
+  const [reload, setReload] = useState(false);
+
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -38,7 +43,7 @@ const ClientDashboard = () => {
       }
     };
     fetchMenus();
-  }, [userId]);
+  }, [reload, userId]);
 
   const addToFavMenu = async (menuId) => {
     try {
@@ -61,6 +66,75 @@ const ClientDashboard = () => {
       // Handle errors
     }
   };
+  const removeFromFavMenu = async (menuId) => {
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/client/favoris/menus/${menuId}/`,
+        {
+          data: {
+            user_id: userId,
+          },
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response.data);
+      alert('Menu removed from favorite menus successfully');
+      setReload(!reload);
+    } catch (error) {
+      console.error(error);
+
+    }
+  };
+
+
+
+  const addToFavResto = async (restId) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/client/favoris/restaurants/`,
+        {
+          user_id: userId,
+          restaurant_id: restId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json", // Set content type to JSON
+          },
+        }
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+      // Handle errors
+    }
+  };
+  const removeFromFavResto = async (restoId) => {
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/client/favoris/restaurant/${restoId}/`,
+        {
+          data: {
+            user_id: userId,
+          },
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response.data);
+      alert('Menu removed from favorite menus successfully');
+      setReload(!reload);
+    } catch (error) {
+      console.error(error);
+
+    }
+  };
+
 
   const addToChart = async (menuId) => {
     try {
@@ -114,6 +188,23 @@ const ClientDashboard = () => {
               </Link>
               <CardContent>
                 <Typography variant="h5" component="div">
+                  {menu.nom_organisme ? menu.nom_organisme : "N/A"}
+                  {menu.is_favoris_restaurant ? (
+                      <Button 
+                      // onClick={() => removeFromFavResto(menu.restoId)}
+                      >
+                        <BookmarkRoundedIcon />
+                      </Button>
+                    ) : (
+                      <Button 
+                      onClick={() => addToFavResto(menu.restoId)}
+                      >
+                        <BookmarkBorderRoundedIcon />
+                      </Button>
+                    )}
+                </Typography>
+
+                <Typography variant="h5" component="div">
                   {menu.nom}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -127,9 +218,16 @@ const ClientDashboard = () => {
                 >
                   <Typography variant="body1">{menu.prix} €</Typography>
                   <Box display="flex" alignItems="center">
-                    <Button onClick={() => addToFavMenu(menu.id)}>
-                      <FavoriteBorderIcon />
-                    </Button>
+                    {menu.is_favoris_menu ? (
+                      <Button onClick={() => removeFromFavMenu(menu.id)}>
+                        <FavoriteIcon />
+                      </Button>
+                    ) : (
+                      <Button onClick={() => addToFavMenu(menu.id)}>
+                        <FavoriteBorderIcon />
+                      </Button>
+                    )}
+
                     <Button
                       variant="contained"
                       color="success"

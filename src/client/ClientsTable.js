@@ -139,11 +139,11 @@ const ClientsTable = () => {
               <Table>
                 <TableHead sx={{ backgroundColor: "#f0f0f0" }}>
                   <TableRow>
-                    <TableCell sx={{ backgroundColor: '#e0e0e0', fontWeight: 'bold' }}>ID</TableCell>
-                    <TableCell sx={{ backgroundColor: '#e0e0e0', fontWeight: 'bold' }}>Nom</TableCell>
-                    <TableCell sx={{ backgroundColor: '#e0e0e0', fontWeight: 'bold' }}>Prénom</TableCell>
-                    <TableCell sx={{ backgroundColor: '#e0e0e0', fontWeight: 'bold' }}>Email</TableCell>
-                    <TableCell sx={{ backgroundColor: '#e0e0e0', fontWeight: 'bold' }}>Actions</TableCell>
+                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>ID</TableCell>
+                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Nom</TableCell>
+                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Prénom</TableCell>
+                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Email</TableCell>
+                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
