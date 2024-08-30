@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import altImage from '../../src/imgs/food.png'
+import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
+import BookmarkRoundedIcon from '@mui/icons-material/BookmarkRounded';
 
 const FavoriteDashboard = () => {
   const [menus, setMenus] = useState([]);
@@ -25,8 +27,8 @@ const FavoriteDashboard = () => {
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/client/favoris/menus/list/`, {
-            params: { user_id: userId }
-          }
+          params: { user_id: userId }
+        }
         );
         setMenus(response.data);
       } catch (error) {
@@ -34,16 +36,16 @@ const FavoriteDashboard = () => {
       }
     };
     fetchMenus();
-  }, [userId,reload]);
-  
+  }, [userId, reload]);
+
 
   useEffect(() => {
     const fetchMenus = async () => {
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/client/favoris/restaurants/list/`, {
-            params: { user_id: userId }
-          }
+          params: { user_id: userId }
+        }
         );
         setResto(response.data);
       } catch (error) {
@@ -51,8 +53,8 @@ const FavoriteDashboard = () => {
       }
     };
     fetchMenus();
-  }, [userId,reload]);
-  
+  }, [userId, reload]);
+
 
   const addToFavMenu = async (menuId) => {
     try {
@@ -90,17 +92,38 @@ const FavoriteDashboard = () => {
           },
         }
       );
-  
+
       console.log(response.data);
       alert('Menu removed from favorite menus successfully');
       setReload(!reload);
     } catch (error) {
       console.error(error);
-      
+
     }
   };
-  
-  
+
+  const removeFromFavResto = async (restoId) => {
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/client/favoris/restaurant/${restoId}/`,
+        {
+          data: {
+            user_id: userId,
+          },
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response.data);
+      alert('Menu removed from favorite menus successfully');
+      setReload(!reload);
+    } catch (error) {
+      console.error(error);
+
+    }
+  };
 
 
   return (
@@ -110,7 +133,7 @@ const FavoriteDashboard = () => {
         <div
           className="pageTitleHeader"
         >
-          Favoris
+          Favoris menu
         </div>
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
           {menus.map((menu, index) => (
@@ -130,6 +153,70 @@ const FavoriteDashboard = () => {
 
               </Link>
               <CardContent>
+                <Typography variant="h5" component="div">
+                  {menu.nom}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {menu.description}
+                </Typography>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  mt={2}
+                >
+                  <Typography variant="body1">{menu.prix} €</Typography>
+                  <Box display="flex" alignItems="center">
+                    <Button onClick={() => removeFromFavMenu(menu.id)}>
+                      <FavoriteIcon />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="success"
+                      style={{ background: 'linear-gradient(45deg, rgba(57,197,116,1) 14%, rgba(3,162,194,1) 100%)' }}
+
+                    >
+                      <AddShoppingCartIcon />
+                    </Button>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+        <div
+          className="pageTitleHeader"
+        >
+          Favoris resto
+        </div>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
+          {resto.map((menu, index) => (
+            <Card key={menu.id} sx={{ flexBasis: "30%", minWidth: 300 }}
+              style={{ borderRadius: 15, boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px' }}>
+              <Link to={`/menu/${menu.id}`}>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={
+                    menu.image !== 'image/upload/null'
+                      ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`
+                      : altImage
+                  }
+                  alt={menu.nom}
+                />
+
+              </Link>
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  {menu.nom_organisme ? menu.nom_organisme : "N/A"}
+
+                  <Button
+                    onClick={() => removeFromFavResto(menu.admin)}
+                  >
+                    <BookmarkRoundedIcon />
+                  </Button>
+
+                </Typography>
                 <Typography variant="h5" component="div">
                   {menu.nom}
                 </Typography>

@@ -191,13 +191,13 @@ const ClientDashboard = () => {
                   {menu.nom_organisme ? menu.nom_organisme : "N/A"}
                   {menu.is_favoris_restaurant ? (
                       <Button 
-                      // onClick={() => removeFromFavResto(menu.restoId)}
+                       onClick={() => removeFromFavResto(menu.admin)}
                       >
                         <BookmarkRoundedIcon />
                       </Button>
                     ) : (
                       <Button 
-                      onClick={() => addToFavResto(menu.restoId)}
+                      onClick={() => addToFavResto(menu.admin)}
                       >
                         <BookmarkBorderRoundedIcon />
                       </Button>
