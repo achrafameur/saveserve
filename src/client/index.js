@@ -13,15 +13,14 @@ import { Link } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
-import BookmarkRoundedIcon from '@mui/icons-material/BookmarkRounded';
+import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
+import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
 import altImage from "../../src/imgs/food.png";
 
 const ClientDashboard = () => {
   const [menus, setMenus] = useState([]);
   const userId = localStorage.getItem("id");
   const [reload, setReload] = useState(false);
-
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -81,23 +80,20 @@ const ClientDashboard = () => {
       );
 
       console.log(response.data);
-      alert('Menu removed from favorite menus successfully');
+      alert("Menu removed from favorite menus successfully");
       setReload(!reload);
     } catch (error) {
       console.error(error);
-
     }
   };
 
-
-
-  const addToFavResto = async (restId) => {
+  const addToFavResto = async (restoId) => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/client/favoris/restaurants/`,
         {
           user_id: userId,
-          restaurant_id: restId,
+          restaurant_id: restoId,
         },
         {
           headers: {
@@ -115,7 +111,7 @@ const ClientDashboard = () => {
   const removeFromFavResto = async (restoId) => {
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/client/favoris/restaurant/${restoId}/`,
+        `${process.env.REACT_APP_BACKEND_URL}/client/favoris/restaurants/${restoId}/`,
         {
           data: {
             user_id: userId,
@@ -127,14 +123,12 @@ const ClientDashboard = () => {
       );
 
       console.log(response.data);
-      alert('Menu removed from favorite menus successfully');
+      alert("Menu removed from favorite menus successfully");
       setReload(!reload);
     } catch (error) {
       console.error(error);
-
     }
   };
-
 
   const addToChart = async (menuId) => {
     try {
@@ -190,18 +184,14 @@ const ClientDashboard = () => {
                 <Typography variant="h5" component="div">
                   {menu.nom_organisme ? menu.nom_organisme : "N/A"}
                   {menu.is_favoris_restaurant ? (
-                      <Button 
-                       onClick={() => removeFromFavResto(menu.admin)}
-                      >
-                        <BookmarkRoundedIcon />
-                      </Button>
-                    ) : (
-                      <Button 
-                      onClick={() => addToFavResto(menu.admin)}
-                      >
-                        <BookmarkBorderRoundedIcon />
-                      </Button>
-                    )}
+                    <Button onClick={() => removeFromFavResto(menu.admin.id)}>
+                      <BookmarkRoundedIcon />
+                    </Button>
+                  ) : (
+                    <Button onClick={() => addToFavResto(menu.admin.id)}>
+                      <BookmarkBorderRoundedIcon />
+                    </Button>
+                  )}
                 </Typography>
 
                 <Typography variant="h5" component="div">
