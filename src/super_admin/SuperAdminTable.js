@@ -135,6 +135,12 @@ const SuperAdminsTable = () => {
                     </InputAdornment>
                   ),
                 }}
+                sx={{
+                  borderRadius: '8px', 
+                  '& .MuiOutlinedInput-root': {
+                      borderRadius: '8px',
+                  },
+              }}
               />
             </Box>
           </Box>

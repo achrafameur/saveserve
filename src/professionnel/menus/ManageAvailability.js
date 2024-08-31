@@ -84,7 +84,7 @@ const ManageAvailability = () => {
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
           {menus.map((menu, index) => (
             <Card key={menu.id} sx={{ flexBasis: "30%", minWidth: 300 }}
-            style={{ borderRadius: 10, boxShadow: 'grey 1px 0px 10px 0px' }}>
+            style={{ borderRadius: 10, boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px' }}>
               <Link to={`/menu/${menu.id}`}>
                 <CardMedia
                   component="img"

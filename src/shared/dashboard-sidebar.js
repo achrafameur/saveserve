@@ -19,7 +19,11 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
+import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
+import RestaurantRoundedIcon from '@mui/icons-material/RestaurantRounded';
+import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
+import AddBusinessRoundedIcon from '@mui/icons-material/AddBusinessRounded';
+import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 const drawerWidth = 300;
 
 const getSections = (userAccess) => {
@@ -44,13 +48,18 @@ const getSections = (userAccess) => {
           {
             title: "Super Admins",
             path: "/admin/super_admins",
-            icon: <PeopleIcon />,
+            icon: <AdminPanelSettingsRoundedIcon />,
           },
           { title: "Clients", path: "/admin/clients", icon: <PeopleIcon /> },
           {
             title: "Professionnels",
             path: "/admin/professionnels",
-            icon: <PeopleIcon />,
+            icon: <RestaurantRoundedIcon />,
+          },
+          {
+            title: "Image Requests",
+            path: "/admin/requests",
+            icon: <RuleRoundedIcon />,
           },
         ],
       },
@@ -94,12 +103,12 @@ const getSections = (userAccess) => {
           {
             title: "Ajouter un menu",
             path: "/ajouter-menu",
-            icon: <MenuBookIcon />,
+            icon: <AddBusinessRoundedIcon />,
           },
           {
             title: "Liste des menus",
             path: "/gerer-disponibilites",
-            icon: <ListIcon />,
+            icon: <MenuBookRoundedIcon />,
           },
           {
             title: "Liste des commandes",

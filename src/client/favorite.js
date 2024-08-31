@@ -115,7 +115,7 @@ const FavoriteDashboard = () => {
       );
 
       console.log(response.data);
-      alert("Menu removed from favorite menus successfully");
+      alert("resto removed from favorite menus successfully");
       setReload(!reload);
     } catch (error) {
       console.error(error);
@@ -216,34 +216,12 @@ const FavoriteDashboard = () => {
                   </Button>
                 </Typography>
                 <Typography variant="h5" component="div">
-                  {menu.nom}
+                  {menu.admin.localisation}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {menu.description}
+                  {menu.admin.adresse_mail}
                 </Typography>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  mt={2}
-                >
-                  <Typography variant="body1">{menu.prix} €</Typography>
-                  <Box display="flex" alignItems="center">
-                    <Button onClick={() => removeFromFavMenu(menu.id)}>
-                      <FavoriteIcon />
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="success"
-                      style={{
-                        background:
-                          "linear-gradient(45deg, rgba(57,197,116,1) 14%, rgba(3,162,194,1) 100%)",
-                      }}
-                    >
-                      <AddShoppingCartIcon />
-                    </Button>
-                  </Box>
-                </Box>
+                
               </CardContent>
             </Card>
           ))}

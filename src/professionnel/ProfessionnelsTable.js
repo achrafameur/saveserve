@@ -38,6 +38,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import BookmarkRoundedIcon from '@mui/icons-material/BookmarkRounded';
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
 import altImage from '../imgs/food.png'
+import Tooltip from '@mui/material/Tooltip';
 
 const ProfessionnelsTable = () => {
   const [professionnels, setProfessionnels] = useState([]);
@@ -259,6 +260,12 @@ const ProfessionnelsTable = () => {
                       </InputAdornment>
                     ),
                   }}
+                  sx={{
+                    borderRadius: '8px',
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '8px',
+                    },
+                  }}
                 />
               </Box>
             </Box>
@@ -268,7 +275,7 @@ const ProfessionnelsTable = () => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}><RemoveRedEyeRoundedIcon /></TableCell>
+                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}></TableCell>
                     <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>ID</TableCell>
                     <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Image</TableCell>
                     <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Nom de l'organisme</TableCell>
@@ -280,14 +287,18 @@ const ProfessionnelsTable = () => {
                 <TableBody>
                   {professionnels.map((professionnel) => (
                     <TableRow key={professionnel.id}>
-                      <TableCell >
-                        <Button onClick={() => showPro(professionnel.id)}
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'flex-start'
-                          }}>
-                          <RemoveRedEyeRoundedIcon color="action" />
-                        </Button>
+                      <TableCell>
+                        <Tooltip title="Show details">
+                          <Button
+                            onClick={() => showPro(professionnel.id)}
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'flex-start',
+                            }}
+                          >
+                            <RemoveRedEyeRoundedIcon color="action" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
 
                       <TableCell>{professionnel.id}</TableCell>

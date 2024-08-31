@@ -11,6 +11,7 @@ import SuperAdminDashboard from "../super_admin";
 import ProtectedRoute from "../auth/ProtectedRoutes/ProtectedRoute";
 import Profile from "../shared/Profile";
 import SuperAdminsTable from "../super_admin/SuperAdminTable";
+import ImageRequests from "../super_admin/imageRequests";
 import ClientsTable from "../client/ClientsTable";
 import ProfessionnelsTable from "../professionnel/ProfessionnelsTable";
 import ClientSignUp from "../auth/signup/ClientSignUp";
@@ -98,6 +99,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <ProfessionnelsTable />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/requests"
+        element={
+          <ProtectedRoute>
+            <ImageRequests />
           </ProtectedRoute>
         }
       />

@@ -58,7 +58,9 @@ const ClientDashboard = () => {
           },
         }
       );
+      alert("Menu added from favorite menus successfully");
 
+      setReload(!reload)
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -101,7 +103,9 @@ const ClientDashboard = () => {
           },
         }
       );
+      alert("resto added to favorite resto successfully");
 
+      setReload(!reload)
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -123,7 +127,7 @@ const ClientDashboard = () => {
       );
 
       console.log(response.data);
-      alert("Menu removed from favorite menus successfully");
+      alert("resto removed from favorite menus successfully");
       setReload(!reload);
     } catch (error) {
       console.error(error);
@@ -175,7 +179,7 @@ const ClientDashboard = () => {
                   image={
                     menu.image !== "image/upload/null"
                       ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`
-                      : altImage
+                      : `https://res.cloudinary.com/dubrka8it/image/upload/v1724978765/food_kyvzbf.png`
                   }
                   alt={menu.nom}
                 />

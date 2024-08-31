@@ -8,16 +8,33 @@ import {
     CardMedia,
     Container,
     Typography,
+    Dialog,
+    DialogContent,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import PointOfSaleOutlinedIcon from '@mui/icons-material/PointOfSaleOutlined';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import altImage from '../../src/imgs/food.png'
-
+import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 const Panier = () => {
+
+    function calculateTotalPrice(cart) {
+        return cart.reduce((total, item) => {
+            return total + parseFloat(item.total);
+        }, 0);
+    }
+
+
     const [menus, setMenus] = useState([]);
     const [reload, setReload] = useState(false);
     const [quantity, setQuantity] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [showPopUp, setShowPopUp] = useState(false);
+    const [refrenceStripe, setRefrenceStripe] = useState('');
+    const [linkStripe, setLinkStripe] = useState('');
+
+
 
     const userId = localStorage.getItem("id");
 
@@ -30,6 +47,8 @@ const Panier = () => {
                 }
                 );
                 setMenus(response.data);
+                const total = calculateTotalPrice(response.data)
+                setTotalPrice(total)
             } catch (error) {
                 console.error(error);
             }
@@ -88,7 +107,7 @@ const Panier = () => {
         try {
             const response = await axios.delete(
                 `${process.env.REACT_APP_BACKEND_URL}/client/panier/delete/${menuId}/`,
-                
+
             );
 
             console.log(response.data);
@@ -110,27 +129,161 @@ const Panier = () => {
         }
     };
 
+
+    const showChart = async () => {
+        setShowPopUp(true);
+
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/client/panier/validate/`,
+                {
+                    user_id: userId,
+                }
+            );
+
+            console.log(response.data);
+            setRefrenceStripe(response.data.reference)
+            const responseStripe = await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/client/create-checkout-session/`,
+                {
+                    reference: response.data.reference,
+                }
+            );
+            console.log(responseStripe)
+            setLinkStripe(responseStripe.data.url)
+            window.open(responseStripe.data.url, '_blank');
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const sendToStripe = () => {
+
+        setShowPopUp(true)
+
+    };
     return (
         <>
 
             <Container>
+
+
+
+
+                <Dialog open={showPopUp} onClose={() => setShowPopUp(false)} fullWidth maxWidth="lg"
+                    PaperProps={{
+                        style: {
+                            borderRadius: 10,
+                            marginLeft: 340
+                        },
+                    }}
+                >
+                    <DialogContent>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                fontSize: 30,
+                                color: 'rgb(40, 148, 163)',
+                                fontWeight: 500
+                            }}
+                        >Your Order</div>
+                        <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
+                            {menus.map((menu, index) => (
+                                <Card key={menu.id} sx={{ flexBasis: "30%", minWidth: 300 }}
+                                    style={{ borderRadius: 15, boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px' }}>
+                                    <div
+                                        style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                                        <Button
+                                            id="deleteButton"
+                                            onClick={() => removeFromChart(menu.id)}>
+                                            X
+                                        </Button></div>
+
+                                    <Link to={`/menu/${menu.id}`}>
+                                        <CardMedia
+                                            component="img"
+                                            height="140"
+                                            image={
+                                                menu.menu.image !== 'image/upload/null'
+                                                    ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`
+                                                    : altImage
+                                            }
+                                            alt={menu.menu.nom}
+                                        />
+
+                                    </Link>
+
+                                    <CardContent>
+                                        <Typography variant="h5" component="div">
+                                            {menu.menu.nom}
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            {menu.menu.description}
+                                        </Typography>
+                                        <Box
+                                            display="flex"
+                                            alignItems="center"
+                                            justifyContent="space-between"
+                                            mt={2}
+                                        >
+                                            <Typography variant="body1">{menu.menu.prix} €</Typography>
+                                            <Box display="flex" alignItems="center">
+                                                <Button onClick={() => removeFromFavMenu(menu.id)}>
+                                                    <FavoriteBorderIcon />
+                                                </Button>
+
+
+
+                                            </Box>
+                                        </Box>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </Box>
+                        <div>
+                            <Button
+                                style={{
+                                    background: 'linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)',
+                                    color: 'white',
+                                }}
+                                onClick={sendToStripe}>
+                                Payer
+                                < PointOfSaleOutlinedIcon />
+                            </Button>
+                        </div>
+                    </DialogContent>
+                </Dialog>
+
+
+
+
+
                 <div
                     className="pageTitleHeader"
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
-                    Panier
+                    <div>Mon Panier
+                        {/* < ShoppingCartRoundedIcon /> */}
+                    </div>
+                    <div
+                    style={{display:'flex',gap:10}}>Total : {totalPrice} <div
+                    style={{color:'rgba(42, 161, 92, 1) 12%'}}>€</div></div>
                 </div>
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px", marginBottom: 5, boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", borderRadius: 10, padding: 5 }}>
                     {menus.map((menu, index) => (
-                        <Card key={menu.id} sx={{ flexBasis: "30%", minWidth: 300 }}
+                        <Card key={menu.id} sx={{ flexBasis: "30%", minWidth: 340 }}
                             style={{ borderRadius: 15, boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px' }}>
                             <div
-                            style={{width:'100%',display:'flex',justifyContent:'flex-end',alignItems:'center'}}>
+                                style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                                 <Button
-                                id="deleteButton"
-                                onClick={() => removeFromChart(menu.id)}>
-                                X
-                            </Button></div>
-                            
+                                    id="deleteButton"
+                                    onClick={() => removeFromChart(menu.id)}>
+                                    X
+                                </Button></div>
+
                             <Link to={`/menu/${menu.id}`}>
                                 <CardMedia
                                     component="img"
@@ -138,7 +291,7 @@ const Panier = () => {
                                     image={
                                         menu.menu.image !== 'image/upload/null'
                                             ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`
-                                            : altImage
+                                            : `https://res.cloudinary.com/dubrka8it/image/upload/v1724978765/food_kyvzbf.png`
                                     }
                                     alt={menu.menu.nom}
                                 />
@@ -196,6 +349,17 @@ const Panier = () => {
                         </Card>
                     ))}
                 </Box>
+                <div>
+                    <Button
+                        style={{
+                            background: 'linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)',
+                            color: 'white',
+                        }}
+                        onClick={showChart}>
+                        Payer
+                        < PointOfSaleOutlinedIcon />
+                    </Button>
+                </div>
             </Container>
 
         </>
