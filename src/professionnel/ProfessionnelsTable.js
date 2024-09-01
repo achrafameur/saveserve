@@ -30,15 +30,15 @@ import { Delete, Edit } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import { getInitials } from "../utils/get-initials"; // Assurez-vous que le chemin d'importation est correct
-import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
+import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import BookmarkRoundedIcon from '@mui/icons-material/BookmarkRounded';
-import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
-import altImage from '../imgs/food.png'
-import Tooltip from '@mui/material/Tooltip';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
+import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
+import altImage from "../imgs/food.png";
+import Tooltip from "@mui/material/Tooltip";
 
 const ProfessionnelsTable = () => {
   const [professionnels, setProfessionnels] = useState([]);
@@ -55,8 +55,6 @@ const ProfessionnelsTable = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [menus, setMenus] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
-
-
 
   useEffect(() => {
     const fetchProfessionnels = async () => {
@@ -148,39 +146,42 @@ const ProfessionnelsTable = () => {
     );
 
     if (selectedProfessionnel) {
-      console.log(selectedProfessionnel.menus)
+      console.log(selectedProfessionnel.menus);
       setMenus(selectedProfessionnel.menus);
-      setShowPopUp(true)
+      setShowPopUp(true);
     } else {
-      console.error('Professionnel not found');
+      console.error("Professionnel not found");
     }
   };
-
 
   return (
     <>
       <Box component="main" sx={{ flexGrow: 1, py: 8 }}>
-
-
-        <Dialog open={showPopUp} onClose={() => setShowPopUp(false)} fullWidth maxWidth="lg"
+        <Dialog
+          open={showPopUp}
+          onClose={() => setShowPopUp(false)}
+          fullWidth
+          maxWidth="lg"
           PaperProps={{
             style: {
               borderRadius: 10,
-              marginLeft: 340
+              marginLeft: 340,
             },
           }}
         >
           <DialogContent>
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
                 fontSize: 30,
-                color: 'rgb(40, 148, 163)',
-                fontWeight: 500
+                color: "rgb(40, 148, 163)",
+                fontWeight: 500,
               }}
-            >Available Menus</div>
+            >
+              Available Menus
+            </div>
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
               {menus.map((menu) => (
                 <Card
@@ -192,7 +193,6 @@ const ProfessionnelsTable = () => {
                       "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
                   }}
                 >
-
                   <CardMedia
                     component="img"
                     height="140"
@@ -207,7 +207,6 @@ const ProfessionnelsTable = () => {
                   <CardContent>
                     <Typography variant="h5" component="div">
                       {menu.nom_organisme ? menu.nom_organisme : "N/A"}
-
                     </Typography>
 
                     <Typography variant="h5" component="div">
@@ -230,10 +229,6 @@ const ProfessionnelsTable = () => {
             </Box>
           </DialogContent>
         </Dialog>
-
-
-
-
 
         <Container maxWidth="xl">
           <Box sx={{ mb: 4 }}>
@@ -261,9 +256,9 @@ const ProfessionnelsTable = () => {
                     ),
                   }}
                   sx={{
-                    borderRadius: '8px',
-                    '& .MuiOutlinedInput-root': {
-                      borderRadius: '8px',
+                    borderRadius: "8px",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "8px",
                     },
                   }}
                 />
@@ -275,53 +270,114 @@ const ProfessionnelsTable = () => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}></TableCell>
-                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>ID</TableCell>
-                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Image</TableCell>
-                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Nom de l'organisme</TableCell>
-                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Email</TableCell>
-                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Num Siret</TableCell>
-                    <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Actions</TableCell>
+                    <TableCell
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
+                    ></TableCell>
+                    <TableCell
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ID
+                    </TableCell>
+                    {/* <TableCell sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}>Image</TableCell> */}
+                    <TableCell
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Nom de l'organisme
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Email
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Numéro de Siret
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Actions
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {professionnels.map((professionnel) => (
-                    <TableRow key={professionnel.id}>
-                      <TableCell>
-                        <Tooltip title="Show details">
-                          <Button
-                            onClick={() => showPro(professionnel.id)}
-                            style={{
-                              display: 'flex',
-                              justifyContent: 'flex-start',
+                  {professionnels.length > 0 ? (
+                    professionnels.map((professionnel) => (
+                      <TableRow key={professionnel.id}>
+                        <TableCell>
+                          <Tooltip title="Voir les détails">
+                            <Button
+                              onClick={() => showPro(professionnel.id)}
+                              style={{
+                                display: "flex",
+                                justifyContent: "flex-start",
+                              }}
+                            >
+                              <RemoveRedEyeRoundedIcon color="action" />
+                            </Button>
+                          </Tooltip>
+                        </TableCell>
+                        <TableCell>{professionnel.id}</TableCell>
+                        <TableCell>{professionnel.nom_organisme}</TableCell>
+                        <TableCell>{professionnel.adresse_mail}</TableCell>
+                        <TableCell>{professionnel.num_siret}</TableCell>
+                        <TableCell>
+                          <IconButton
+                            onClick={() => handleEdit(professionnel)}
+                            sx={{
+                              backgroundColor: "#e0e0e0",
+                              color: "#333",
+                              "&:hover": { backgroundColor: "#d0d0d0" },
                             }}
                           >
-                            <RemoveRedEyeRoundedIcon color="action" />
-                          </Button>
-                        </Tooltip>
-                      </TableCell>
-
-                      <TableCell>{professionnel.id}</TableCell>
-                      <TableCell>Image</TableCell>
-                      <TableCell>{professionnel.nom_organisme}</TableCell>
-                      <TableCell>{professionnel.adresse_mail}</TableCell>
-                      <TableCell>{professionnel.num_siret}</TableCell>
-                      <TableCell>
-                        <IconButton
-                          onClick={() => handleEdit(professionnel)}
-                          sx={{ backgroundColor: '#e0e0e0', color: '#333', '&:hover': { backgroundColor: '#d0d0d0' } }}
-                        >
-                          <Edit />
-                        </IconButton>
-                        <IconButton
-                          onClick={() => openModal(professionnel)}
-                          sx={{ backgroundColor: '#e0e0e0', color: '#333', '&:hover': { backgroundColor: '#d0d0d0' }, ml: 2 }}
-                        >
-                          <Delete />
-                        </IconButton>
+                            <Edit />
+                          </IconButton>
+                          <IconButton
+                            onClick={() => openModal(professionnel)}
+                            sx={{
+                              backgroundColor: "#e0e0e0",
+                              color: "#333",
+                              "&:hover": { backgroundColor: "#d0d0d0" },
+                              ml: 2,
+                            }}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={6} align="center">
+                        Il n'y a pas de professionnels disponibles.
                       </TableCell>
                     </TableRow>
-                  ))}
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -343,7 +399,7 @@ const ProfessionnelsTable = () => {
             transform: "translate(-50%, -50%)",
             width: 400,
             bgcolor: "background.paper",
-            border: "2px solid #000",
+            borderRadius: 8,
             boxShadow: 24,
             p: 4,
           }}
@@ -356,6 +412,12 @@ const ProfessionnelsTable = () => {
               variant="contained"
               color="primary"
               onClick={() => handleDelete(selectedProfessionnel.id)}
+              style={{
+                width: "40%",
+                background:
+                  "linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)",
+                borderRadius: 8,
+              }}
             >
               Confirmer
             </Button>
@@ -364,6 +426,11 @@ const ProfessionnelsTable = () => {
               color="secondary"
               onClick={closeModal}
               sx={{ ml: 2 }}
+              style={{
+                background:
+                  "linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)",
+                borderRadius: 8,
+              }}
             >
               Annuler
             </Button>
@@ -390,8 +457,13 @@ const ProfessionnelsTable = () => {
             p: 4,
           }}
         >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Modifier les coordonnées de l'organisme
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ mb: 5, mt: 1, ml: 2 }}
+          >
+            Modifier les données de l'organisme
           </Typography>
           <Box sx={{ mt: 2 }}>
             <TextField
@@ -404,7 +476,7 @@ const ProfessionnelsTable = () => {
             />
             <TextField
               fullWidth
-              label="Num Siret"
+              label="Numéro de Siret"
               name="num_siret"
               value={professionnelData.num_siret}
               onChange={handleEditChange}
@@ -423,10 +495,12 @@ const ProfessionnelsTable = () => {
               color="primary"
               onClick={handleEditSubmit}
               style={{
-                width: '40%',
-                background: 'linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)',
-                borderRadius: 8
+                width: "40%",
+                background:
+                  "linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)",
+                borderRadius: 8,
               }}
+              sx={{ mt: 2 }}
             >
               Enregistrer
             </Button>
@@ -434,11 +508,11 @@ const ProfessionnelsTable = () => {
               variant="contained"
               color="secondary"
               onClick={closeEditModal}
-              sx={{ ml: 2 }}
+              sx={{ ml: 2, mt: 2 }}
               style={{
-                background: 'linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)',
-                borderRadius: 8
-
+                background:
+                  "linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)",
+                borderRadius: 8,
               }}
             >
               Annuler

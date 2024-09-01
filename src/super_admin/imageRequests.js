@@ -78,7 +78,7 @@ const ImageRequests = () => {
     return (
         <>
             <Container>
-                <div className="pageTitleHeader">Image Requests</div>
+                <div className="pageTitleHeader">Demandes d'ajout d'images</div>
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
                     {menus.map((menu, index) => (
                         <Card

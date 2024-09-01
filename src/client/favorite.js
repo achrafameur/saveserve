@@ -42,10 +42,15 @@ const FavoriteDashboard = () => {
   useEffect(() => {
     const fetchMenus = async () => {
       try {
-        const response = await axios.get(
+        const response = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/client/favoris/restaurants/list/`,
           {
-            params: { user_id: userId },
+            user_id: userId,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json", // Set content type to JSON
+            },
           }
         );
         setResto(response.data);
@@ -185,9 +190,9 @@ const FavoriteDashboard = () => {
         </Box>
         <div className="pageTitleHeader">Favoris resto</div>
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
-          {resto.map((menu, index) => (
+          {resto.map((restaurant, index) => (
             <Card
-              key={menu.id}
+              key={restaurant.id}
               sx={{ flexBasis: "30%", minWidth: 300 }}
               style={{
                 borderRadius: 15,
@@ -195,33 +200,32 @@ const FavoriteDashboard = () => {
                   "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
               }}
             >
-              <Link to={`/menu/${menu.id}`}>
+              <Link to={`/restaurant/${restaurant.id}`}>
                 <CardMedia
                   component="img"
                   height="140"
                   image={
-                    menu.image !== "image/upload/null"
-                      ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`
+                    restaurant.avatar
+                      ? `${process.env.REACT_APP_CLOUDINARY_URL}/${restaurant.avatar}`
                       : altImage
                   }
-                  alt={menu.nom}
+                  alt={restaurant.nom_organisme || "Restaurant Image"}
                 />
               </Link>
               <CardContent>
                 <Typography variant="h5" component="div">
-                  {menu.nom_organisme ? menu.nom_organisme : "N/A"}
+                  {restaurant.nom_organisme ? restaurant.nom_organisme : "N/A"}
 
-                  <Button onClick={() => removeFromFavResto(menu.admin.id)}>
+                  <Button onClick={() => removeFromFavResto(restaurant.id)}>
                     <BookmarkRoundedIcon />
                   </Button>
                 </Typography>
                 <Typography variant="h5" component="div">
-                  {menu.admin.localisation}
+                  {restaurant.localisation || "Localisation non disponible"}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {menu.admin.adresse_mail}
+                  {restaurant.adresse_mail || "Email non disponible"}
                 </Typography>
-                
               </CardContent>
             </Card>
           ))}

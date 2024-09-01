@@ -46,7 +46,7 @@ const getSections = (userAccess) => {
         icon: <SettingsIcon />,
         items: [
           {
-            title: "Super Admins",
+            title: "Admins",
             path: "/admin/super_admins",
             icon: <AdminPanelSettingsRoundedIcon />,
           },
@@ -57,7 +57,7 @@ const getSections = (userAccess) => {
             icon: <RestaurantRoundedIcon />,
           },
           {
-            title: "Image Requests",
+            title: "Demandes d'ajout d'images",
             path: "/admin/requests",
             icon: <RuleRoundedIcon />,
           },

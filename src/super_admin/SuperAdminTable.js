@@ -136,11 +136,11 @@ const SuperAdminsTable = () => {
                   ),
                 }}
                 sx={{
-                  borderRadius: '8px', 
-                  '& .MuiOutlinedInput-root': {
-                      borderRadius: '8px',
+                  borderRadius: "8px",
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "8px",
                   },
-              }}
+                }}
               />
             </Box>
           </Box>
@@ -150,64 +150,92 @@ const SuperAdminsTable = () => {
                 <TableHead sx={{ backgroundColor: "#f0f0f0" }}>
                   <TableRow>
                     <TableCell
-                      sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
                     >
                       ID
                     </TableCell>
                     <TableCell
-                      sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
                     >
                       Nom
                     </TableCell>
                     <TableCell
-                      sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
                     >
                       Prénom
                     </TableCell>
                     <TableCell
-                      sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
                     >
                       Email
                     </TableCell>
                     <TableCell
-                      sx={{ backgroundColor: 'rgb(40 157 163 / 69%)', color: 'white', fontWeight: 'bold' }}
+                      sx={{
+                        backgroundColor: "rgb(40 157 163 / 69%)",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
                     >
                       Actions
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {superAdmins.map((client) => (
-                    <TableRow key={client.id}>
-                      <TableCell>{client.id}</TableCell>
-                      <TableCell>{client.nom}</TableCell>
-                      <TableCell>{client.prenom}</TableCell>
-                      <TableCell>{client.adresse_mail}</TableCell>
-                      <TableCell>
-                        <IconButton
-                          onClick={() => handleEdit(client)}
-                          sx={{
-                            backgroundColor: "#e0e0e0",
-                            color: "#333",
-                            "&:hover": { backgroundColor: "#d0d0d0" },
-                          }}
-                        >
-                          <Edit />
-                        </IconButton>
-                        <IconButton
-                          onClick={() => openModal(client)}
-                          sx={{
-                            backgroundColor: "#e0e0e0",
-                            color: "#333",
-                            "&:hover": { backgroundColor: "#d0d0d0" },
-                            ml: 2,
-                          }}
-                        >
-                          <Delete />
-                        </IconButton>
+                  {superAdmins.length > 0 ? (
+                    superAdmins.map((client) => (
+                      <TableRow key={client.id}>
+                        <TableCell>{client.id}</TableCell>
+                        <TableCell>{client.nom}</TableCell>
+                        <TableCell>{client.prenom}</TableCell>
+                        <TableCell>{client.adresse_mail}</TableCell>
+                        <TableCell>
+                          <IconButton
+                            onClick={() => handleEdit(client)}
+                            sx={{
+                              backgroundColor: "#e0e0e0",
+                              color: "#333",
+                              "&:hover": { backgroundColor: "#d0d0d0" },
+                            }}
+                          >
+                            <Edit />
+                          </IconButton>
+                          <IconButton
+                            onClick={() => openModal(client)}
+                            sx={{
+                              backgroundColor: "#e0e0e0",
+                              color: "#333",
+                              "&:hover": { backgroundColor: "#d0d0d0" },
+                              ml: 2,
+                            }}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={5} align="center">
+                        Il n'y a pas d'admins disponibles.
                       </TableCell>
                     </TableRow>
-                  ))}
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -228,7 +256,7 @@ const SuperAdminsTable = () => {
             transform: "translate(-50%, -50%)",
             width: 400,
             bgcolor: "background.paper",
-            border: "2px solid #000",
+            borderRadius: 8,
             boxShadow: 24,
             p: 4,
           }}
@@ -241,6 +269,12 @@ const SuperAdminsTable = () => {
               variant="contained"
               color="primary"
               onClick={() => handleDelete(selectedAdmin.id)}
+              style={{
+                width: "40%",
+                background:
+                  "linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)",
+                borderRadius: 8,
+              }}
             >
               Confirmer
             </Button>
@@ -249,6 +283,11 @@ const SuperAdminsTable = () => {
               color="secondary"
               onClick={closeModal}
               sx={{ ml: 2 }}
+              style={{
+                background:
+                  "linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)",
+                borderRadius: 8,
+              }}
             >
               Annuler
             </Button>
@@ -270,13 +309,18 @@ const SuperAdminsTable = () => {
             transform: "translate(-50%, -50%)",
             width: 400,
             bgcolor: "background.paper",
-            border: "2px solid #000",
+            borderRadius: 8,
             boxShadow: 24,
             p: 4,
           }}
         >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Modifier l'utilisateur
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ mb: 5, mt: 1, ml: 2 }}
+          >
+            Modifier les données de l'Admin
           </Typography>
           <Box sx={{ mt: 2 }}>
             <TextField
@@ -307,6 +351,13 @@ const SuperAdminsTable = () => {
               variant="contained"
               color="primary"
               onClick={handleEditSubmit}
+              style={{
+                width: "40%",
+                background:
+                  "linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)",
+                borderRadius: 8,
+              }}
+              sx={{ mt: 2 }}
             >
               Enregistrer
             </Button>
@@ -314,7 +365,12 @@ const SuperAdminsTable = () => {
               variant="contained"
               color="secondary"
               onClick={closeEditModal}
-              sx={{ ml: 2 }}
+              sx={{ ml: 2, mt: 2 }}
+              style={{
+                background:
+                  "linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)",
+                borderRadius: 8,
+              }}
             >
               Annuler
             </Button>
