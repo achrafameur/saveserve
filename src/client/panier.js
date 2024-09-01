@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import PointOfSaleOutlinedIcon from "@mui/icons-material/PointOfSaleOutlined";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import altImage from "../../src/imgs/food.png";
@@ -189,7 +189,7 @@ const Panier = () => {
   };
 
   const RedirectToStripeCheckoutLink = () => {
-      window.open(linkStripe, "_blank");
+    window.open(linkStripe, "_blank");
   };
 
   return (
@@ -220,14 +220,41 @@ const Panier = () => {
             >
               Votre Commande
             </div>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: "15px", mt: 2 }}>
-              <Box sx={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #ddd", paddingBottom: "10px" }}>
-                <Typography variant="h6" component="div">Menu</Typography>
-                <Typography variant="h6" component="div">Quantity</Typography>
-                <Typography variant="h6" component="div">Total</Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "15px",
+                mt: 2,
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  borderBottom: "1px solid #ddd",
+                  paddingBottom: "10px",
+                }}
+              >
+                <Typography variant="h6" component="div">
+                  Menu
+                </Typography>
+                <Typography variant="h6" component="div">
+                  Quantity
+                </Typography>
+                <Typography variant="h6" component="div">
+                  Total
+                </Typography>
               </Box>
               {menus.map((menu, index) => (
-                <Box key={menu.id} sx={{ display: "flex", justifyContent: "space-between", padding: "10px" }}>
+                <Box
+                  key={menu.id}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: "10px",
+                  }}
+                >
                   <Typography variant="body1" component="div" sx={{ flex: 2 }}>
                     {menu.menu.nom}
                   </Typography>
@@ -242,7 +269,15 @@ const Panier = () => {
                   </Button> */}
                 </Box>
               ))}
-              <Box sx={{ display: "flex", justifyContent: "flex-end", borderTop: "1px solid #ddd", paddingTop: "10px", mt: 2 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  borderTop: "1px solid #ddd",
+                  paddingTop: "10px",
+                  mt: 2,
+                }}
+              >
                 <Typography variant="h6" component="div">
                   Total Price: {totalPrice} €
                 </Typography>
@@ -343,119 +378,130 @@ const Panier = () => {
             <div style={{ color: "rgba(42, 161, 92, 1) 12%" }}>€</div>
           </div>
         </div>
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "25px",
-            marginBottom: 5,
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            borderRadius: 10,
-            padding: 5,
-          }}
-        >
-          {menus.map((menu, index) => (
-            <Card
-              key={menu.id}
-              sx={{ flexBasis: "30%", minWidth: 340 }}
-              style={{
-                borderRadius: 15,
-                boxShadow:
-                  "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
-              }}
-            >
-              <div
+        {menus.length === 0 ? (
+          <Typography variant="h6" align="center" sx={{ marginBottom: 5 }}>
+            Pas d'articles ajoutés dans ton panier.
+          </Typography>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "25px",
+              marginBottom: 5,
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              borderRadius: 10,
+              padding: 5,
+            }}
+          >
+            {menus.map((menu, index) => (
+              <Card
+                key={menu.id}
+                sx={{ flexBasis: "30%", minWidth: 340 }}
                 style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
+                  borderRadius: 15,
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
                 }}
               >
-                <Button
-                  id="deleteButton"
-                  onClick={() => removeFromChart(menu.id)}
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                  }}
                 >
-                  X
-                </Button>
-              </div>
+                  <Button
+                    id="deleteButton"
+                    onClick={() => removeFromChart(menu.id)}
+                  >
+                    X
+                  </Button>
+                </div>
 
-              <Link to={`/menu/${menu.id}`}>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={
-                    menu.menu.image !== "image/upload/null"
-                      ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.menu.image}`
-                      : `https://res.cloudinary.com/dubrka8it/image/upload/v1724978765/food_kyvzbf.png`
-                  }
-                  alt={menu.menu.nom}
-                />
-              </Link>
+                <Link to={`/menu/${menu.id}`}>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={
+                      menu.menu.image !== "image/upload/null"
+                        ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.menu.image}`
+                        : "https://res.cloudinary.com/dubrka8it/image/upload/v1724978765/food_kyvzbf.png"
+                    }
+                    alt={menu.menu.nom}
+                  />
+                </Link>
 
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {menu.menu.nom}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {menu.menu.description}
-                </Typography>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  mt={2}
-                >
-                  <Typography variant="body1">{menu.menu.prix} €</Typography>
-                  <Box display="flex" alignItems="center">
-                    <Button onClick={() => removeFromFavMenu(menu.id)}>
-                      <FavoriteBorderIcon />
-                    </Button>
-
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    {menu.menu.nom}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {menu.menu.description}
+                  </Typography>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    mt={2}
+                  >
+                    <Typography variant="body1">{menu.menu.prix} €</Typography>
                     <Box display="flex" alignItems="center">
-                      <Button
-                        variant="contained"
-                        color="success"
-                        onClick={() => handleIncrement(menu.id, menu.quantite)}
-                        style={{
-                          background:
-                            "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
-                        }}
-                      >
-                        +
+                      <Button onClick={() => removeFromFavMenu(menu.id)}>
+                        <FavoriteBorderIcon />
                       </Button>
-                      <Typography variant="body1" mx={1}>
-                        {menu.quantite || 0}
-                      </Typography>
-                      <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => handleDecrement(menu.id, menu.quantite)}
-                        style={{
-                          background:
-                            "linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)",
-                        }}
-                      >
-                        -
-                      </Button>
+
+                      <Box display="flex" alignItems="center">
+                        <Button
+                          variant="contained"
+                          color="success"
+                          onClick={() =>
+                            handleIncrement(menu.id, menu.quantite)
+                          }
+                          style={{
+                            background:
+                              "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
+                          }}
+                        >
+                          +
+                        </Button>
+                        <Typography variant="body1" mx={1}>
+                          {menu.quantite || 0}
+                        </Typography>
+                        <Button
+                          variant="contained"
+                          color="error"
+                          onClick={() =>
+                            handleDecrement(menu.id, menu.quantite)
+                          }
+                          style={{
+                            background:
+                              "linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)",
+                          }}
+                        >
+                          -
+                        </Button>
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          ))}
-        </Box>
+                </CardContent>
+              </Card>
+            ))}
+          </Box>
+        )}
         <div>
           <Button
             style={{
               background:
                 "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
               color: "white",
+              marginBottom : 8
             }}
             onClick={showChart}
           >
             Valider le Panier
-            <CheckCircleOutlineIcon sx={{ ml :  1 }}/>
+            <CheckCircleOutlineIcon sx={{ ml: 1 }} />
           </Button>
         </div>
       </Container>
