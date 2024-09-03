@@ -24,6 +24,7 @@ import RestaurantRoundedIcon from '@mui/icons-material/RestaurantRounded';
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
 import AddBusinessRoundedIcon from '@mui/icons-material/AddBusinessRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 const drawerWidth = 300;
 
 const getSections = (userAccess) => {
@@ -42,7 +43,7 @@ const getSections = (userAccess) => {
         ],
       },
       {
-        title: "Gestion des Admins",
+        title: "Gestion des utilisateurs",
         icon: <SettingsIcon />,
         items: [
           {
@@ -60,6 +61,11 @@ const getSections = (userAccess) => {
             title: "Demandes d'ajout d'images",
             path: "/admin/requests",
             icon: <RuleRoundedIcon />,
+          },
+          {
+            title: "Ajouter un Admin",
+            path: "/ajout-admin",
+            icon: <AddCircleOutlineIcon />,
           },
         ],
       },

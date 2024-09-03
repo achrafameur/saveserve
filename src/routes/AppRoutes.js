@@ -20,6 +20,7 @@ import ManageAvailability from "../professionnel/menus/ManageAvailability";
 import AddMenu from "../professionnel/menus/AddMenu";
 import MenuDetails from "../professionnel/menus/MenuDetails";
 import { DashboardLayout } from "../shared/dashboard-layout";
+import AddAdmin from "../super_admin/addAdmin";
 
 const AppRoutes = () => {
   return (
@@ -134,7 +135,14 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
+      <Route
+        path="/ajout-admin"
+        element={
+          <ProtectedRoute>
+            <AddAdmin />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/" element={<Login />} />
     </Routes>
   );
