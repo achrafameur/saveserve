@@ -110,7 +110,7 @@ const DashboardNavbar = ({ onToggleSidebar }) => {
   };
 
   return (
-    <AppBar position="fixed" sx={{ height: 65,backgroundColor: 'transparent',backdropFilter:'blur(1px)' }}>
+    <AppBar position="fixed" sx={{ height: 65, backgroundColor: 'transparent', backdropFilter: 'blur(1px)' }}>
       <Toolbar>
         <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
           <IconButton
@@ -127,12 +127,12 @@ const DashboardNavbar = ({ onToggleSidebar }) => {
         </Box>
         {isAuthenticated && (
           <>
-            {userAccess === 1 && (
+            {/* {userAccess === 1 && (
               <IconButton color="black">
                 <ShoppingCartIcon color="black" />
               </IconButton>
-            )}
-            <div
+            )} */}
+            {/* <div
             style={{
               zIndex:1110,
               color:'black',
@@ -141,7 +141,7 @@ const DashboardNavbar = ({ onToggleSidebar }) => {
             }}>
               {userProfile.prenom}
              
-            </div>
+            </div> */}
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -149,7 +149,9 @@ const DashboardNavbar = ({ onToggleSidebar }) => {
               onClick={handleMenu}
               color="inherit"
             >
-              <Avatar sx={{ bgcolor: "primary.main" }}>
+              <Avatar
+
+                src={`${process.env.REACT_APP_CLOUDINARY_URL}/${userProfile.avatar}`} >
                 {getAvatarInitials()}{" "}
               </Avatar>
             </IconButton>
@@ -167,7 +169,16 @@ const DashboardNavbar = ({ onToggleSidebar }) => {
               }}
               open={Boolean(anchorEl)}
               onClose={handleClose}
-              sx={{ mt: 4 }}
+              sx={{
+                mt: 4, 
+                '& .MuiPaper-root': { // Target the inner paper element
+                  borderRadius: 3,
+                  height:200,
+                  width:200,
+                  marginTop:1 
+                },
+              }}
+
             >
               <Box sx={{ p: 2 }}>
                 <Typography variant="subtitle1">
@@ -177,8 +188,8 @@ const DashboardNavbar = ({ onToggleSidebar }) => {
                   {userProfile.id_service === 0
                     ? "Super Admin"
                     : userProfile.id_service === 1
-                    ? "Client"
-                    : "Organisme"}
+                      ? "Client"
+                      : "Organisme"}
                 </Typography>
               </Box>
               <Divider />

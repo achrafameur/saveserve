@@ -120,8 +120,15 @@ const ClientSignUp = () => {
     //     </Box>
     //   </Box>
     // </Container>
+    <div
+    style={{backgroundColor:'black',height:'110vh',marginTop:-100,display:'flex',alignItems:'center'}}
+    className="loginStyling">
     <Container component="main" maxWidth="sm" sx={{ mt: "5%" }}>
-      <Card elevation={16} sx={{ p: 4 }}>
+      <Card elevation={16} sx={{ p: 4 }}
+      style={{
+        
+        borderRadius:15
+      }}>
         <Box
           sx={{
             alignItems: "center",
@@ -129,6 +136,7 @@ const ClientSignUp = () => {
             flexDirection: "column",
             justifyContent: "center",
           }}
+
         >
           <RouterLink to="/">
             <img src="/logo.jpg" alt="Logo" style={{ height: 80, width: 80 }} />
@@ -187,6 +195,10 @@ const ClientSignUp = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            style={{
+              background:'linear-gradient(45deg,#23a6d5, rgba(3, 162, 194, 1) 100%)',
+              borderRadius:10
+            }}
           >
             S'inscrire
           </Button>
@@ -217,6 +229,7 @@ const ClientSignUp = () => {
       </Dialog>
 
     </Container>
+    </div>
   );
 };
 

@@ -4,8 +4,25 @@ import React from 'react';
 import { DashboardLayout } from '../shared/dashboard-layout';
 // import { DashboardLayout } from '../shared/dashboard-layout';
 // import {AdminProtectedRoute } from '../auth/ProtectedRoutes/AdminProtectedRoute'
+import axios from "axios";
+import { useEffect } from 'react';
+
 
 const ProfessionnelDashboard = () => {
+  const userId = localStorage.getItem('id');
+
+
+  useEffect(() => {
+    const fetchSuperAdmins = async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/professionnel/stats/${userId}/`
+      );
+      
+    };
+    fetchSuperAdmins();
+  }, []);
+
+
   return (
       <DashboardLayout>
       <h1>Bienvenue, Professionnel</h1>

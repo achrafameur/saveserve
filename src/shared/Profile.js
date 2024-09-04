@@ -161,6 +161,7 @@ const Profile = () => {
                             width: "100%",
                             height: "auto",
                             maxHeight: "400px",
+                            backgroundColor:'white'
                           }}
                         />
                       )}

@@ -15,6 +15,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import altImage from "../../src/imgs/food.png";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
+import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
+import DinnerDiningOutlinedIcon from '@mui/icons-material/DinnerDiningOutlined';
 
 const FavoriteDashboard = () => {
   const [menus, setMenus] = useState([]);
@@ -127,124 +129,226 @@ const FavoriteDashboard = () => {
     }
   };
 
+  const [showResto, setShowResto] = useState(false);
+  const [showMenus, setShowMenus] = useState(false);
+
+
+  const displayResto = () => {
+    setShowResto(!showResto)
+  }
+
+  const displayMenus = async () => {
+    setShowMenus(!showMenus)
+
+  }
+
+
   return (
     <>
       <Container>
-        <div className="pageTitleHeader">Favoris menu</div>
-        {menus.length === 0 ? (
-          <Typography variant="h6" align="center" sx={{ marginBottom: 5 }}>
-            Aucun menu ajouté dans tes favoris.
-          </Typography>
-        ) : (
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
-            {menus.map((menu, index) => (
-              <Card
-                key={menu.id}
-                sx={{ flexBasis: "30%", minWidth: 300 }}
+
+        {((showResto || showMenus) &&
+          <div>
+            <Button
+              onClick={() => {
+                if (showMenus) {
+                  displayMenus();
+                } else if (showResto) {
+                  displayResto();
+                }
+              }}>
+              back
+            </Button>
+            Back to Favoris Page
+          </div>
+        )}
+
+        {(!showResto && !showMenus &&
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
+              height: '90vh'
+            }}>
+            <Button
+              style={{
+                background: "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
+                color: "white",
+                borderRadius: 15
+              }}
+              onClick={displayResto}
+            >
+              <div
                 style={{
-                  borderRadius: 15,
-                  boxShadow:
-                    "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
-                }}
-              >
-                <Link to={`/menu/${menu.id}`}>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={
-                      menu.image !== "image/upload/null"
-                        ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`
-                        : altImage
-                    }
-                    alt={menu.nom}
-                  />
-                </Link>
-                <CardContent>
-                  <Typography variant="h5" component="div">
-                    {menu.nom}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {menu.description}
-                  </Typography>
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    mt={2}
+                  width: '45%',
+                  height: '80%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                <StorefrontOutlinedIcon
+                  sx={{
+                    fontSize: 450,
+
+                  }} />
+              </div>
+            </Button>
+
+            <Button
+              style={{
+                background: "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
+                color: "white",
+                borderRadius: 15
+              }}
+              onClick={displayMenus}
+
+            >
+              <div
+                style={{
+                  width: '45%',
+                  height: '80%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                < DinnerDiningOutlinedIcon
+                  sx={{
+                    fontSize: 450,
+
+                  }} />
+              </div>
+            </Button>
+          </div>
+        )}
+
+
+        {(showMenus &&
+          <div>
+            <div className="pageTitleHeader">Favoris menu</div>
+            {menus.length === 0 ? (
+              <Typography variant="h6" align="center" sx={{ marginBottom: 5 }}>
+                Aucun menu ajouté dans tes favoris.
+              </Typography>
+            ) : (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
+                {menus.map((menu, index) => (
+                  <Card
+                    key={menu.id}
+                    sx={{ flexBasis: "30%", minWidth: 300 }}
+                    style={{
+                      borderRadius: 15,
+                      boxShadow:
+                        "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
+                    }}
                   >
-                    <Typography variant="body1">{menu.prix} €</Typography>
-                    <Box display="flex" alignItems="center">
-                      <Button onClick={() => removeFromFavMenu(menu.id)}>
-                        <FavoriteIcon />
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="success"
-                        style={{
-                          background:
-                            "linear-gradient(45deg, rgba(57,197,116,1) 14%, rgba(3,162,194,1) 100%)",
-                        }}
+
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={
+                        menu.image !== "image/upload/null"
+                          ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`
+                          : altImage
+                      }
+                      alt={menu.nom}
+                    />
+
+                    <CardContent>
+                      <Typography variant="h5" component="div">
+                        {menu.nom}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {menu.description}
+                      </Typography>
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="space-between"
+                        mt={2}
                       >
-                        <AddShoppingCartIcon />
-                      </Button>
-                    </Box>
-                  </Box>
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
+                        <Typography variant="body1">{menu.prix} €</Typography>
+                        <Box display="flex" alignItems="center">
+                          <Button onClick={() => removeFromFavMenu(menu.id)}>
+                            <FavoriteIcon />
+                          </Button>
+                          <Button
+                            variant="contained"
+                            color="success"
+                            style={{
+                              background:
+                                "linear-gradient(45deg, rgba(57,197,116,1) 14%, rgba(3,162,194,1) 100%)",
+                            }}
+                          >
+                            <AddShoppingCartIcon />
+                          </Button>
+                        </Box>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Box>
+            )}
+          </div>
         )}
 
-        <div className="pageTitleHeader">Favoris resto</div>
-        {resto.length === 0 ? (
-          <Typography variant="h6" align="center" sx={{ marginBottom: 5 }}>
-            Aucun restaurant ajouté dans tes favoris.
-          </Typography>
-        ) : (
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
-            {resto.map((restaurant, index) => (
-              <Card
-                key={restaurant.id}
-                sx={{ flexBasis: "30%", minWidth: 300 }}
-                style={{
-                  borderRadius: 15,
-                  boxShadow:
-                    "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
-                }}
-              >
-                <Link to={`/restaurant/${restaurant.id}`}>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={
-                      restaurant.avatar
-                        ? `${process.env.REACT_APP_CLOUDINARY_URL}/${restaurant.avatar}`
-                        : altImage
-                    }
-                    alt={restaurant.nom_organisme || "Restaurant Image"}
-                  />
-                </Link>
-                <CardContent>
-                  <Typography variant="h5" component="div">
-                    {restaurant.nom_organisme
-                      ? restaurant.nom_organisme
-                      : "N/A"}
 
-                    <Button onClick={() => removeFromFavResto(restaurant.id)}>
-                      <BookmarkRoundedIcon />
-                    </Button>
-                  </Typography>
-                  <Typography variant="h5" component="div">
-                    {restaurant.localisation || "Localisation non disponible"}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {restaurant.adresse_mail || "Email non disponible"}
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
+        {(showResto &&
+          <div>
+            <div className="pageTitleHeader">Favoris resto</div>
+            {resto.length === 0 ? (
+              <Typography variant="h6" align="center" sx={{ marginBottom: 5 }}>
+                Aucun restaurant ajouté dans tes favoris.
+              </Typography>
+            ) : (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
+                {resto.map((restaurant, index) => (
+                  <Card
+                    key={restaurant.id}
+                    sx={{ flexBasis: "30%", minWidth: 300 }}
+                    style={{
+                      borderRadius: 15,
+                      boxShadow:
+                        "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
+                    }}
+                  >
+
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={
+                        restaurant.avatar
+                          ? `${process.env.REACT_APP_CLOUDINARY_URL}/${restaurant.avatar}`
+                          : altImage
+                      }
+                      alt={restaurant.nom_organisme || "Restaurant Image"}
+                    />
+
+                    <CardContent>
+                      <Typography variant="h5" component="div">
+                        {restaurant.nom_organisme
+                          ? restaurant.nom_organisme
+                          : "N/A"}
+
+                        <Button onClick={() => removeFromFavResto(restaurant.id)}>
+                          <BookmarkRoundedIcon />
+                        </Button>
+                      </Typography>
+                      <Typography variant="h5" component="div">
+                        {restaurant.localisation || "Localisation non disponible"}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {restaurant.adresse_mail || "Email non disponible"}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Box>
+            )}
+          </div>
         )}
+
       </Container>
     </>
   );

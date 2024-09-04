@@ -44,11 +44,29 @@
   width: 10px;
   height: 20px;
 }
+.loginStyling{
+  background: linear-gradient(-90deg,  #23d5ab,#23a6d5,#23a6d5, #23d5ab, #23a6d5);
+    background-size: 400% 400%;
+    animation: gradient 20s ease infinite;
+}
+#connectButtons{
+  color: black;
+  background-color: black;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%; 
   }
 }

@@ -493,11 +493,13 @@ const Panier = () => {
         <div>
           <Button
             style={{
-              background:
-                "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
+              background: menus.length === 0 
+                ? "grey" 
+                : "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
               color: "white",
-              marginBottom : 8
+              marginBottom: 8
             }}
+            
             onClick={showChart}
           >
             Valider le Panier
