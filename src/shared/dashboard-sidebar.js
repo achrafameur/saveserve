@@ -25,6 +25,7 @@ import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSetting
 import AddBusinessRoundedIcon from '@mui/icons-material/AddBusinessRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 const drawerWidth = 300;
 
 const getSections = (userAccess) => {
@@ -52,6 +53,11 @@ const getSections = (userAccess) => {
             icon: <AdminPanelSettingsRoundedIcon />,
           },
           { title: "Clients", path: "/admin/clients", icon: <PeopleIcon /> },
+          {
+            title: "Demande d'inscription",
+            path: "/admin/professionnels_to_verify",
+            icon: <AddBusinessIcon />,
+          },
           {
             title: "Professionnels",
             path: "/admin/professionnels",
