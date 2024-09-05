@@ -21,6 +21,7 @@ import AddMenu from "../professionnel/menus/AddMenu";
 import MenuDetails from "../professionnel/menus/MenuDetails";
 import { DashboardLayout } from "../shared/dashboard-layout";
 import AddAdmin from "../super_admin/addAdmin";
+import VerifyProfessional from "../super_admin/verifyProsUsers";
 import Commandes from "../client/commandes";
 import CommandesPro from "../professionnel/commandesPro";
 
@@ -121,6 +122,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <ProfessionnelsTable />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/professionnels_to_verify"
+        element={
+          <ProtectedRoute>
+            <VerifyProfessional />
           </ProtectedRoute>
         }
       />
