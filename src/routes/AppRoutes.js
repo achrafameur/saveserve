@@ -24,6 +24,7 @@ import AddAdmin from "../super_admin/addAdmin";
 import VerifyProfessional from "../super_admin/verifyProsUsers";
 import Commandes from "../client/commandes";
 import CommandesPro from "../professionnel/commandesPro";
+import AddLitige from "../client/addLitige";
 
 const AppRoutes = () => {
   return (
@@ -170,6 +171,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <AddAdmin />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ajout-litige"
+        element={
+          <ProtectedRoute>
+            <AddLitige />
           </ProtectedRoute>
         }
       />

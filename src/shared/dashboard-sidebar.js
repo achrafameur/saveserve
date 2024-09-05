@@ -54,19 +54,9 @@ const getSections = (userAccess) => {
           },
           { title: "Clients", path: "/admin/clients", icon: <PeopleIcon /> },
           {
-            title: "Demande d'inscription",
-            path: "/admin/professionnels_to_verify",
-            icon: <AddBusinessIcon />,
-          },
-          {
             title: "Professionnels",
             path: "/admin/professionnels",
             icon: <RestaurantRoundedIcon />,
-          },
-          {
-            title: "Demandes d'ajout d'images",
-            path: "/admin/requests",
-            icon: <RuleRoundedIcon />,
           },
           {
             title: "Ajouter un Admin",
@@ -75,6 +65,22 @@ const getSections = (userAccess) => {
           },
         ],
       },
+      {
+        title: "Gestion des Demandes",
+        icon: <SettingsIcon />,
+        items: [
+          {
+            title: "Demande d'inscription",
+            path: "/admin/professionnels_to_verify",
+            icon: <AddBusinessIcon />,
+          },
+          {
+            title: "Demandes d'ajout d'images",
+            path: "/admin/requests",
+            icon: <RuleRoundedIcon />,
+          }
+        ],
+      }
     ],
     1: [
       // Client
@@ -86,12 +92,19 @@ const getSections = (userAccess) => {
         ],
       },
       {
-        title: "Client",
+        title: "Gestion des commandes",
         icon: <PeopleIcon />,
         items: [
           { title: "Mon panier", path: "/panier", icon: <ShoppingCartIcon /> },
           { title: "Mes Favoris", path: "/favoris", icon: <FavoriteIcon /> },
           { title: "Mes Commandes", path: "/commandes", icon: <ListIcon /> },
+        ],
+      },
+      {
+        title: "Gestion des demandes",
+        icon: <PeopleIcon />,
+        items: [
+          { title: "Envoi d'un litige", path: "/ajout-litige", icon: <ShoppingCartIcon /> },
         ],
       },
     ],
