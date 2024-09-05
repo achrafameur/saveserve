@@ -118,7 +118,7 @@ const getSections = (userAccess) => {
           },
           {
             title: "Liste des commandes",
-            path: "/commandes",
+            path: "/commandesPro",
             icon: <ListIcon />,
           },
         ],

@@ -20,7 +20,7 @@ import DinnerDiningOutlinedIcon from '@mui/icons-material/DinnerDiningOutlined';
 
 const Commandes = () => {
   const [menus, setMenus] = useState([]);
-  const [resto, setResto] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [reload, setReload] = useState(false);
   const userId = localStorage.getItem("id");
 
@@ -29,10 +29,10 @@ const Commandes = () => {
     const fetchMenus = async () => {
       try {
         const response = await axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/client/commandes/${userId}`,
-            
-          );
-        // setResto(response.data);
+          `${process.env.REACT_APP_BACKEND_URL}/client/commandes/${userId}/`,
+
+        );
+        setOrders(response.data.commandes);
       } catch (error) {
         console.error(error);
       }
@@ -41,14 +41,65 @@ const Commandes = () => {
   }, [userId, reload]);
 
 
- 
+
 
 
   return (
     <>
       <Container>
+        <div
+          className="pageTitleHeader"
+          style={{ marginTop: 15, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          Listes des commandes
+          <div>
+            {orders.length}
+          </div>
+        </div>
 
-      
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px", marginTop: 0 }}>
+          {orders.map((menu, index) => (
+            <Card key={menu.id} sx={{ flexBasis: "100%", minWidth: 300 }}
+              style={{ borderRadius: 10, boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px' }}>
+
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  {menu.reference}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Date Commande : {menu.date_commande}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Total Commande : {menu.montant_total} €
+                </Typography>
+
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
+                  {menu.items.map((menu, index) => (
+                    <Card key={menu.id} sx={{ flexBasis: "30%", minWidth: 300 }}
+                      style={{ borderRadius: 10, boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px' }}>
+
+                      <CardContent>
+                        <Typography variant="h5" component="div">
+                          {menu.nom}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Quantite : {menu.quantite}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Prix unitaire : {menu.prix} €
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+
+                          Prix Total : {menu.total} €
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+
       </Container>
     </>
   );

@@ -22,6 +22,7 @@ import MenuDetails from "../professionnel/menus/MenuDetails";
 import { DashboardLayout } from "../shared/dashboard-layout";
 import AddAdmin from "../super_admin/addAdmin";
 import Commandes from "../client/commandes";
+import CommandesPro from "../professionnel/commandesPro";
 
 const AppRoutes = () => {
   return (
@@ -55,7 +56,7 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-       <Route
+      <Route
         path="/commandes"
         element={
           <ProtectedRoute>
@@ -65,6 +66,15 @@ const AppRoutes = () => {
         }
       />
 
+      <Route
+        path="/commandesPro"
+        element={
+          <ProtectedRoute>
+
+            <CommandesPro />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/panier"
         element={
