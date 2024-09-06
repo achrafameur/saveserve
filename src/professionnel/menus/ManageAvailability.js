@@ -36,7 +36,6 @@ const ManageAvailability = () => {
         number_dispo:
           (menus.find((menu) => menu.id === id).number_dispo || 0) + 1,
       });
-      // Mettre à jour la liste des menus avec la nouvelle valeur de number_dispo
       setMenus((prevMenus) => {
         return prevMenus.map((menu) => {
           if (menu.id === id) {
@@ -58,7 +57,6 @@ const ManageAvailability = () => {
         const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/professionnel/menu/update/${id}/`, {
           number_dispo: currentNumberDispo - 1,
         });
-        // Mettre à jour la liste des menus avec la nouvelle valeur de number_dispo
         setMenus((prevMenus) => {
           return prevMenus.map((menu) => {
             if (menu.id === id) {
@@ -73,18 +71,27 @@ const ManageAvailability = () => {
     }
   };
 
+  const getStatusBanner = (menu) => {
+    if (menu.is_declined) {
+      return { text: 'Refusé', color: 'red' };
+    } else if (menu.is_approved) {
+      return { text: 'Accepté', color: 'green' };
+    } else {
+      return { text: 'En attente', color: 'orange' };
+    }
+  };
+
   return (
     <>
-      
       <Container>
-        <div
-          className="pageTitleHeader">
+        <div className="pageTitleHeader">
           Gérer les disponibilités
         </div>
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
           {menus.map((menu, index) => (
-            <Card key={menu.id} sx={{ flexBasis: "30%", minWidth: 300 }}
-            style={{ borderRadius: 10, boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px' }}>
+            <Card key={menu.id} sx={{ flexBasis: "30%", minWidth: 300 }} 
+              style={{ borderRadius: 10, position: 'relative', boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px' }}>
+              
               <Link to={`/menu/${menu.id}`}>
                 <CardMedia
                   component="img"
@@ -92,17 +99,36 @@ const ManageAvailability = () => {
                   image={
                     menu.image !== 'image/upload/null'
                       ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`
-                      : altImage 
-                  }                  alt={menu.nom}
+                      : altImage
+                  }
+                  alt={menu.nom}
                 />
               </Link>
+
               <CardContent>
-                <Typography variant="h5" component="div">
-                  {menu.nom}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
+                {/* Titre et bannière de statut */}
+                <Box display="flex" alignItems="center" justifyContent="space-between">
+                  <Typography variant="h5" component="div">
+                    {menu.nom}
+                  </Typography>
+                  <Box
+                    sx={{
+                      backgroundColor: getStatusBanner(menu).color,
+                      color: "white",
+                      padding: "2px 5px",
+                      borderRadius: 5,
+                      fontWeight: "bold"
+                    }}
+                  >
+                    {getStatusBanner(menu).text}
+                  </Box>
+                </Box>
+
+                {/* Description du menu */}
+                <Typography variant="body2" color="text.secondary" mt={1}>
                   {menu.description}
                 </Typography>
+
                 <Box
                   display="flex"
                   alignItems="center"
@@ -116,7 +142,7 @@ const ManageAvailability = () => {
                       color="success"
                       onClick={() => handleIncrement(menu.id)}
                       style={{
-                        background:'linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)'
+                        background: 'linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)'
                       }}
                     >
                       +
@@ -129,7 +155,7 @@ const ManageAvailability = () => {
                       color="error"
                       onClick={() => handleDecrement(menu.id)}
                       style={{
-                        background:'linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)'
+                        background: 'linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)'
                       }}
                     >
                       -
@@ -141,7 +167,6 @@ const ManageAvailability = () => {
           ))}
         </Box>
       </Container>
-      
     </>
   );
 };
