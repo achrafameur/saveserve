@@ -70,13 +70,18 @@ const getSections = (userAccess) => {
         icon: <SettingsIcon />,
         items: [
           {
-            title: "Demande d'inscription",
+            title: "Demandes d'inscriptions",
             path: "/admin/professionnels_to_verify",
             icon: <AddBusinessIcon />,
           },
           {
             title: "Demandes d'ajout d'images",
             path: "/admin/requests",
+            icon: <RuleRoundedIcon />,
+          },
+          {
+            title: "Liste des Réclamations",
+            path: "/admin/réclamations",
             icon: <RuleRoundedIcon />,
           }
         ],
@@ -104,7 +109,7 @@ const getSections = (userAccess) => {
         title: "Gestion des demandes",
         icon: <PeopleIcon />,
         items: [
-          { title: "Envoi d'un litige", path: "/ajout-litige", icon: <ShoppingCartIcon /> },
+          { title: "Envoi d'une réclamation", path: "/ajout-réclamation", icon: <ShoppingCartIcon /> },
         ],
       },
     ],
