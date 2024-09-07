@@ -21,8 +21,11 @@ import AddMenu from "../professionnel/menus/AddMenu";
 import MenuDetails from "../professionnel/menus/MenuDetails";
 import { DashboardLayout } from "../shared/dashboard-layout";
 import AddAdmin from "../super_admin/addAdmin";
+import VerifyProfessional from "../super_admin/verifyProsUsers";
 import Commandes from "../client/commandes";
 import CommandesPro from "../professionnel/commandesPro";
+import AddLitige from "../client/addLitige";
+import LitigesList from "../super_admin/LitigesList";
 
 const AppRoutes = () => {
   return (
@@ -125,6 +128,14 @@ const AppRoutes = () => {
         }
       />
       <Route
+        path="/admin/professionnels_to_verify"
+        element={
+          <ProtectedRoute>
+            <VerifyProfessional />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/admin/requests"
         element={
           <ProtectedRoute>
@@ -161,6 +172,22 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <AddAdmin />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ajout-réclamation"
+        element={
+          <ProtectedRoute>
+            <AddLitige />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/réclamations"
+        element={
+          <ProtectedRoute>
+            <LitigesList />
           </ProtectedRoute>
         }
       />

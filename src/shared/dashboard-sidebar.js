@@ -25,6 +25,7 @@ import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSetting
 import AddBusinessRoundedIcon from '@mui/icons-material/AddBusinessRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 const drawerWidth = 300;
 
 const getSections = (userAccess) => {
@@ -58,17 +59,33 @@ const getSections = (userAccess) => {
             icon: <RestaurantRoundedIcon />,
           },
           {
-            title: "Demandes d'ajout d'images",
-            path: "/admin/requests",
-            icon: <RuleRoundedIcon />,
-          },
-          {
             title: "Ajouter un Admin",
             path: "/ajout-admin",
             icon: <AddCircleOutlineIcon />,
           },
         ],
       },
+      {
+        title: "Gestion des Demandes",
+        icon: <SettingsIcon />,
+        items: [
+          {
+            title: "Demandes d'inscriptions",
+            path: "/admin/professionnels_to_verify",
+            icon: <AddBusinessIcon />,
+          },
+          {
+            title: "Demandes d'ajout d'images",
+            path: "/admin/requests",
+            icon: <RuleRoundedIcon />,
+          },
+          {
+            title: "Liste des Réclamations",
+            path: "/admin/réclamations",
+            icon: <RuleRoundedIcon />,
+          }
+        ],
+      }
     ],
     1: [
       // Client
@@ -80,12 +97,19 @@ const getSections = (userAccess) => {
         ],
       },
       {
-        title: "Client",
+        title: "Gestion des commandes",
         icon: <PeopleIcon />,
         items: [
           { title: "Mon panier", path: "/panier", icon: <ShoppingCartIcon /> },
           { title: "Mes Favoris", path: "/favoris", icon: <FavoriteIcon /> },
           { title: "Mes Commandes", path: "/commandes", icon: <ListIcon /> },
+        ],
+      },
+      {
+        title: "Gestion des demandes",
+        icon: <PeopleIcon />,
+        items: [
+          { title: "Envoi d'une réclamation", path: "/ajout-réclamation", icon: <ShoppingCartIcon /> },
         ],
       },
     ],
