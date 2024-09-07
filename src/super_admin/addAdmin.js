@@ -94,7 +94,7 @@ const AddAdmin = () => {
             "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
         }}
       >
-        <Typography
+        <div
           variant="h5"
           component="div"
           style={{
@@ -106,9 +106,10 @@ const AddAdmin = () => {
             fontWeight: 600,
             color: "#2894a3",
           }}
+          className="pageTitleHeader"
         >
           Ajouter un Admin
-        </Typography>
+        </div>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, width: "100%" }}>
           <TextField
             margin="normal"

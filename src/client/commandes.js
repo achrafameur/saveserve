@@ -17,7 +17,7 @@ import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded
 import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import DinnerDiningOutlinedIcon from '@mui/icons-material/DinnerDiningOutlined';
-
+import '../App.css'
 const Commandes = () => {
   const [menus, setMenus] = useState([]);
   const [orders, setOrders] = useState([]);

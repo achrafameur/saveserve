@@ -234,7 +234,8 @@ const ProfessionnelsTable = () => {
           <Box sx={{ mb: 4 }}>
             <Grid container justifyContent="space-between" spacing={3}>
               <Grid item>
-                <Typography variant="h4">Professionnels</Typography>
+                <div className="pageTitleHeader"
+                style={{height:20}}>Professionnels</div>
               </Grid>
             </Grid>
             <Box sx={{ mt: 3 }}>

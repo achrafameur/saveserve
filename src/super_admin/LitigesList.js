@@ -56,7 +56,8 @@ const LitigesList = () => {
         <Container maxWidth="xl">
           <Grid container justifyContent="space-between" spacing={3}>
             <Grid item>
-              <Typography variant="h4">Litiges</Typography>
+              <div className="pageTitleHeader"
+              style={{height:20}}>Litiges</div>
             </Grid>
           </Grid>
           <Box sx={{ mt: 3 }}>

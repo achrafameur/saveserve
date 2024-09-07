@@ -17,7 +17,7 @@ import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded
 import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import DinnerDiningOutlinedIcon from '@mui/icons-material/DinnerDiningOutlined';
-
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 const FavoriteDashboard = () => {
   const [menus, setMenus] = useState([]);
   const [resto, setResto] = useState([]);
@@ -146,7 +146,12 @@ const FavoriteDashboard = () => {
   return (
     <>
       <Container>
-
+      <div
+          className="pageTitleHeader"
+          style={{ marginTop: 0, display: 'flex', justifyContent: 'center', alignItems: 'center',fontSize:50 ,fontFamily:'Century Gothic'}}>
+          Favoris
+          
+        </div>
         {((showResto || showMenus) &&
           <div>
             <Button
@@ -157,9 +162,9 @@ const FavoriteDashboard = () => {
                   displayResto();
                 }
               }}>
-              back
+              <ArrowBackIosRoundedIcon/>Back
             </Button>
-            Back to Favoris Page
+             to Favoris Page
           </div>
         )}
 
@@ -170,7 +175,7 @@ const FavoriteDashboard = () => {
               justifyContent: 'space-between',
               alignItems: 'center',
               width: '100%',
-              height: '90vh'
+              height: '76vh'
             }}>
             <Button
               style={{
@@ -180,20 +185,30 @@ const FavoriteDashboard = () => {
               }}
               onClick={displayResto}
             >
-              <div
-                style={{
-                  width: '45%',
-                  height: '80%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}>
-                <StorefrontOutlinedIcon
-                  sx={{
-                    fontSize: 450,
+              <div>
+                <div
+                  style={{
+                    fontSize: 40,
+                    display:'flex',
+                    justifyContent:'center'
+                  }}
+                  className="pageTitleHeader"
+                  > Restaurant</div>
 
-                  }} />
-              </div>
+                <div
+                  style={{
+                    width: '100%',
+                    height: '80%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                  <StorefrontOutlinedIcon
+                    sx={{
+                      fontSize: 450,
+
+                    }} />
+                </div></div>
             </Button>
 
             <Button
@@ -205,19 +220,30 @@ const FavoriteDashboard = () => {
               onClick={displayMenus}
 
             >
-              <div
-                style={{
-                  width: '45%',
-                  height: '80%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}>
-                < DinnerDiningOutlinedIcon
-                  sx={{
-                    fontSize: 450,
+              <div>
+                <div
+                   style={{
+                    fontSize: 40,
+                    display:'flex',
+                    justifyContent:'center'
+                  }}
+                  className="pageTitleHeader"
+                  >  Menus</div>
 
-                  }} />
+                <div
+                  style={{
+                    width: '100%',
+                    height: '80%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                  < DinnerDiningOutlinedIcon
+                    sx={{
+                      fontSize: 450,
+
+                    }} />
+                </div>
               </div>
             </Button>
           </div>

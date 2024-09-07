@@ -85,9 +85,10 @@ const SuperAdminsTable = () => {
       /> */}
       <Grid container justifyContent="space-between" spacing={3}>
         <Grid item>
-          <Typography variant="h4">
+          <div className="pageTitleHeader"
+          style={{height:20}}>
             Demandes d'inscriptions de professionnels
-          </Typography>
+          </div>
         </Grid>
       </Grid>
 
