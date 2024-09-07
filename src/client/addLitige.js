@@ -73,7 +73,7 @@ const AddLitige = () => {
         }}
 
       >
-        <Typography
+        <div
           variant="h5"
           component="div"
           style={{
@@ -85,9 +85,10 @@ const AddLitige = () => {
             fontWeight: 600,
             color: "#2894a3",
           }}
+          className="pageTitleHeader"
         >
           Créer un Litige
-        </Typography>
+        </div>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, width: "100%" }}>
           <TextField
             margin="normal"

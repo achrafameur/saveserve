@@ -114,7 +114,8 @@ const SuperAdminsTable = () => {
         <Container maxWidth="xl">
           <Grid container justifyContent="space-between" spacing={3}>
             <Grid item>
-              <Typography variant="h4">Super Admins</Typography>
+              <div style={{height:20}}
+              className="pageTitleHeader">Super Admins</div>
             </Grid>
           </Grid>
           <Box sx={{ mt: 3 }}>
