@@ -172,12 +172,12 @@ const ClientDashboard = () => {
                   "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
               }}
             >
-              <Link to={`/menu/${menu.id}`}>
+              <Link to={`/client/menu/${menu.id}`}>
                 <CardMedia
                   component="img"
                   height="140"
                   image={
-                    menu.image !== "image/upload/null"
+                    menu.image !== "image/upload/null" && menu.is_approved
                       ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.image}`
                       : `https://res.cloudinary.com/dubrka8it/image/upload/v1724978765/food_kyvzbf.png`
                   }
