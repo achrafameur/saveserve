@@ -26,6 +26,7 @@ import Commandes from "../client/commandes";
 import CommandesPro from "../professionnel/commandesPro";
 import AddLitige from "../client/addLitige";
 import LitigesList from "../super_admin/LitigesList";
+import MenuView from "../client/MenuView";
 
 const AppRoutes = () => {
   return (
@@ -164,6 +165,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <MenuDetails />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/client/menu/:menu_id"
+        element={
+          <ProtectedRoute>
+            <MenuView />
           </ProtectedRoute>
         }
       />
