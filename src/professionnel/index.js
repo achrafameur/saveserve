@@ -1,24 +1,35 @@
 import React from 'react';
-// import DashboardNavbar from '../shared/dashboard-navbar';
-// import Footer from '../shared/Foorter';
-import { DashboardLayout } from '../shared/dashboard-layout';
-// import { DashboardLayout } from '../shared/dashboard-layout';
-// import {AdminProtectedRoute } from '../auth/ProtectedRoutes/AdminProtectedRoute'
 import axios from "axios";
 import { useEffect,useState } from 'react';
 import StatCard from '../components/statCard';
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
-import AddBusinessRoundedIcon from '@mui/icons-material/AddBusinessRounded';
 import EuroRoundedIcon from '@mui/icons-material/EuroRounded';
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
+import { Typography, Box } from "@mui/material";
+
 const ProfessionnelDashboard = () => {
   const userId = localStorage.getItem('id');
   const [stats, setStats] = useState([]);
+  const [isVerified, setIsVerified] = useState(false);
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/profile/`,
+          { admin_id: userId }
+        );
+        setIsVerified(response.data.is_verified);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchProfile();
+  }, [userId]);
 
   useEffect(() => {
     const fetchSuperAdmins = async () => {
@@ -28,14 +39,71 @@ const ProfessionnelDashboard = () => {
       setStats(response.data.stats)
     };
     fetchSuperAdmins();
-  }, []);
+  }, [isVerified, userId]);
 
+  if (!isVerified) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 1000,
+        }}
+      >
+        <Box
+          sx={{
+            textAlign: "center",
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "10px",
+            boxShadow:
+              "rgba(0, 0, 0, 0.2) 0px 5px 15px, rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
+            maxWidth: "700px",
+            width: "100%",
+            position: "relative",
+            marginLeft: "20%",
+          }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "-60px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontSize: "4rem",
+              color: "orange",
+            }}
+          >
+            ⏳
+          </Box>
+          <Typography
+            variant="h4"
+            color="text.primary"
+            fontWeight="bold"
+            mt={4}
+          >
+            Veuillez patienter
+          </Typography>
+          <Typography variant="body1" color="text.secondary" mt={2}>
+            Votre compte est en cours de vérification par les administrateurs.
+            Veuillez patienter, cela ne devrait pas tarder.
+          </Typography>
+        </Box>
+      </Box>
+    );
+  }
 
   return (
       <>
       <div className="pageTitleHeader">Bienvenue, Professionnel</div>
-      <div className="pageTitleHeader"
-      style={{fontSize:20,fontWeight:300,height:25}}>Ceci est votre tableau de bord professionnel.</div>
+      {/* <div className="pageTitleHeader"
+      style={{fontSize:20,fontWeight:300,height:25}}>Ceci est votre tableau de bord professionnel.</div> */}
       <div
       style={{display:'flex',justifyContent:'space-between',gap:20,marginTop:20,padding:20}}>
       <StatCard name={'Total Orders'} value={stats.total_orders} icon={ListAltRoundedIcon}/>
