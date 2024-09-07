@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Table,
@@ -9,17 +9,13 @@ import {
   TableRow,
   Paper,
   Box,
-  InputAdornment,
-  TextField,
   Grid,
   Typography,
   Button,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 
 const SuperAdminsTable = () => {
   const [superAdmins, setSuperAdmins] = useState([]);
-  const queryRef = useRef(null);
 
   // Récupérer les données depuis l'API
   useEffect(() => {

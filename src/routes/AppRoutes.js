@@ -5,8 +5,8 @@ import SignUp from "../auth/signup/SignUp";
 import Login from "../auth/Login";
 import ProfessionnelDashboard from "../professionnel";
 import ClientDashboard from "../client";
-import FavoriteDashboard from '../client/favorite'
-import Panier from '../client/panier'
+import FavoriteDashboard from "../client/favorite";
+import Panier from "../client/panier";
 import SuperAdminDashboard from "../super_admin";
 import ProtectedRoute from "../auth/ProtectedRoutes/ProtectedRoute";
 import Profile from "../shared/Profile";
@@ -19,7 +19,6 @@ import ProfessionalSignUp from "../auth/signup/ProfessionalSignUp";
 import ManageAvailability from "../professionnel/menus/ManageAvailability";
 import AddMenu from "../professionnel/menus/AddMenu";
 import MenuDetails from "../professionnel/menus/MenuDetails";
-import { DashboardLayout } from "../shared/dashboard-layout";
 import AddAdmin from "../super_admin/addAdmin";
 import VerifyProfessional from "../super_admin/verifyProsUsers";
 import Commandes from "../client/commandes";
@@ -27,6 +26,9 @@ import CommandesPro from "../professionnel/commandesPro";
 import AddLitige from "../client/addLitige";
 import LitigesList from "../super_admin/LitigesList";
 import MenuView from "../client/MenuView";
+import ActivateLocation from "../shared/activate-location";
+import NearbyRestaurantsMap from "../client/nearby-restaurants";
+import RestaurantDetail from "../professionnel/RestaurantDetail";
 
 const AppRoutes = () => {
   return (
@@ -55,7 +57,6 @@ const AppRoutes = () => {
         path="/favoris"
         element={
           <ProtectedRoute>
-
             <FavoriteDashboard />
           </ProtectedRoute>
         }
@@ -64,7 +65,6 @@ const AppRoutes = () => {
         path="/commandes"
         element={
           <ProtectedRoute>
-
             <Commandes />
           </ProtectedRoute>
         }
@@ -74,7 +74,6 @@ const AppRoutes = () => {
         path="/commandesPro"
         element={
           <ProtectedRoute>
-
             <CommandesPro />
           </ProtectedRoute>
         }
@@ -83,7 +82,6 @@ const AppRoutes = () => {
         path="/panier"
         element={
           <ProtectedRoute>
-
             <Panier />
           </ProtectedRoute>
         }
@@ -197,6 +195,30 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <LitigesList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/localisation"
+        element={
+          <ProtectedRoute>
+            <ActivateLocation />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/restaurants-proximité"
+        element={
+          <ProtectedRoute>
+            <NearbyRestaurantsMap />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/restaurant/:restaurantId"
+        element={
+          <ProtectedRoute>
+            <RestaurantDetail />
           </ProtectedRoute>
         }
       />
