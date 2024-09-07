@@ -114,24 +114,27 @@ const Panier = () => {
     }
   };
 
-  const handleIncrement = async (menuId, menuQuantity) => {
-    try {
-      menuQuantity = menuQuantity + 1;
-      await axios.put(
-        `${process.env.REACT_APP_BACKEND_URL}/client/panier/update/${menuId}/`,
-        {
-          quantite: menuQuantity,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
+  const handleIncrement = async (menuId, menuQuantity, numberDispo) => {
+    if (menuQuantity < numberDispo) {
+      try {
+        menuQuantity = menuQuantity + 1;
+        await axios.put(
+          `${process.env.REACT_APP_BACKEND_URL}/client/panier/update/${menuId}/`,
+          {
+            quantite: menuQuantity,
           },
-        }
-      );
-      // Re-fetch the menus after updating the quantity
-      fetchMenus();
-    } catch (error) {
-      console.error(error);
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        fetchMenus();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      alert("Vous avez atteint la quantité maximale disponible pour ce menu.");
     }
   };
 
@@ -420,12 +423,12 @@ const Panier = () => {
                   </Button>
                 </div>
 
-                <Link to={`/menu/${menu.id}`}>
+                <Link to={`/client/menu/${menu.id}`}>
                   <CardMedia
                     component="img"
                     height="140"
                     image={
-                      menu.menu.image !== "image/upload/null"
+                      menu.menu.image !== "image/upload/null" && menu.is_approved
                         ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.menu.image}`
                         : "https://res.cloudinary.com/dubrka8it/image/upload/v1724978765/food_kyvzbf.png"
                     }
@@ -457,7 +460,7 @@ const Panier = () => {
                           variant="contained"
                           color="success"
                           onClick={() =>
-                            handleIncrement(menu.id, menu.quantite)
+                            handleIncrement(menu.id, menu.quantite, menu.menu.number_dispo)
                           }
                           style={{
                             background:
