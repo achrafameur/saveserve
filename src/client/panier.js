@@ -189,9 +189,9 @@ const Panier = () => {
   };
 
   const RedirectToStripeCheckoutLink = () => {
-    window.open(linkStripe, "_blank");
+    window.location.href = linkStripe;
   };
-
+  
   return (
     <>
       <Container>

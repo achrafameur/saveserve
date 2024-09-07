@@ -24,21 +24,21 @@ const Commandes = () => {
   const [reload, setReload] = useState(false);
   const userId = localStorage.getItem("id");
 
-
   useEffect(() => {
     const fetchMenus = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/client/commandes/${userId}/`,
-
+          `${process.env.REACT_APP_BACKEND_URL}/client/commandes/${userId}/`
         );
-        setOrders(response.data.commandes);
+        const reversedOrders = response.data.commandes.reverse();
+        setOrders(reversedOrders);
       } catch (error) {
         console.error(error);
       }
     };
     fetchMenus();
   }, [userId, reload]);
+  
 
 
 
