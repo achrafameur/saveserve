@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Table,
@@ -9,24 +9,20 @@ import {
   TableRow,
   Paper,
   Box,
-  InputAdornment,
-  TextField,
   Grid,
   Typography,
   Button,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 
 const SuperAdminsTable = () => {
   const [superAdmins, setSuperAdmins] = useState([]);
-  const queryRef = useRef(null);
 
   // Récupérer les données depuis l'API
   useEffect(() => {
     const fetchProfessionals = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/superadmin/admins/list-professionnels/`
+          `${process.env.REACT_APP_BACKEND_URL}/professionnel/admins/list-professionnels/`
         );
         setSuperAdmins(response.data);
       } catch (error) {
@@ -43,7 +39,7 @@ const SuperAdminsTable = () => {
   const handleVerify = async (adminId) => {
     try {
       await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/superadmin/verifier-professionnel/${adminId}/`
+        `${process.env.REACT_APP_BACKEND_URL}/professionnel/verifier-professionnel/${adminId}/`
       );
       alert("Professionnel validé avec succès");
       // Optionnel : recharger la liste après validation
@@ -57,7 +53,7 @@ const SuperAdminsTable = () => {
   const handleDecline = async (adminId) => {
     try {
       await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/superadmin/refuser-professionnel/${adminId}/`
+        `${process.env.REACT_APP_BACKEND_URL}/professionnel/refuser-professionnel/${adminId}/`
       );
       alert("Professionnel refusé avec succès");
       // Optionnel : recharger la liste après refus

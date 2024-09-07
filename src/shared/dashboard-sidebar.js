@@ -12,21 +12,22 @@ import {
 import HomeIcon from "@mui/icons-material/Home"; // Example icons
 import PeopleIcon from "@mui/icons-material/People";
 import SettingsIcon from "@mui/icons-material/Settings";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import ListIcon from "@mui/icons-material/List";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import PropTypes from "prop-types";
 import axios from "axios";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
-import RestaurantRoundedIcon from '@mui/icons-material/RestaurantRounded';
-import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
-import AddBusinessRoundedIcon from '@mui/icons-material/AddBusinessRounded';
-import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import AddBusinessIcon from '@mui/icons-material/AddBusiness';
-import Logo from '../imgs/logo.png'
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import RuleRoundedIcon from "@mui/icons-material/RuleRounded";
+import RestaurantRoundedIcon from "@mui/icons-material/RestaurantRounded";
+import AdminPanelSettingsRoundedIcon from "@mui/icons-material/AdminPanelSettingsRounded";
+import AddBusinessRoundedIcon from "@mui/icons-material/AddBusinessRounded";
+import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import AddBusinessIcon from "@mui/icons-material/AddBusiness";
+import StorefrontIcon from "@mui/icons-material/Storefront";
 const drawerWidth = 300;
 
 const getSections = (userAccess) => {
@@ -83,10 +84,10 @@ const getSections = (userAccess) => {
           {
             title: "Liste des Réclamations",
             path: "/admin/réclamations",
-            icon: <RuleRoundedIcon />,
-          }
+            icon: <ContactSupportIcon />,
+          },
         ],
-      }
+      },
     ],
     1: [
       // Client
@@ -95,6 +96,16 @@ const getSections = (userAccess) => {
         icon: <HomeIcon />,
         items: [
           { title: "Tableau de bord", path: "/client", icon: <HomeIcon /> },
+          {
+            title: "Activer la localisation",
+            path: "/localisation",
+            icon: <AddLocationAltIcon />,
+          },
+          {
+            title: "Restaurants de proximité",
+            path: "/restaurants-proximité",
+            icon: <StorefrontIcon />,
+          },
         ],
       },
       {
@@ -110,7 +121,11 @@ const getSections = (userAccess) => {
         title: "Gestion des demandes",
         icon: <PeopleIcon />,
         items: [
-          { title: "Envoi d'une réclamation", path: "/ajout-réclamation", icon: <ShoppingCartIcon /> },
+          {
+            title: "Envoi d'une réclamation",
+            path: "/ajout-réclamation",
+            icon: <ContactSupportIcon />,
+          },
         ],
       },
     ],
@@ -124,6 +139,11 @@ const getSections = (userAccess) => {
             title: "Tableau de bord",
             path: "/professionnel",
             icon: <HomeIcon />,
+          },
+          {
+            title: "Activer la localisation",
+            path: "/localisation",
+            icon: <AddLocationAltIcon />,
           },
         ],
       },
@@ -188,10 +208,11 @@ const DashboardSidebar = ({ open, onClose }) => {
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
-          background: 'linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)',
+          background:
+            "linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)",
           color: "white",
-          width :300,
-          overflowY:'none'
+          width: 300,
+          overflowY: "none",
         },
       }}
       variant="permanent"
@@ -199,8 +220,7 @@ const DashboardSidebar = ({ open, onClose }) => {
       open={open}
       onClose={onClose}
       ModalProps={{ keepMounted: true }}
-      style={{
-      }}
+      style={{}}
     >
       <Toolbar>
         <Box sx={{ display: "flex", alignItems: "center", width: "100%",border:0 }}>
@@ -208,8 +228,12 @@ const DashboardSidebar = ({ open, onClose }) => {
           style={{display:'flex',alignItems:'center'}}>
             <img src="https://res.cloudinary.com/dubrka8it/image/upload/v1725749848/logo_t9zbro.png" alt="Logo" style={{ height: 35, width: 35,marginRight:5 }} />
           </RouterLink>
-          <Typography variant="h6" noWrap sx={{ marginLeft: 0 }}
-          style={{fontFamily:'Century Gothic;',fontWeight:800}}>
+          <Typography
+            variant="h6"
+            noWrap
+            sx={{ marginLeft: 0 }}
+            style={{ fontFamily: "Century Gothic;", fontWeight: 800 }}
+          >
             Save&Serve
           </Typography>
         </Box>
