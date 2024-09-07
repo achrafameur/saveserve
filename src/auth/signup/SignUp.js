@@ -57,7 +57,7 @@ const SignUp = () => {
             }}
           >
             <RouterLink to="/">
-              <img src="/logo.jpg" alt="Logo" style={{ height: 80, width: 80 }} />
+              <img src="https://res.cloudinary.com/dubrka8it/image/upload/v1725750135/logoBlack_rjfrix.png" alt="Logo" style={{ height: 80, width: 80 }} />
             </RouterLink>
             <Typography variant="h4">S'inscrire</Typography>
             <Typography color="textSecondary" sx={{ mt: 2 }} variant="body2">

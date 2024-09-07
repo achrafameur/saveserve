@@ -26,6 +26,7 @@ import AddBusinessRoundedIcon from '@mui/icons-material/AddBusinessRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import Logo from '../imgs/logo.png'
 const drawerWidth = 300;
 
 const getSections = (userAccess) => {
@@ -203,8 +204,9 @@ const DashboardSidebar = ({ open, onClose }) => {
     >
       <Toolbar>
         <Box sx={{ display: "flex", alignItems: "center", width: "100%",border:0 }}>
-          <RouterLink to="/">
-            <img src="/logo.jpg" alt="Logo" style={{ height: 25, width: 25 }} />
+          <RouterLink to="/"
+          style={{display:'flex',alignItems:'center'}}>
+            <img src="https://res.cloudinary.com/dubrka8it/image/upload/v1725749848/logo_t9zbro.png" alt="Logo" style={{ height: 35, width: 35,marginRight:5 }} />
           </RouterLink>
           <Typography variant="h6" noWrap sx={{ marginLeft: 0 }}
           style={{fontFamily:'Century Gothic;',fontWeight:800}}>
