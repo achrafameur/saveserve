@@ -33,8 +33,9 @@ const ProfessionnelDashboard = () => {
 
   return (
       <>
-      <h1>Bienvenue, Professionnel</h1>
-      <p>Ceci est votre tableau de bord professionnel.</p>
+      <div className="pageTitleHeader">Bienvenue, Professionnel</div>
+      <div className="pageTitleHeader"
+      style={{fontSize:20,fontWeight:300,height:25}}>Ceci est votre tableau de bord professionnel.</div>
       <div
       style={{display:'flex',justifyContent:'space-between',gap:20,marginTop:20,padding:20}}>
       <StatCard name={'Total Orders'} value={stats.total_orders} icon={ListAltRoundedIcon}/>

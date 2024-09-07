@@ -86,7 +86,8 @@ const AddMenu = () => {
               fontSize: 30,
               fontWeight: 600,
               color:'#2894a3'
-            }}>
+            }}
+            className="pageTitleHeader">
            Ajouter un Menu
           </div>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, width: '100%' }}

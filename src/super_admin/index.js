@@ -6,9 +6,10 @@ const SuperAdminDashboard = () => {
   return (
     <div>
       
-      <h1>Bienvenue, Super Admin</h1>
-      <p>Ceci est votre tableau de bord super admin.</p>
       
+      <div className="pageTitleHeader">Bienvenue, Super Admin</div>
+      <div className="pageTitleHeader"
+      style={{fontSize:20,fontWeight:300,height:25}}>Ceci est votre tableau de bord super admin.</div>
     </div>
   );
 };
