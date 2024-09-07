@@ -207,7 +207,7 @@ const DashboardSidebar = ({ open, onClose }) => {
             <img src="/logo.jpg" alt="Logo" style={{ height: 25, width: 25 }} />
           </RouterLink>
           <Typography variant="h6" noWrap sx={{ marginLeft: 0 }}
-          style={{fontFamily:'italic',fontWeight:800}}>
+          style={{fontFamily:'Century Gothic;',fontWeight:800}}>
             Save&Serve
           </Typography>
         </Box>
