@@ -15,9 +15,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import altImage from "../../src/imgs/food.png";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
-import DinnerDiningOutlinedIcon from '@mui/icons-material/DinnerDiningOutlined';
-import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
+import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
+import DinnerDiningOutlinedIcon from "@mui/icons-material/DinnerDiningOutlined";
+import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 const FavoriteDashboard = () => {
   const [menus, setMenus] = useState([]);
   const [resto, setResto] = useState([]);
@@ -132,27 +132,31 @@ const FavoriteDashboard = () => {
   const [showResto, setShowResto] = useState(false);
   const [showMenus, setShowMenus] = useState(false);
 
-
   const displayResto = () => {
-    setShowResto(!showResto)
-  }
+    setShowResto(!showResto);
+  };
 
   const displayMenus = async () => {
-    setShowMenus(!showMenus)
-
-  }
-
+    setShowMenus(!showMenus);
+  };
 
   return (
     <>
       <Container>
-      <div
+        <div
           className="pageTitleHeader"
-          style={{ marginTop: 0, display: 'flex', justifyContent: 'center', alignItems: 'center',fontSize:50 ,fontFamily:'Century Gothic'}}>
+          style={{
+            marginTop: 0,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: 50,
+            fontFamily: "Century Gothic",
+          }}
+        >
           Favoris
-          
         </div>
-        {((showResto || showMenus) &&
+        {(showResto || showMenus) && (
           <div>
             <Button
               onClick={() => {
@@ -161,27 +165,30 @@ const FavoriteDashboard = () => {
                 } else if (showResto) {
                   displayResto();
                 }
-              }}>
-              <ArrowBackIosRoundedIcon/>Back
+              }}
+            >
+              <ArrowBackIosRoundedIcon />
+              Retour
             </Button>
-             to Favoris Page
           </div>
         )}
 
-        {(!showResto && !showMenus &&
+        {!showResto && !showMenus && (
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: '100%',
-              height: '76vh'
-            }}>
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+              height: "76vh",
+            }}
+          >
             <Button
               style={{
-                background: "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
+                background:
+                  "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
                 color: "white",
-                borderRadius: 15
+                borderRadius: 15,
               }}
               onClick={displayResto}
             >
@@ -189,68 +196,76 @@ const FavoriteDashboard = () => {
                 <div
                   style={{
                     fontSize: 40,
-                    display:'flex',
-                    justifyContent:'center'
+                    display: "flex",
+                    justifyContent: "center",
                   }}
                   className="pageTitleHeader"
-                  > Restaurant</div>
+                >
+                  {" "}
+                  Restaurant
+                </div>
 
                 <div
                   style={{
-                    width: '100%',
-                    height: '80%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}>
+                    width: "100%",
+                    height: "80%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <StorefrontOutlinedIcon
                     sx={{
                       fontSize: 450,
-
-                    }} />
-                </div></div>
+                    }}
+                  />
+                </div>
+              </div>
             </Button>
 
             <Button
               style={{
-                background: "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
+                background:
+                  "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
                 color: "white",
-                borderRadius: 15
+                borderRadius: 15,
               }}
               onClick={displayMenus}
-
             >
               <div>
                 <div
-                   style={{
+                  style={{
                     fontSize: 40,
-                    display:'flex',
-                    justifyContent:'center'
+                    display: "flex",
+                    justifyContent: "center",
                   }}
                   className="pageTitleHeader"
-                  >  Menus</div>
+                >
+                  {" "}
+                  Menus
+                </div>
 
                 <div
                   style={{
-                    width: '100%',
-                    height: '80%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}>
-                  < DinnerDiningOutlinedIcon
+                    width: "100%",
+                    height: "80%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <DinnerDiningOutlinedIcon
                     sx={{
                       fontSize: 450,
-
-                    }} />
+                    }}
+                  />
                 </div>
               </div>
             </Button>
           </div>
         )}
 
-
-        {(showMenus &&
+        {showMenus && (
           <div>
             <div className="pageTitleHeader">Favoris menu</div>
             {menus.length === 0 ? (
@@ -269,7 +284,6 @@ const FavoriteDashboard = () => {
                         "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
                     }}
                   >
-
                     <CardMedia
                       component="img"
                       height="140"
@@ -319,8 +333,7 @@ const FavoriteDashboard = () => {
           </div>
         )}
 
-
-        {(showResto &&
+        {showResto && (
           <div>
             <div className="pageTitleHeader">Favoris resto</div>
             {resto.length === 0 ? (
@@ -339,30 +352,33 @@ const FavoriteDashboard = () => {
                         "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
                     }}
                   >
-
-                    <CardMedia
-                      component="img"
-                      height="140"
-                      image={
-                        restaurant.avatar
-                          ? `${process.env.REACT_APP_CLOUDINARY_URL}/${restaurant.avatar}`
-                          : altImage
-                      }
-                      alt={restaurant.nom_organisme || "Restaurant Image"}
-                    />
-
+                    <Link to={`/restaurant/${restaurant.id}`}>
+                      <CardMedia
+                        component="img"
+                        height="140"
+                        image={
+                          restaurant.avatar
+                            ? `${process.env.REACT_APP_CLOUDINARY_URL}/${restaurant.avatar}`
+                            : altImage
+                        }
+                        alt={restaurant.nom_organisme || "Restaurant Image"}
+                      />
+                    </Link>
                     <CardContent>
                       <Typography variant="h5" component="div">
                         {restaurant.nom_organisme
                           ? restaurant.nom_organisme
                           : "N/A"}
 
-                        <Button onClick={() => removeFromFavResto(restaurant.id)}>
+                        <Button
+                          onClick={() => removeFromFavResto(restaurant.id)}
+                        >
                           <BookmarkRoundedIcon />
                         </Button>
                       </Typography>
                       <Typography variant="h5" component="div">
-                        {restaurant.localisation || "Localisation non disponible"}
+                        {restaurant.localisation ||
+                          "Localisation non disponible"}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {restaurant.adresse_mail || "Email non disponible"}
@@ -374,7 +390,6 @@ const FavoriteDashboard = () => {
             )}
           </div>
         )}
-
       </Container>
     </>
   );

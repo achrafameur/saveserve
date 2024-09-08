@@ -106,3 +106,107 @@ const NearbyRestaurantsMap = () => {
 };
 
 export default NearbyRestaurantsMap;
+
+
+// import React, { useEffect, useState } from "react";
+// import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+// import axios from "axios";
+// import CircularProgress from "@mui/material/CircularProgress";
+// import Box from "@mui/material/Box";
+// import { Link } from "react-router-dom";
+
+// const mapStyles = {
+//   height: "100vh",
+//   width: "100%",
+// };
+
+// const NearbyRestaurantsMap = () => {
+//   const [restaurants, setRestaurants] = useState([]);
+//   const [userLocation, setUserLocation] = useState(null); // Localisation initialement nulle
+//   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+
+//   const fetchUserLocation = async () => {
+//     const userId = localStorage.getItem("id");
+//     try {
+//       const response = await axios.post(
+//         `${process.env.REACT_APP_BACKEND_URL}/api/check-location/`,
+//         {
+//           admin_id: userId,
+//         }
+//       );
+
+//       if (response.data.latitude && response.data.longitude) {
+//         setUserLocation({
+//           lat: response.data.latitude,
+//           lng: response.data.longitude,
+//         });
+
+//         const nearbyRestaurantsResponse = await axios.post(
+//           `${process.env.REACT_APP_BACKEND_URL}/client/get-nearby-restaurants/`,
+//           {
+//             client_id: userId,
+//           }
+//         );
+//         setRestaurants(nearbyRestaurantsResponse.data);
+//       } else {
+//         console.error("No location found for user.");
+//       }
+//     } catch (error) {
+//       console.error("Error fetching user location:", error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchUserLocation();
+//   }, []);
+
+//   if (!userLocation) {
+//     return (
+//       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+//         <CircularProgress />
+//       </Box>
+//     );
+//   }
+
+//   return (
+//     <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+//       <GoogleMap
+//         mapContainerStyle={mapStyles}
+//         zoom={13}
+//         center={userLocation}
+//       >
+//         {/* Marqueur pour l'utilisateur (client) */}
+//         <Marker position={userLocation} />
+
+//         {/* Marqueurs pour les restaurants */}
+//         {restaurants.map((restaurant, index) => (
+//           <Marker
+//             key={index}
+//             position={{ lat: restaurant.latitude, lng: restaurant.longitude }}
+//             onClick={() => setSelectedRestaurant(restaurant)}
+//           />
+//         ))}
+
+//         {/* InfoWindow pour afficher les détails du restaurant sélectionné */}
+//         {selectedRestaurant && (
+//           <InfoWindow
+//             position={{
+//               lat: selectedRestaurant.latitude,
+//               lng: selectedRestaurant.longitude,
+//             }}
+//             onCloseClick={() => setSelectedRestaurant(null)}
+//           >
+//             <div>
+//               <Link to={`/restaurant/${selectedRestaurant.id}`}>
+//                 {selectedRestaurant.nom_organisme}
+//               </Link>
+//             </div>
+//           </InfoWindow>
+//         )}
+//       </GoogleMap>
+//     </LoadScript>
+//   );
+// };
+
+// export default NearbyRestaurantsMap;
+

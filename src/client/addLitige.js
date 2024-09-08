@@ -27,7 +27,7 @@ const AddLitige = () => {
         titre,
         description,
         date_ajout: new Date().toISOString(),
-        admin : userId
+        admin: userId,
       };
 
       const response = await axios.post(
@@ -49,8 +49,8 @@ const AddLitige = () => {
 
   const handleDialogClose = () => {
     setOpenDialog(false);
-    setTitre('');
-    setDescription('');
+    setTitre("");
+    setDescription("");
   };
 
   return (
@@ -69,9 +69,8 @@ const AddLitige = () => {
           borderRadius: 10,
           boxShadow:
             "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
-            fontFamily:'Century Gothic'
+          fontFamily: "Century Gothic",
         }}
-
       >
         <div
           variant="h5"
@@ -87,9 +86,13 @@ const AddLitige = () => {
           }}
           className="pageTitleHeader"
         >
-          Créer un Litige
+          Envoyer une réclamation{" "}
         </div>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, width: "100%" }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ mt: 1, width: "100%" }}
+        >
           <TextField
             margin="normal"
             required
@@ -132,7 +135,14 @@ const AddLitige = () => {
               },
             }}
           />
-          <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: 2 }}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              mt: 2,
+            }}
+          >
             <Button
               type="submit"
               variant="contained"
@@ -144,7 +154,7 @@ const AddLitige = () => {
                 marginBottom: 10,
               }}
             >
-              Créer
+              Envoyer
             </Button>
           </Box>
         </Box>
@@ -157,8 +167,7 @@ const AddLitige = () => {
             Le litige a été créé avec succès !
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-        </DialogActions>
+        <DialogActions></DialogActions>
       </Dialog>
     </Container>
   );

@@ -8,6 +8,7 @@ import {
   CardMedia,
   Container,
   Typography,
+  TextField
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -19,6 +20,7 @@ import altImage from "../../src/imgs/food.png";
 
 const ClientDashboard = () => {
   const [menus, setMenus] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const userId = localStorage.getItem("id");
   const [reload, setReload] = useState(false);
 
@@ -29,6 +31,7 @@ const ClientDashboard = () => {
           `${process.env.REACT_APP_BACKEND_URL}/professionnel/menus/`,
           {
             user_id: userId,
+            search_query: searchQuery
           },
           {
             headers: {
@@ -42,7 +45,11 @@ const ClientDashboard = () => {
       }
     };
     fetchMenus();
-  }, [reload, userId]);
+  }, [reload, userId, searchQuery]);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value); // Mettre à jour le texte de recherche
+  };
 
   const addToFavMenu = async (menuId) => {
     try {
@@ -160,7 +167,19 @@ const ClientDashboard = () => {
   return (
     <>
       <Container>
-        <div className="pageTitleHeader">Consulter les menus disponibles</div>
+        <Box display="flex" justifyContent="space-between" mt={2} alignItems="center" >
+          <div className="pageTitleHeader">Consulter les menus disponibles</div>
+          <TextField
+            id="outlined-basic"
+            label="Rechercher un menu ou restaurant"
+            variant="outlined"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            sx={{
+              minWidth : '300px',
+            }}
+          />
+        </Box>
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
           {menus.map((menu, index) => (
             <Card

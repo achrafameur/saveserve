@@ -186,7 +186,7 @@ const DashboardNavbar = ({ onToggleSidebar }) => {
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
                   {userProfile.id_service === 0
-                    ? "Super Admin"
+                    ? "Admin"
                     : userProfile.id_service === 1
                       ? "Client"
                       : "Organisme"}
