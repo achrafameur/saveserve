@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Button, TextField, Container, Typography, Box } from "@mui/material";
-import Navbar from "../../shared/dashboard-navbar";
-import Footer from "../../shared/Foorter";
+import { Button, TextField, Container, Typography, Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const AddMenu = () => {
   const navigate = useNavigate();
   const [nom, setNom] = useState("");
   const [description, setDescription] = useState("");
-  const [prix, setPrix] = useState("");
+  const [prix, setPrix] = useState(0);
   const [imageFile, setImageFile] = useState(null);
+  const [menuType, setMenuType] = useState("Menu");
   const [isVerified, setIsVerified] = useState(false);
   const userId = localStorage.getItem("id");
 
@@ -42,7 +41,18 @@ const AddMenu = () => {
   };
 
   const handlePrixChange = (e) => {
-    setPrix(e.target.value);
+    const value = parseFloat(e.target.value);
+    setPrix(value);
+  };
+
+  const handleMenuTypeChange = (e) => {
+    const selectedType = e.target.value;
+    setMenuType(selectedType);
+    if (selectedType === "Panier Mystère") {
+      setNom("Panier Mystère");
+    } else {
+      setNom("");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -53,6 +63,7 @@ const AddMenu = () => {
       formData.append("nom", nom);
       formData.append("description", description);
       formData.append("prix", prix);
+      formData.append("type", menuType);
       formData.append("admin", userId);
       console.log(formData);
       const response = await axios.post(
@@ -165,6 +176,17 @@ const AddMenu = () => {
           >
             Ajouter un Menu
           </div>
+
+          <Box sx={{ width: "90%", mt: 2 }}>
+            <FormControl fullWidth>
+              <InputLabel>Type de Menu</InputLabel>
+              <Select value={menuType} onChange={handleMenuTypeChange}>
+                <MenuItem value="Menu">Menu</MenuItem>
+                <MenuItem value="Panier Mystère">Panier Mystère</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -185,7 +207,9 @@ const AddMenu = () => {
                 fullWidth
                 label="Nom"
                 name="nom"
+                value={nom}
                 onChange={handleNomChange}
+                disabled={menuType === "Panier Mystère"}
                 style={{
                   width: "90%",
                 }}

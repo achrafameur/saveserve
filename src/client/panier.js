@@ -14,10 +14,6 @@ import {
 import { Link } from "react-router-dom";
 import PointOfSaleOutlinedIcon from "@mui/icons-material/PointOfSaleOutlined";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import altImage from "../../src/imgs/food.png";
-import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import Tooltip from '@mui/material/Tooltip';
 const Panier = () => {
@@ -34,6 +30,7 @@ const Panier = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [refrenceStripe, setRefrenceStripe] = useState("");
   const [linkStripe, setLinkStripe] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   const userId = localStorage.getItem("id");
 
@@ -45,9 +42,9 @@ const Panier = () => {
           params: { user_id: userId },
         }
       );
-      setMenus(response.data);
-      const total = calculateTotalPrice(response.data);
-      setTotalPrice(total);
+      setMenus(response.data.items);
+      // const total = calculateTotalPrice(response.data);
+      setTotalPrice(response.data.total_panier);
     } catch (error) {
       console.error(error);
     }
@@ -207,10 +204,8 @@ const Panier = () => {
     }
   });
 
-  const handleCheckboxChange = (adminId) => {
-    console.log(`Checkbox clicked for admin ID: ${adminId}`);
-    setReload(!reload)
-
+  const handleCheckboxChange = (adminId, isChecked) => {
+      console.log(`Checkbox ma clikech  for admin ID: ${adminId}`);
   };
 
 
@@ -513,8 +508,8 @@ const Panier = () => {
         <div>
           <div className="pageTitleHeader"
             style={{ fontSize: 25, height: 30 }} >
-            check the restaurant if you would like to eat there
-            <Tooltip title="you ill pay extra amount of money if you check this choice">
+            Cocher le restaurant si vous souhaitez manger sur place :
+            <Tooltip title="Vous allez payer des frais supplémentaires si vous réservez une table">
               <InfoRoundedIcon />
             </Tooltip>
           </div>
@@ -552,3 +547,5 @@ const Panier = () => {
 };
 
 export default Panier;
+
+

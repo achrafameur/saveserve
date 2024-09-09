@@ -126,7 +126,7 @@ const ProfessionnelsTable = () => {
     if (selectedProfessionnel.is_verified === true) {
       try {
         await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/professionnel/refuser-professionnel/${selectedProfessionnel.id}/`
+          `${process.env.REACT_APP_BACKEND_URL}/professionnel/desactivate-professionnel/${selectedProfessionnel.id}/`
         );
         alert("Professionnel refusé avec succès");
       } catch (error) {
@@ -136,7 +136,7 @@ const ProfessionnelsTable = () => {
     if (selectedProfessionnel.is_verified !== true) {
       try {
         await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/professionnel/verifier-professionnel/${selectedProfessionnel.id}/`
+          `${process.env.REACT_APP_BACKEND_URL}/professionnel/activate-professionnel/${selectedProfessionnel.id}/`
         );
         alert("Professionnel validé avec succès");
       } catch (error) {
