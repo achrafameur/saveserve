@@ -39,11 +39,13 @@ import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 import altImage from "../imgs/food.png";
 import Tooltip from "@mui/material/Tooltip";
-
+import ToggleOnRoundedIcon from '@mui/icons-material/ToggleOnRounded';
+import ToggleOffRoundedIcon from '@mui/icons-material/ToggleOffRounded';
 const ProfessionnelsTable = () => {
   const [professionnels, setProfessionnels] = useState([]);
   const [open, setOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [statusOpen, setStatusOpen] = useState(false);
   const [selectedProfessionnel, setSelectedProfessionnel] = useState(null);
   const [professionnelData, setProfessionnelData] = useState({
     nom_organisme: "",
@@ -55,6 +57,8 @@ const ProfessionnelsTable = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [menus, setMenus] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
+  const [reload, setReload] = useState(false);
+
 
   useEffect(() => {
     const fetchProfessionnels = async () => {
@@ -64,7 +68,7 @@ const ProfessionnelsTable = () => {
       setProfessionnels(response.data);
     };
     fetchProfessionnels();
-  }, []);
+  }, [reload]);
 
   const handleDelete = async (id) => {
     await axios.delete(
@@ -112,6 +116,36 @@ const ProfessionnelsTable = () => {
     setSelectedProfessionnel(professionnel);
     setOpen(true);
   };
+  const openStatus = (professionnel) => {
+    setSelectedProfessionnel(professionnel);
+    setStatusOpen(true);
+  };
+
+  const changeStatus = async () => {
+    console.log(selectedProfessionnel)
+    if (selectedProfessionnel.is_verified === true) {
+      try {
+        await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/professionnel/refuser-professionnel/${selectedProfessionnel.id}/`
+        );
+        alert("Professionnel refusé avec succès");
+      } catch (error) {
+        console.error("Erreur lors du refus du professionnel", error);
+      }
+    }
+    if (selectedProfessionnel.is_verified !== true) {
+      try {
+        await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/professionnel/verifier-professionnel/${selectedProfessionnel.id}/`
+        );
+        alert("Professionnel validé avec succès");
+      } catch (error) {
+        console.error("Erreur lors de la validation du professionnel", error);
+      }
+    }
+    setStatusOpen(false)
+    setReload(!reload)
+  };
 
   const closeModal = () => {
     setOpen(false);
@@ -120,7 +154,9 @@ const ProfessionnelsTable = () => {
   const closeEditModal = () => {
     setEditOpen(false);
   };
-
+  const closeStatus = () => {
+    setStatusOpen(false);
+  };
   const handleQueryChange = async (event) => {
     event.preventDefault();
     const query = queryRef.current?.value.toLowerCase();
@@ -140,7 +176,6 @@ const ProfessionnelsTable = () => {
   };
 
   const showPro = (professionnelId) => {
-    // Assuming 'professionnels' is your array of professionnel objects
     const selectedProfessionnel = professionnels.find(
       (pro) => pro.id === professionnelId
     );
@@ -235,7 +270,7 @@ const ProfessionnelsTable = () => {
             <Grid container justifyContent="space-between" spacing={3}>
               <Grid item>
                 <div className="pageTitleHeader"
-                style={{height:20}}>Professionnels</div>
+                  style={{ height: 20 }}>Professionnels</div>
               </Grid>
             </Grid>
             <Box sx={{ mt: 3 }}>
@@ -369,6 +404,34 @@ const ProfessionnelsTable = () => {
                           >
                             <Delete />
                           </IconButton>
+                          {(professionnel.is_verified === true &&
+                            <IconButton
+                              onClick={() => openStatus(professionnel)}
+                              sx={{
+                                backgroundColor: "green",
+                                color: "white",
+                                "&:hover": { backgroundColor: "#d0d0d0" },
+                                ml: 2,
+                              }}
+                            >
+                              < ToggleOnRoundedIcon />
+                            </IconButton>
+                          )}
+
+                          {(professionnel.is_verified === false &&
+                            <IconButton
+                              onClick={() => openStatus(professionnel)}
+                              sx={{
+                                backgroundColor: "red",
+                                color: "white",
+                                "&:hover": { backgroundColor: "#d0d0d0" },
+                                ml: 2,
+                              }}
+                            >
+                              < ToggleOffRoundedIcon/>
+                            </IconButton>
+                          )}
+
                         </TableCell>
                       </TableRow>
                     ))
@@ -509,6 +572,80 @@ const ProfessionnelsTable = () => {
               variant="contained"
               color="secondary"
               onClick={closeEditModal}
+              sx={{ ml: 2, mt: 2 }}
+              style={{
+                background:
+                  "linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)",
+                borderRadius: 8,
+              }}
+            >
+              Annuler
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
+
+
+
+      <Modal
+        open={statusOpen}
+        onClose={closeStatus}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            borderRadius: 8,
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          {(selectedProfessionnel && selectedProfessionnel.is_verified === true &&
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ mb: 5, mt: 1, ml: 2 }}
+            >
+              Voulez-vous désactiver ce compte?
+            </Typography>
+          )}
+          {(selectedProfessionnel && selectedProfessionnel.is_verified === false &&
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ mb: 5, mt: 1, ml: 2 }}
+            >
+              Voulez-vous activer ce compte?
+            </Typography>
+          )}
+          <Box sx={{ mt: 2 }}>
+
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={changeStatus}
+              style={{
+                width: "40%",
+                background:
+                  "linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)",
+                borderRadius: 8,
+              }}
+              sx={{ mt: 2 }}
+            >
+              Confirmer
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={closeStatus}
               sx={{ ml: 2, mt: 2 }}
               style={{
                 background:

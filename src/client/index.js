@@ -168,17 +168,24 @@ const ClientDashboard = () => {
     <>
       <Container>
         <Box display="flex" justifyContent="space-between" mt={2} alignItems="center" >
-          <div className="pageTitleHeader">Consulter les menus disponibles</div>
-          <TextField
-            id="outlined-basic"
-            label="Rechercher un menu ou restaurant"
-            variant="outlined"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            sx={{
-              minWidth : '300px',
-            }}
-          />
+          <div className="pageTitleHeader"
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '94%' }}>
+            Consulter les menus disponibles
+            <TextField
+              id="outlined-basic"
+              label="Rechercher un menu ou restaurant"
+              variant="outlined"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              sx={{
+                minWidth: '300px',
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: '15px',
+                },
+              }}
+            />
+          </div>
+
         </Box>
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
           {menus.map((menu, index) => (
