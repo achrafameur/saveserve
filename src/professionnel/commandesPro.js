@@ -244,7 +244,8 @@ const CommandesPro = () => {
         }}
       >
         Listes des commandes
-        <div>{orders.length}</div>
+        <div
+          style={{ fontSize: 32 }}>Nombre total des commandes : {orders.length}</div>
       </div>
 
       <Box
@@ -263,7 +264,7 @@ const CommandesPro = () => {
             >
               <CardContent>
                 <Typography variant="h5" component="div">
-                  {order.commande_reference}
+                N°/ de référence : {order.commande_reference}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Date Commande : {order.date_commande}

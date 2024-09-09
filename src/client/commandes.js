@@ -52,7 +52,8 @@ const Commandes = () => {
           }}
         >
           Listes des commandes
-          <div>{orders.length}</div>
+          <div
+            style={{ fontSize: 32 }}>Nombre total des commandes : {orders.length}</div>
         </div>
 
         <Box
@@ -71,7 +72,7 @@ const Commandes = () => {
               >
                 <CardContent>
                   <Typography variant="h5" component="div">
-                    {menu.reference}
+                  N°/ de référence : {menu.reference}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Date Commande : {menu.date_commande}

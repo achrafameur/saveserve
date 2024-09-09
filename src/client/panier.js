@@ -18,6 +18,8 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import altImage from "../../src/imgs/food.png";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import Tooltip from '@mui/material/Tooltip';
 const Panier = () => {
   function calculateTotalPrice(cart) {
     return cart.reduce((total, item) => {
@@ -194,7 +196,24 @@ const Panier = () => {
   const RedirectToStripeCheckoutLink = () => {
     window.location.href = linkStripe;
   };
-  
+
+  const uniqueAdmins = [];
+  const adminIds = new Set();
+
+  menus.forEach((item) => {
+    if (!adminIds.has(item.menu.admin.id)) {
+      adminIds.add(item.menu.admin.id);
+      uniqueAdmins.push(item);
+    }
+  });
+
+  const handleCheckboxChange = (adminId) => {
+    console.log(`Checkbox clicked for admin ID: ${adminId}`);
+    setReload(!reload)
+
+  };
+
+
   return (
     <>
       <Container>
@@ -451,9 +470,7 @@ const Panier = () => {
                   >
                     <Typography variant="body1">{menu.menu.prix} €</Typography>
                     <Box display="flex" alignItems="center">
-                      <Button onClick={() => removeFromFavMenu(menu.id)}>
-                        <FavoriteBorderIcon />
-                      </Button>
+                      
 
                       <Box display="flex" alignItems="center">
                         <Button
@@ -494,15 +511,35 @@ const Panier = () => {
           </Box>
         )}
         <div>
+          <div className="pageTitleHeader"
+            style={{ fontSize: 25, height: 30 }} >
+            check the restaurant if you would like to eat there
+            <Tooltip title="you ill pay extra amount of money if you check this choice">
+              <InfoRoundedIcon />
+            </Tooltip>
+          </div>
+          <ul>
+            {uniqueAdmins.map((item) => (
+              <div key={item.menu.admin.id} >
+                <input
+                  type="checkbox"
+                  onChange={() => handleCheckboxChange(item.menu.admin.id)}
+                />
+                <strong>Restaurant:</strong> {item.menu.nom_organisme}
+              </div>
+            ))}
+          </ul>
+        </div>
+        <div>
           <Button
             style={{
-              background: menus.length === 0 
-                ? "grey" 
+              background: menus.length === 0
+                ? "grey"
                 : "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
               color: "white",
               marginBottom: 8
             }}
-            
+
             onClick={showChart}
           >
             Valider le Panier
