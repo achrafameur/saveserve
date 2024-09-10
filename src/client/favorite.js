@@ -18,11 +18,25 @@ import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import DinnerDiningOutlinedIcon from "@mui/icons-material/DinnerDiningOutlined";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
+import InfoPopup from "../components/infoPopUp";
 const FavoriteDashboard = () => {
   const [menus, setMenus] = useState([]);
   const [resto, setResto] = useState([]);
   const [reload, setReload] = useState(false);
   const userId = localStorage.getItem("id");
+
+
+  const [openInfoPopup, setInfoOpenPopup] = useState(false);
+  const [popUpMsg, setPopUpMsg] = useState(false);
+
+  const handleOpenInfoPopUp = () => {
+    setInfoOpenPopup(true);
+  };
+
+  const handleCloseInfoPopUp = () => {
+    setInfoOpenPopup(false);
+  };
+
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -100,7 +114,9 @@ const FavoriteDashboard = () => {
       );
 
       console.log(response.data);
-      alert("Menu removed from favorite menus successfully");
+
+      setPopUpMsg("Menu removed from favorite menus successfully");
+      setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
       console.error(error);
@@ -122,12 +138,15 @@ const FavoriteDashboard = () => {
       );
 
       console.log(response.data);
-      alert("resto removed from favorite menus successfully");
+
+      setPopUpMsg("resto removed from favorite menus successfully");
+      setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
       console.error(error);
     }
   };
+
 
   const [showResto, setShowResto] = useState(false);
   const [showMenus, setShowMenus] = useState(false);
@@ -143,6 +162,11 @@ const FavoriteDashboard = () => {
   return (
     <>
       <Container>
+        <InfoPopup
+          open={openInfoPopup}
+          handleClose={handleCloseInfoPopUp}
+          message={popUpMsg}
+        />
         <div
           className="pageTitleHeader"
           style={{
@@ -298,6 +322,9 @@ const FavoriteDashboard = () => {
                     <CardContent>
                       <Typography variant="h5" component="div">
                         {menu.nom}
+                      </Typography>
+                      <Typography variant="body1" color="text.secondary">
+                        {menu.type}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {menu.description}

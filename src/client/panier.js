@@ -16,6 +16,7 @@ import PointOfSaleOutlinedIcon from "@mui/icons-material/PointOfSaleOutlined";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import Tooltip from '@mui/material/Tooltip';
+import InfoPopup from "../components/infoPopUp";
 const Panier = () => {
   function calculateTotalPrice(cart) {
     return cart.reduce((total, item) => {
@@ -31,8 +32,25 @@ const Panier = () => {
   const [refrenceStripe, setRefrenceStripe] = useState("");
   const [linkStripe, setLinkStripe] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const [menuId, setMenuId] = useState('');
+  const [fees, setFees] = useState([]);
+
 
   const userId = localStorage.getItem("id");
+
+
+  const [openInfoPopup, setInfoOpenPopup] = useState(false);
+  const [popUpMsg, setPopUpMsg] = useState(false);
+
+  const handleOpenInfoPopUp = () => {
+    setInfoOpenPopup(true);
+  };
+
+  const handleCloseInfoPopUp = () => {
+    setInfoOpenPopup(false);
+  };
+
+
 
   const fetchMenus = async () => {
     try {
@@ -43,8 +61,10 @@ const Panier = () => {
         }
       );
       setMenus(response.data.items);
+      setFees(response.data)
+      // setMenuId(response.data.items.id)
       // const total = calculateTotalPrice(response.data);
-      setTotalPrice(response.data.total_panier);
+      setTotalPrice(response.data.total);
     } catch (error) {
       console.error(error);
     }
@@ -92,7 +112,8 @@ const Panier = () => {
       );
 
       console.log(response.data);
-      alert("Menu removed from favorite menus successfully");
+      setPopUpMsg("Menu removed from favorite menus successfully");
+      setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
       console.error(error);
@@ -106,7 +127,8 @@ const Panier = () => {
       );
 
       console.log(response.data);
-      alert("Menu removed from Chart menus successfully");
+      setPopUpMsg("Menu removed from Chart menus successfully");
+      setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
       console.error(error);
@@ -133,7 +155,9 @@ const Panier = () => {
         console.error(error);
       }
     } else {
-      alert("Vous avez atteint la quantité maximale disponible pour ce menu.");
+
+      setPopUpMsg("Vous avez atteint la quantité maximale disponible pour ce menu.");
+      setInfoOpenPopup(true);
     }
   };
 
@@ -204,14 +228,56 @@ const Panier = () => {
     }
   });
 
-  const handleCheckboxChange = (adminId, isChecked) => {
-      console.log(`Checkbox ma clikech  for admin ID: ${adminId}`);
+  const handleCheckboxChange = async (adminId, isChecked) => {
+    console.log(adminId, isChecked)
+    try {
+      if (isChecked) {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/client/reserve-table/`,
+          {
+            admin_id: adminId,
+            panier_id: 9,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+      } else {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/client/cancel-table/`,
+          {
+            admin_id: adminId,
+            panier_id: 9,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setReload(!reload)
   };
 
 
   return (
     <>
       <Container>
+
+        <InfoPopup
+          open={openInfoPopup}
+          handleClose={handleCloseInfoPopUp}
+          message={popUpMsg}
+        />
+
+
         <Dialog
           open={showPopUp}
           onClose={() => setShowPopUp(false)}
@@ -286,6 +352,42 @@ const Panier = () => {
                   </Button> */}
                 </Box>
               ))}
+              <Box
+
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "10px",
+                }}
+              >
+                <Typography variant="body1" component="div" sx={{ flex: 2 }}>
+                  Fees
+                </Typography>
+                <Typography variant="body1" component="div" sx={{ flex: 2 }}>
+                  _
+                </Typography>
+                <Typography variant="body1" component="div" sx={{ flex: 1 }}>
+                  {fees.fees} €
+                </Typography>
+              </Box>
+              <Box
+
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "10px",
+                }}
+              ><Typography variant="body1" component="div" sx={{ flex: 2 }}>
+                  Table Fees
+                </Typography>
+                <Typography variant="body1" component="div" sx={{ flex: 2 }}>
+                  {fees.total_tables / 3}
+                </Typography>
+                <Typography variant="body1" component="div" sx={{ flex: 1 }}>
+                  {fees.total_tables} €
+                </Typography>
+              </Box>
+
               <Box
                 sx={{
                   display: "flex",
@@ -454,6 +556,9 @@ const Panier = () => {
                   <Typography variant="h5" component="div">
                     {menu.menu.nom}
                   </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                  {menu.menu.type}
+                </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {menu.menu.description}
                   </Typography>
@@ -465,7 +570,7 @@ const Panier = () => {
                   >
                     <Typography variant="body1">{menu.menu.prix} €</Typography>
                     <Box display="flex" alignItems="center">
-                      
+
 
                       <Box display="flex" alignItems="center">
                         <Button
@@ -514,15 +619,20 @@ const Panier = () => {
             </Tooltip>
           </div>
           <ul>
-            {uniqueAdmins.map((item) => (
-              <div key={item.menu.admin.id} >
-                <input
-                  type="checkbox"
-                  onChange={() => handleCheckboxChange(item.menu.admin.id)}
-                />
-                <strong>Restaurant:</strong> {item.menu.nom_organisme}
-              </div>
-            ))}
+            {uniqueAdmins.map((item) => {
+              console.log('Menu item:', item); // Debugging to check structure
+              return (
+                <div key={item.menu.admin.id}>
+                  <input
+                    type="checkbox"
+                    onChange={(e) =>
+                      handleCheckboxChange(item.menu.admin.id, e.target.checked)
+                    }
+                  />
+                  <strong>Restaurant:</strong> {item.menu.nom_organisme}
+                </div>
+              );
+            })}
           </ul>
         </div>
         <div>

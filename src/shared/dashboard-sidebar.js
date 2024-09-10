@@ -212,7 +212,7 @@ const DashboardSidebar = ({ open, onClose }) => {
             "linear-gradient(45deg, rgba(42,161,92,1) 12%, rgba(3,162,194,1) 100%)",
           color: "white",
           width: 300,
-          overflowY: "none",
+          overflowY: "visible",
         },
       }}
       variant="permanent"

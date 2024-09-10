@@ -144,6 +144,7 @@ const CommandesPro = () => {
   const [orders, setOrders] = useState([]);
   const [reload, setReload] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
+  const [isDeclined,setIsDeclined] = useState(false);
   const userId = localStorage.getItem("id");
 
   useEffect(() => {
@@ -154,6 +155,7 @@ const CommandesPro = () => {
           { admin_id: userId }
         );
         setIsVerified(response.data.is_verified);
+        setIsDeclined(response.data.is_declined);
       } catch (error) {
         console.error(error);
       }
@@ -174,7 +176,7 @@ const CommandesPro = () => {
     fetchOrders();
   }, [userId, reload]);
 
-  if (!isVerified) {
+  if (!isVerified && isDeclined ) {
     return (
       <Box
         sx={{
@@ -232,6 +234,65 @@ const CommandesPro = () => {
     );
   }
 
+  if (isDeclined) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 1000,
+        }}
+      >
+        <Box
+          sx={{
+            textAlign: "center",
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "10px",
+            boxShadow:
+              "rgba(0, 0, 0, 0.2) 0px 5px 15px, rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
+            maxWidth: "700px",
+            width: "100%",
+            position: "relative",
+            marginLeft: "20%",
+          }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "-60px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontSize: "4rem",
+              color: "orange",
+            }}
+          >
+            ⏳
+          </Box>
+          <Typography
+            variant="h4"
+            color="text.primary"
+            fontWeight="bold"
+            mt={4}
+          >
+            Veuillez patienter
+          </Typography>
+          <Typography variant="body1" color="text.secondary" mt={2}>
+            Votre compte a été refusé par les modérateurs de l'application.
+            Pour envoyer une demande d'opposition à cette décision, veuillez nous contacter via notre email de contact : contact.saveserve@gmail.com
+            Une réponse va vous être délivrée sous 5 jours.
+          </Typography>
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <Container>
       <div
@@ -264,7 +325,7 @@ const CommandesPro = () => {
             >
               <CardContent>
                 <Typography variant="h5" component="div">
-                N°/ de référence : {order.commande_reference}
+                  N°/ de référence : {order.commande_reference}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Date Commande : {order.date_commande}

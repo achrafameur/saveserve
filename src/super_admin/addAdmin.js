@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import InfoPopup from "../components/infoPopUp";
 
 const AddAdmin = () => {
   const navigate = useNavigate();
@@ -29,6 +30,19 @@ const AddAdmin = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
+
+  const [openInfoPopup, setInfoOpenPopup] = useState(false);
+  const [popUpMsg, setPopUpMsg] = useState(false);
+
+  const handleOpenInfoPopUp = () => {
+    setInfoOpenPopup(true);
+  };
+
+  const handleCloseInfoPopUp = () => {
+    setInfoOpenPopup(false);
+  };
+
+
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -41,7 +55,9 @@ const AddAdmin = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Les mots de passe ne correspondent pas.");
+     
+      setPopUpMsg("Les mots de passe ne correspondent pas.");
+      setInfoOpenPopup(true);
       return;
     }
 
@@ -83,6 +99,11 @@ const AddAdmin = () => {
         width: 800,
       }}
     >
+       <InfoPopup
+        open={openInfoPopup}
+        handleClose={handleCloseInfoPopUp}
+        message={popUpMsg}
+      />
       <Box
         sx={{
           marginTop: 8,

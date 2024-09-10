@@ -40,7 +40,7 @@ const SignUp = () => {
     //   </Box>
     // </Container>
     <div
-      style={{ backgroundColor: 'black', height: '110vh', marginTop: -100, display: 'flex', alignItems: 'center' }}
+      style={{ backgroundColor: 'black', height: '115vh', marginTop: -100, display: 'flex', alignItems: 'center' }}
       className="loginStyling">
       <Container component="main" maxWidth="sm" sx={{ mt: "5%" }}>
         <Card elevation={16} sx={{ p: 4 }}

@@ -41,6 +41,9 @@ import altImage from "../imgs/food.png";
 import Tooltip from "@mui/material/Tooltip";
 import ToggleOnRoundedIcon from '@mui/icons-material/ToggleOnRounded';
 import ToggleOffRoundedIcon from '@mui/icons-material/ToggleOffRounded';
+import InfoPopup from "../components/infoPopUp";
+
+
 const ProfessionnelsTable = () => {
   const [professionnels, setProfessionnels] = useState([]);
   const [open, setOpen] = useState(false);
@@ -58,6 +61,20 @@ const ProfessionnelsTable = () => {
   const [menus, setMenus] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [reload, setReload] = useState(false);
+
+
+
+  const [openInfoPopup, setInfoOpenPopup] = useState(false);
+  const [popUpMsg, setPopUpMsg] = useState(false);
+
+  const handleOpenInfoPopUp = () => {
+    setInfoOpenPopup(true);
+  };
+
+  const handleCloseInfoPopUp = () => {
+    setInfoOpenPopup(false);
+  };
+
 
 
   useEffect(() => {
@@ -128,7 +145,8 @@ const ProfessionnelsTable = () => {
         await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/professionnel/desactivate-professionnel/${selectedProfessionnel.id}/`
         );
-        alert("Professionnel refusé avec succès");
+        setPopUpMsg("Professionnel refusé avec succès");
+        setInfoOpenPopup(true);
       } catch (error) {
         console.error("Erreur lors du refus du professionnel", error);
       }
@@ -138,7 +156,9 @@ const ProfessionnelsTable = () => {
         await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/professionnel/activate-professionnel/${selectedProfessionnel.id}/`
         );
-        alert("Professionnel validé avec succès");
+
+        setPopUpMsg("Professionnel validé avec succès");
+        setInfoOpenPopup(true);
       } catch (error) {
         console.error("Erreur lors de la validation du professionnel", error);
       }
@@ -192,6 +212,13 @@ const ProfessionnelsTable = () => {
   return (
     <>
       <Box component="main" sx={{ flexGrow: 1, py: 8 }}>
+
+        <InfoPopup
+          open={openInfoPopup}
+          handleClose={handleCloseInfoPopUp}
+          message={popUpMsg}
+        />
+
         <Dialog
           open={showPopUp}
           onClose={() => setShowPopUp(false)}
@@ -213,6 +240,7 @@ const ProfessionnelsTable = () => {
                 fontSize: 30,
                 color: "rgb(40, 148, 163)",
                 fontWeight: 500,
+                fontFamily:'Century Gothic'
               }}
             >
               Available Menus
@@ -246,6 +274,9 @@ const ProfessionnelsTable = () => {
 
                     <Typography variant="h5" component="div">
                       {menu.nom}
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary">
+                      {menu.type}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       {menu.description}
@@ -428,7 +459,7 @@ const ProfessionnelsTable = () => {
                                 ml: 2,
                               }}
                             >
-                              < ToggleOffRoundedIcon/>
+                              < ToggleOffRoundedIcon />
                             </IconButton>
                           )}
 

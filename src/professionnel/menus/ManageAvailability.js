@@ -397,6 +397,7 @@ const ManageAvailability = () => {
                   <Typography variant="h5" component="div">
                     {menu.nom}
                   </Typography>
+                  
                   <Box
                     sx={{
                       backgroundColor: getStatusBanner(menu).color,
@@ -411,6 +412,9 @@ const ManageAvailability = () => {
                 </Box>
 
                 {/* Description du menu */}
+                <Typography variant="body1" color="text.secondary">
+                  {menu.type}
+                </Typography>
                 <Typography variant="body2" color="text.secondary" mt={1}>
                   {menu.description}
                 </Typography>

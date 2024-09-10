@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import InfoPopup from "../../components/infoPopUp";
 
 const ClientSignUp = () => {
   const [open, setOpen] = useState(false);
@@ -28,6 +29,19 @@ const ClientSignUp = () => {
     id_service: 1,
   });
 
+
+  const [openInfoPopup, setInfoOpenPopup] = useState(false);
+  const [popUpMsg, setPopUpMsg] = useState(false);
+
+  const handleOpenInfoPopUp = () => {
+    setInfoOpenPopup(true);
+  };
+
+  const handleCloseInfoPopUp = () => {
+    setInfoOpenPopup(false);
+  };
+
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -39,9 +53,9 @@ const ClientSignUp = () => {
     e.preventDefault();
 
     if (!checked) {
-      alert(
-        "Veuillez accepter les conditions générales et la politique de confidentialité."
-      );
+
+      setPopUpMsg("Veuillez accepter les conditions générales et la politique de confidentialité.");
+      setInfoOpenPopup(true);
       return;
     }
 
@@ -53,7 +67,9 @@ const ClientSignUp = () => {
       setOpen(true);
     } catch (error) {
       console.error(error);
-      alert("Erreur lors de l'inscription.");
+
+      setPopUpMsg("Erreur lors de l'inscription.");
+      setInfoOpenPopup(true);
     }
   };
 
@@ -78,6 +94,7 @@ const ClientSignUp = () => {
   };
 
   return (
+
     // <Container component="main" maxWidth="xs">
     //   <Box
     //     sx={{
@@ -148,13 +165,18 @@ const ClientSignUp = () => {
     <div
       style={{
         backgroundColor: "black",
-        height: "110vh",
+        height: "115vh",
         marginTop: -100,
         display: "flex",
         alignItems: "center",
       }}
       className="loginStyling"
     >
+      <InfoPopup
+        open={openInfoPopup}
+        handleClose={handleCloseInfoPopUp}
+        message={popUpMsg}
+      />
       <Container component="main" maxWidth="sm" sx={{ mt: "5%" }}>
         <Card
           elevation={16}

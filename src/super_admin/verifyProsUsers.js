@@ -13,9 +13,21 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import InfoPopup from "../components/infoPopUp";
 
 const SuperAdminsTable = () => {
   const [superAdmins, setSuperAdmins] = useState([]);
+  const [openInfoPopup, setInfoOpenPopup] = useState(false);
+  const [popUpMsg, setPopUpMsg] = useState(false);
+
+  const handleOpenInfoPopUp = () => {
+    setInfoOpenPopup(true);
+  };
+
+  const handleCloseInfoPopUp = () => {
+    setInfoOpenPopup(false);
+  };
+
 
   // Récupérer les données depuis l'API
   useEffect(() => {
@@ -41,8 +53,9 @@ const SuperAdminsTable = () => {
       await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/professionnel/verifier-professionnel/${adminId}/`
       );
-      alert("Professionnel validé avec succès");
-      // Optionnel : recharger la liste après validation
+      setPopUpMsg("Professionnel validé avec succès");
+      setInfoOpenPopup(true);
+
       setSuperAdmins((prev) => prev.filter((admin) => admin.id !== adminId));
     } catch (error) {
       console.error("Erreur lors de la validation du professionnel", error);
@@ -55,8 +68,10 @@ const SuperAdminsTable = () => {
       await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/professionnel/refuser-professionnel/${adminId}/`
       );
-      alert("Professionnel refusé avec succès");
-      // Optionnel : recharger la liste après refus
+      
+      setPopUpMsg("Professionnel refusé avec succès");
+      setInfoOpenPopup(true);
+      
       setSuperAdmins((prev) => prev.filter((admin) => admin.id !== adminId));
     } catch (error) {
       console.error("Erreur lors du refus du professionnel", error);
@@ -65,6 +80,11 @@ const SuperAdminsTable = () => {
 
   return (
     <Box component="main" sx={{ flexGrow: 1, py: 8, px: { xs: 2, sm: 4 } }}>
+       <InfoPopup
+        open={openInfoPopup}
+        handleClose={handleCloseInfoPopUp}
+        message={popUpMsg}
+      />
       {/* <TextField
         fullWidth
         inputRef={queryRef}

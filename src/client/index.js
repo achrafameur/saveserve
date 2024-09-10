@@ -17,12 +17,25 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
 import altImage from "../../src/imgs/food.png";
-
+import InfoPopup from "../components/infoPopUp";
 const ClientDashboard = () => {
   const [menus, setMenus] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const userId = localStorage.getItem("id");
   const [reload, setReload] = useState(false);
+
+  const [openInfoPopup, setInfoOpenPopup] = useState(false);
+  const [popUpMsg, setPopUpMsg] = useState(false);
+  
+  const handleOpenInfoPopUp = () => {
+    setInfoOpenPopup(true);
+  };
+
+  const handleCloseInfoPopUp = () => {
+    setInfoOpenPopup(false);
+  };
+
+
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -65,7 +78,8 @@ const ClientDashboard = () => {
           },
         }
       );
-      alert("Menu added from favorite menus successfully");
+      setPopUpMsg("Menu added from favorite menus successfully");
+      setInfoOpenPopup(true);
 
       setReload(!reload)
       console.log(response.data);
@@ -89,7 +103,9 @@ const ClientDashboard = () => {
       );
 
       console.log(response.data);
-      alert("Menu removed from favorite menus successfully");
+      
+      setPopUpMsg("Menu removed from favorite menus successfully");
+      setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
       console.error(error);
@@ -110,8 +126,8 @@ const ClientDashboard = () => {
           },
         }
       );
-      alert("resto added to favorite resto successfully");
-
+      setPopUpMsg("resto added to favorite resto successfully");
+      setInfoOpenPopup(true);
       setReload(!reload)
       console.log(response.data);
     } catch (error) {
@@ -134,7 +150,9 @@ const ClientDashboard = () => {
       );
 
       console.log(response.data);
-      alert("resto removed from favorite menus successfully");
+      
+      setPopUpMsg("resto removed from favorite menus successfully");
+      setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
       console.error(error);
@@ -157,7 +175,8 @@ const ClientDashboard = () => {
       );
 
       console.log(response.data);
-      alert("menu added to chart successfully!");
+      setPopUpMsg("menu added to chart successfully!");
+      setInfoOpenPopup(true);
     } catch (error) {
       console.error(error);
       // Handle errors
@@ -167,6 +186,14 @@ const ClientDashboard = () => {
   return (
     <>
       <Container>
+
+        <InfoPopup
+          open={openInfoPopup}
+          handleClose={handleCloseInfoPopUp}
+          message={popUpMsg}
+        />
+
+
         <Box display="flex" justifyContent="space-between" mt={2} alignItems="center" >
           <div className="pageTitleHeader"
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '94%' }}>
@@ -226,6 +253,9 @@ const ClientDashboard = () => {
 
                 <Typography variant="h5" component="div">
                   {menu.nom}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  {menu.type}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {menu.description}

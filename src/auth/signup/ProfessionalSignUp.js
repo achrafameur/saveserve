@@ -17,6 +17,8 @@ import {
 } from "@mui/material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import InfoPopup from "../../components/infoPopUp";
+
 
 const ProfessionalSignUp = () => {
   const [open, setOpen] = useState(false);
@@ -32,6 +34,20 @@ const ProfessionalSignUp = () => {
     id_service: 2,
     localisation: "",
   });
+
+
+  const [openInfoPopup, setInfoOpenPopup] = useState(false);
+  const [popUpMsg, setPopUpMsg] = useState(false);
+
+  const handleOpenInfoPopUp = () => {
+    setInfoOpenPopup(true);
+  };
+
+  const handleCloseInfoPopUp = () => {
+    setInfoOpenPopup(false);
+  };
+
+
 
   const fetchCities = async (query) => {
     try {
@@ -76,9 +92,9 @@ const ProfessionalSignUp = () => {
     e.preventDefault();
 
     if (!checked) {
-      alert(
-        "Veuillez accepter les conditions générales et la politique de confidentialité."
-      );
+
+      setPopUpMsg("Veuillez accepter les conditions générales et la politique de confidentialité.");
+      setInfoOpenPopup(true);
       return;
     }
 
@@ -90,7 +106,9 @@ const ProfessionalSignUp = () => {
       setOpen(true);
     } catch (error) {
       console.error(error);
-      alert("Erreur lors de l'inscription.");
+
+      setPopUpMsg("Erreur lors de l'inscription.");
+      setInfoOpenPopup(true);
     }
   };
 
@@ -118,13 +136,18 @@ const ProfessionalSignUp = () => {
     <div
       style={{
         backgroundColor: "black",
-        height: "110vh",
+        height: "115vh",
         marginTop: -100,
         display: "flex",
         alignItems: "center",
       }}
       className="loginStyling"
     >
+      <InfoPopup
+        open={openInfoPopup}
+        handleClose={handleCloseInfoPopUp}
+        message={popUpMsg}
+      />
       <Container component="main" maxWidth="sm" sx={{ mt: "5%" }}>
         <Card
           elevation={16}
@@ -199,19 +222,12 @@ const ProfessionalSignUp = () => {
               onChange={handleChange}
               type="password"
             />
-            <Autocomplete
-              options={cityOptions}
-              getOptionLabel={(option) => option.label}
-              onInputChange={(event, value) =>
-                handleCitySearch({ target: { value } })
-              }
-              onChange={handleCitySelectChange}
-              renderInput={(params) => (
-                <TextField {...params} label="Choisir une ville" fullWidth />
-              )}
-              value={
-                formData.localisation ? { label: formData.localisation } : null
-              }
+            <TextField
+              margin="normal"
+              fullWidth
+              label="Ville"
+              name="localisation"
+              onChange={handleChange}
             />
             <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
               <Checkbox
@@ -240,12 +256,7 @@ const ProfessionalSignUp = () => {
             >
               S'inscrire
             </Button>
-            <Button
-              component={RouterLink}
-              to="/signup"
-              fullWidth
-              sx={{ mt: 1 }}
-            >
+            <Button component={RouterLink} to="/signup" fullWidth sx={{ mt: 1 }}>
               Retour
             </Button>
             <Box sx={{ mt: 2, textAlign: "center" }}>
@@ -257,6 +268,7 @@ const ProfessionalSignUp = () => {
               </Typography>
             </Box>
           </Box>
+
         </Card>
 
         <Dialog open={open} onClose={handleClose}>

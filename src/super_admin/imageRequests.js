@@ -28,6 +28,7 @@ import Navbar from "../shared/dashboard-navbar";
 import SearchIcon from "@mui/icons-material/Search";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
+import InfoPopup from "../components/infoPopUp";
 const ImageRequests = () => {
   const [superAdmins, setSuperAdmins] = useState([]);
   const [open, setOpen] = useState(false);
@@ -41,6 +42,17 @@ const ImageRequests = () => {
     prenom: "",
     adresse_mail: "",
   });
+
+  const [openInfoPopup, setInfoOpenPopup] = useState(false);
+  const [popUpMsg, setPopUpMsg] = useState(false);
+
+  const handleOpenInfoPopUp = () => {
+    setInfoOpenPopup(true);
+  };
+
+  const handleCloseInfoPopUp = () => {
+    setInfoOpenPopup(false);
+  };
 
   useEffect(() => {
     const fetchSuperAdmins = async () => {
@@ -65,7 +77,9 @@ const ImageRequests = () => {
         }
       );
       console.log(response.data);
-      alert(`Request ${adminResp}ed successfully! `);
+      
+      setPopUpMsg(`Request ${adminResp}ed successfully! `);
+      setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
       console.error(error);
@@ -75,6 +89,11 @@ const ImageRequests = () => {
   return (
     <>
       <Container>
+      <InfoPopup
+        open={openInfoPopup}
+        handleClose={handleCloseInfoPopUp}
+        message={popUpMsg}
+      />
         <div className="pageTitleHeader">Demandes d'ajout d'images</div>
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
           {menus.length > 0 ? (
