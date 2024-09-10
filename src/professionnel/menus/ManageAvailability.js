@@ -216,6 +216,7 @@ const ManageAvailability = () => {
   const [isVerified, setIsVerified] = useState(false); // Assume true initially
   const userId = localStorage.getItem("id");
   const [isDeclined,setIsDeclined] = useState(false);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -227,6 +228,7 @@ const ManageAvailability = () => {
         );
         setIsVerified(response.data.is_verified);
         setIsDeclined(response.data.is_declined);
+        setLoading(false);
 
       } catch (error) {
         console.error(error);
@@ -305,6 +307,10 @@ const ManageAvailability = () => {
     }
   };
 
+
+  if (loading) {
+    return null; 
+  }
   if (!isVerified && !isDeclined ) {
     return (
       <Box

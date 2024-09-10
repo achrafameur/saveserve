@@ -146,7 +146,7 @@ const CommandesPro = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [isDeclined,setIsDeclined] = useState(false);
   const userId = localStorage.getItem("id");
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
@@ -156,6 +156,7 @@ const CommandesPro = () => {
         );
         setIsVerified(response.data.is_verified);
         setIsDeclined(response.data.is_declined);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -176,7 +177,11 @@ const CommandesPro = () => {
     fetchOrders();
   }, [userId, reload]);
 
-  if (!isVerified && !isDeclined ) {
+
+  if (loading) {
+    return null; 
+  }
+  if ((!isVerified && !isDeclined)) {
     return (
       <Box
         sx={{

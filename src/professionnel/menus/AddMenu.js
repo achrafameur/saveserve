@@ -12,7 +12,8 @@ const AddMenu = () => {
   const [imageFile, setImageFile] = useState(null);
   const [menuType, setMenuType] = useState("Menu");
   const [isVerified, setIsVerified] = useState(false);
-  const [isDeclined,setIsDeclined] = useState(false);
+  const [isDeclined, setIsDeclined] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const userId = localStorage.getItem("id");
 
@@ -25,6 +26,7 @@ const AddMenu = () => {
         );
         setIsVerified(response.data.is_verified);
         setIsDeclined(response.data.is_declined);
+        setLoading(false);
 
       } catch (error) {
         console.error(error);
@@ -89,7 +91,11 @@ const AddMenu = () => {
     }
   };
 
-  if (!isVerified && !isDeclined ) {
+  if (loading) {
+    return null;
+  }
+
+  if (!isVerified && !isDeclined) {
     return (
       <Box
         sx={{
@@ -186,7 +192,7 @@ const AddMenu = () => {
               color: "red",
             }}
           >
-            < ReportProblemRoundedIcon style={{ fontSize: 80 }}/>
+            < ReportProblemRoundedIcon style={{ fontSize: 80 }} />
           </Box>
           <Typography
             variant="h4"
@@ -242,14 +248,30 @@ const AddMenu = () => {
           </div>
 
           <Box sx={{ width: "90%", mt: 2 }}>
-            <FormControl fullWidth>
-              <InputLabel>Type de Menu</InputLabel>
-              <Select value={menuType} onChange={handleMenuTypeChange}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel id="menu-type-label">Type de Menu</InputLabel>
+              <Select
+                labelId="menu-type-label"
+                value={menuType}
+                onChange={handleMenuTypeChange}
+                label="Type de Menu"
+               
+                sx={{
+                  '& .MuiSelect-select': {
+                    paddingTop: '1.5rem',  
+                    paddingBottom: '1rem'  
+                  },
+                  '& .MuiInputLabel-outlined': {
+                    top: '1.5rem'  
+                  }
+                }}
+              >
                 <MenuItem value="Menu">Menu</MenuItem>
                 <MenuItem value="Panier Mystère">Panier Mystère</MenuItem>
               </Select>
             </FormControl>
           </Box>
+
 
           <Box
             component="form"

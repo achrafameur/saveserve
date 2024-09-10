@@ -17,6 +17,7 @@ const ProfessionnelDashboard = () => {
   const [stats, setStats] = useState([]);
   const [isVerified, setIsVerified] = useState(false);
   const [isDeclined,setIsDeclined] = useState(false);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -28,6 +29,7 @@ const ProfessionnelDashboard = () => {
         );
         setIsVerified(response.data.is_verified);
         setIsDeclined(response.data.is_declined);
+        setLoading(false);
 
       } catch (error) {
         console.error(error);
@@ -46,6 +48,10 @@ const ProfessionnelDashboard = () => {
     fetchSuperAdmins();
   }, [isVerified, userId]);
 
+  if (loading) {
+    return null; 
+  }
+  
   if (!isVerified && !isDeclined ) {
     return (
       <Box
