@@ -157,7 +157,7 @@ const ProfessionnelDashboard = () => {
             fontWeight="bold"
             mt={4}
           >
-            Veuillez patienter
+            Adhésion Refusée
           </Typography>
           <Typography variant="body1" color="text.secondary" mt={2}>
             Votre compte a été refusé par les modérateurs de l'application.
