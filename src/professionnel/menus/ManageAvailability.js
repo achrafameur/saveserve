@@ -209,11 +209,14 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import altImage from "../../../src/imgs/food.png";
+import ReportProblemRoundedIcon from '@mui/icons-material/ReportProblemRounded';
 
 const ManageAvailability = () => {
   const [menus, setMenus] = useState([]);
   const [isVerified, setIsVerified] = useState(false); // Assume true initially
   const userId = localStorage.getItem("id");
+  const [isDeclined,setIsDeclined] = useState(false);
+
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -223,6 +226,8 @@ const ManageAvailability = () => {
           { admin_id: userId }
         );
         setIsVerified(response.data.is_verified);
+        setIsDeclined(response.data.is_declined);
+
       } catch (error) {
         console.error(error);
       }
@@ -300,7 +305,7 @@ const ManageAvailability = () => {
     }
   };
 
-  if (!isVerified) {
+  if (!isVerified && !isDeclined ) {
     return (
       <Box
         sx={{
@@ -352,6 +357,65 @@ const ManageAvailability = () => {
           <Typography variant="body1" color="text.secondary" mt={2}>
             Votre compte est en cours de vérification par les administrateurs.
             Veuillez patienter, cela ne devrait pas tarder.
+          </Typography>
+        </Box>
+      </Box>
+    );
+  }
+
+  if (isDeclined) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 1000,
+        }}
+      >
+        <Box
+          sx={{
+            textAlign: "center",
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "10px",
+            boxShadow:
+              "rgba(0, 0, 0, 0.2) 0px 5px 15px, rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
+            maxWidth: "700px",
+            width: "100%",
+            position: "relative",
+            marginLeft: "20%",
+          }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "-60px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontSize: "4rem",
+              color: "red",
+            }}
+          >
+            < ReportProblemRoundedIcon style={{ fontSize: 80 }}/>
+          </Box>
+          <Typography
+            variant="h4"
+            color="text.primary"
+            fontWeight="bold"
+            mt={4}
+          >
+            Veuillez patienter
+          </Typography>
+          <Typography variant="body1" color="text.secondary" mt={2}>
+            Votre compte a été refusé par les modérateurs de l'application.
+            Pour envoyer une demande d'opposition à cette décision, veuillez nous contacter via notre email de contact : contact.saveserve@gmail.com
+            Une réponse va vous être délivrée sous 5 jours.
           </Typography>
         </Box>
       </Box>

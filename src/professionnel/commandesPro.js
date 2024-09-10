@@ -138,7 +138,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import altImage from "../../src/imgs/food.png";
-
+import ReportProblemRoundedIcon from '@mui/icons-material/ReportProblemRounded';
 const CommandesPro = () => {
   const [menus, setMenus] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -176,7 +176,7 @@ const CommandesPro = () => {
     fetchOrders();
   }, [userId, reload]);
 
-  if (!isVerified && isDeclined ) {
+  if (!isVerified && !isDeclined ) {
     return (
       <Box
         sx={{
@@ -270,10 +270,10 @@ const CommandesPro = () => {
               left: "50%",
               transform: "translateX(-50%)",
               fontSize: "4rem",
-              color: "orange",
+              color: "red",
             }}
           >
-            ⏳
+            < ReportProblemRoundedIcon style={{ fontSize: 80 }}/>
           </Box>
           <Typography
             variant="h4"
