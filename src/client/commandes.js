@@ -72,7 +72,7 @@ const Commandes = () => {
               >
                 <CardContent>
                   <Typography variant="h5" component="div">
-                  N°/ de référence : {menu.reference}
+                  N° de référence : {menu.reference}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Date Commande : {menu.date_commande}

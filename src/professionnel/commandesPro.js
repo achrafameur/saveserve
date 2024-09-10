@@ -330,7 +330,7 @@ const CommandesPro = () => {
             >
               <CardContent>
                 <Typography variant="h5" component="div">
-                  N°/ de référence : {order.commande_reference}
+                  N° de référence : {order.commande_reference}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Date Commande : {order.date_commande}

@@ -78,7 +78,7 @@ const ClientDashboard = () => {
           },
         }
       );
-      setPopUpMsg("Menu added from favorite menus successfully");
+      setPopUpMsg("Menu ajouté avec succès à partir des menus favoris");
       setInfoOpenPopup(true);
 
       setReload(!reload)
@@ -104,7 +104,7 @@ const ClientDashboard = () => {
 
       console.log(response.data);
       
-      setPopUpMsg("Menu removed from favorite menus successfully");
+      setPopUpMsg("Menu supprimé des menus favoris avec succès");
       setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
@@ -126,7 +126,7 @@ const ClientDashboard = () => {
           },
         }
       );
-      setPopUpMsg("resto added to favorite resto successfully");
+      setPopUpMsg("Restaurant ajouté aux favoris avec succès");
       setInfoOpenPopup(true);
       setReload(!reload)
       console.log(response.data);
@@ -151,7 +151,7 @@ const ClientDashboard = () => {
 
       console.log(response.data);
       
-      setPopUpMsg("resto removed from favorite menus successfully");
+      setPopUpMsg("Le restaurant a été supprimé des menus favoris avec succès");
       setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
@@ -175,7 +175,7 @@ const ClientDashboard = () => {
       );
 
       console.log(response.data);
-      setPopUpMsg("menu added to chart successfully!");
+      setPopUpMsg("menu ajouté au panier avec succès !");
       setInfoOpenPopup(true);
     } catch (error) {
       console.error(error);

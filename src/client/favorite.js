@@ -115,7 +115,7 @@ const FavoriteDashboard = () => {
 
       console.log(response.data);
 
-      setPopUpMsg("Menu removed from favorite menus successfully");
+      setPopUpMsg("Menu supprimé des menus favoris avec succès");
       setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
@@ -139,7 +139,7 @@ const FavoriteDashboard = () => {
 
       console.log(response.data);
 
-      setPopUpMsg("resto removed from favorite menus successfully");
+      setPopUpMsg("Le restaurant a été supprimé des menus favoris avec succès");
       setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {

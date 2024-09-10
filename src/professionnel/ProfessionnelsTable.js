@@ -145,7 +145,7 @@ const ProfessionnelsTable = () => {
         await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/professionnel/desactivate-professionnel/${selectedProfessionnel.id}/`
         );
-        setPopUpMsg("Professionnel refusé avec succès");
+        setPopUpMsg("Professionnel refusé");
         setInfoOpenPopup(true);
       } catch (error) {
         console.error("Erreur lors du refus du professionnel", error);
@@ -157,7 +157,7 @@ const ProfessionnelsTable = () => {
           `${process.env.REACT_APP_BACKEND_URL}/professionnel/activate-professionnel/${selectedProfessionnel.id}/`
         );
 
-        setPopUpMsg("Professionnel validé avec succès");
+        setPopUpMsg("Professionnel validé");
         setInfoOpenPopup(true);
       } catch (error) {
         console.error("Erreur lors de la validation du professionnel", error);

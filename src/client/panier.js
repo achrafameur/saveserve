@@ -32,7 +32,7 @@ const Panier = () => {
   const [refrenceStripe, setRefrenceStripe] = useState("");
   const [linkStripe, setLinkStripe] = useState("");
   const [isChecked, setIsChecked] = useState(false);
-  const [menuId, setMenuId] = useState('');
+  const [panierId, setPanierId] = useState('');
   const [fees, setFees] = useState([]);
 
 
@@ -62,6 +62,7 @@ const Panier = () => {
       );
       setMenus(response.data.items);
       setFees(response.data)
+      setPanierId(response.data.panier_id)
       // setMenuId(response.data.items.id)
       // const total = calculateTotalPrice(response.data);
       setTotalPrice(response.data.total);
@@ -112,7 +113,7 @@ const Panier = () => {
       );
 
       console.log(response.data);
-      setPopUpMsg("Menu removed from favorite menus successfully");
+      setPopUpMsg("Menu supprimé des menus favoris avec succès");
       setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
@@ -127,7 +128,7 @@ const Panier = () => {
       );
 
       console.log(response.data);
-      setPopUpMsg("Menu removed from Chart menus successfully");
+      setPopUpMsg("Menu supprimé avec succès des menus du panier");
       setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
@@ -236,7 +237,7 @@ const Panier = () => {
           `${process.env.REACT_APP_BACKEND_URL}/client/reserve-table/`,
           {
             admin_id: adminId,
-            panier_id: 9,
+            panier_id: panierId,
           },
           {
             headers: {
@@ -250,7 +251,7 @@ const Panier = () => {
           `${process.env.REACT_APP_BACKEND_URL}/client/cancel-table/`,
           {
             admin_id: adminId,
-            panier_id: 9,
+            panier_id: panierId,
           },
           {
             headers: {

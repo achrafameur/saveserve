@@ -53,7 +53,7 @@ const SuperAdminsTable = () => {
       await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/professionnel/verifier-professionnel/${adminId}/`
       );
-      setPopUpMsg("Professionnel validé avec succès");
+      setPopUpMsg("Professionnel validé");
       setInfoOpenPopup(true);
 
       setSuperAdmins((prev) => prev.filter((admin) => admin.id !== adminId));
@@ -69,7 +69,7 @@ const SuperAdminsTable = () => {
         `${process.env.REACT_APP_BACKEND_URL}/professionnel/refuser-professionnel/${adminId}/`
       );
       
-      setPopUpMsg("Professionnel refusé avec succès");
+      setPopUpMsg("Professionnel refusé");
       setInfoOpenPopup(true);
       
       setSuperAdmins((prev) => prev.filter((admin) => admin.id !== adminId));
