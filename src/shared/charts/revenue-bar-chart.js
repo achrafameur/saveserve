@@ -10,7 +10,8 @@ const RevenueBarChart = ({ monthlyRevenue, annualRevenue, todayRevenue }) => {
   ];
 
   return (
-    <Card variant="outlined" style={{ borderRadius: 15 }}>
+    <Card variant="outlined" style={{ borderRadius: 15 ,boxShadow:
+      "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",border:0}}>
       <CardContent>
         <Typography variant="h6">Chiffre d'affaires</Typography>
         <ResponsiveContainer width="100%" height={200}>
