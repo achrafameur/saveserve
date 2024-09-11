@@ -14,6 +14,7 @@ import RevenuePieChart from '../shared/charts/revenue-pie-chart';
 import OrdersLineChart from '../shared/charts/orders-line-chart';
 import { Grid } from '@mui/material';
 
+
 // const SuperAdminDashboard = () => {
 //   const [stats, setStats] = useState([]);
 
@@ -36,24 +37,24 @@ import { Grid } from '@mui/material';
 //       <StatCard name={'Total Orders'} value={stats.total_orders} icon={ListAltRoundedIcon}/>
 //       <StatCard name={'Total Revenues'} value={stats.total_revenue} icon={AccountBalanceRoundedIcon} money={true}/>
 //       <StatCard name={'Our Shares'} value={stats.our_share} icon={AccountBalanceWalletRoundedIcon} money={true}/>
-      
+
 //       </div>
 //       <div
 //       style={{display:'flex',justifyContent:'space-between',gap:20,padding:20}}>
-      
+
 //       <StatCard name={'Today Orders'} value={stats.today_orders} icon={ReceiptLongOutlinedIcon}/>
 //       <StatCard name={'Today Revenues'} value={stats.today_revenue} icon={EuroRoundedIcon} money={true}/>
 //       <StatCard name={'Monthly Revenues'} value={stats.monthly_revenue} icon={DateRangeRoundedIcon} money={true}/>
-      
+
 //       </div>
 //       <div
 //       style={{display:'flex',justifyContent:'flex-start',padding:20}}>
-      
-     
+
+
 //       <StatCard name={'Anaual Revenues'} value={stats.annual_revenue} icon={CalendarMonthRoundedIcon} money={true}/>
 //       </div>
-      
-      
+
+
 //       </>
 //   );
 // };
@@ -81,7 +82,7 @@ const SuperAdminDashboard = () => {
 
   return (
     <>
-      <div className="pageTitleHeader">Bienvenue, Admin</div>
+      <div className="pageTitleHeader">Tableau De Board</div>
       {/* <div style={{display:'flex',justifyContent:'space-between',gap:20,marginTop:20,padding:20}}>
         <StatCard name={'Total Orders'} value={stats.total_orders} icon={ListAltRoundedIcon}/>
         <StatCard name={'Total Revenues'} value={stats.total_revenue} icon={AccountBalanceRoundedIcon} money={true}/>
@@ -98,17 +99,40 @@ const SuperAdminDashboard = () => {
       {/* <RevenueBarChart monthlyRevenue={stats.monthly_revenue} annualRevenue={stats.annual_revenue} />
       <RevenuePieChart ourShare={stats.our_share} totalRevenue={stats.total_revenue} />
       <OrdersLineChart ordersData={ordersData} /> */}
-      <Grid container spacing={3}>
-      <Grid item xs={12} md={6}>
-        <RevenueBarChart monthlyRevenue={stats.monthly_revenue} annualRevenue={stats.annual_revenue} todayRevenue={stats.today_revenue}/>
+      <div
+      style={{display:'flex',justifyContent:'space-between',gap:20,marginTop:20,padding:20}}>
+      <StatCard name={'Total Orders'} value={stats.total_orders} icon={ListAltRoundedIcon}/>
+      <StatCard name={'Total Revenues'} value={stats.total_revenue} icon={AccountBalanceRoundedIcon} money={true}/>
+      <StatCard name={'Restaurant Shares'} value={stats.our_share} icon={AccountBalanceWalletRoundedIcon} money={true}/>
+      
+      </div>
+      <div
+      style={{display:'flex',justifyContent:'space-between',gap:20,padding:20}}>
+      
+      <StatCard name={'Today Orders'} value={stats.today_orders} icon={ReceiptLongOutlinedIcon}/>
+      <StatCard name={'Today Revenues'} value={stats.today_revenue} icon={EuroRoundedIcon} money={true}/>
+      <StatCard name={'Monthly Revenues'} value={stats.monthly_revenue} icon={DateRangeRoundedIcon} money={true}/>
+      
+      </div>
+      <div
+      style={{display:'flex',justifyContent:'flex-start',padding:20}}>
+      
+     
+      <StatCard name={'Anaual Revenues'} value={stats.annual_revenue} icon={CalendarMonthRoundedIcon} money={true}/>
+      </div>
+
+
+      <Grid container spacing={3}  style={{padding:20}}>
+        <Grid item xs={12} md={6}>
+          <RevenueBarChart monthlyRevenue={stats.monthly_revenue} annualRevenue={stats.annual_revenue} todayRevenue={stats.today_revenue} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <RevenuePieChart ourShare={stats.our_share} totalRevenue={stats.total_revenue} />
+        </Grid>
+        <Grid item xs={12}>
+          <OrdersLineChart ordersData={ordersData} />
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <RevenuePieChart ourShare={stats.our_share} totalRevenue={stats.total_revenue} />
-      </Grid>
-      <Grid item xs={12}>
-        <OrdersLineChart ordersData={ordersData} />
-      </Grid>
-    </Grid>
     </>
   );
 };

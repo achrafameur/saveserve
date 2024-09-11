@@ -163,6 +163,9 @@ const Panier = () => {
   };
 
   const handleDecrement = async (menuId, menuQuantity) => {
+    if(menuQuantity ===1){
+      removeFromChart(menuId)
+    }
     if (menuQuantity > 0) {
       try {
         menuQuantity = menuQuantity - 1;
@@ -493,10 +496,18 @@ const Panier = () => {
             Mon Panier
             {/* < ShoppingCartRoundedIcon /> */}
           </div>
+          {(menus.length===0&&
+            <div style={{ display: "flex", gap: 10 }}>
+            Total : 0
+            <div style={{ color: "rgba(42, 161, 92, 1) 12%" }}>€</div>
+          </div>
+          )}
+          {(menus.length!==0&&
           <div style={{ display: "flex", gap: 10 }}>
             Total : {totalPrice}{" "}
             <div style={{ color: "rgba(42, 161, 92, 1) 12%" }}>€</div>
           </div>
+          )}
         </div>
         {menus.length === 0 ? (
           <Typography variant="h6" align="center" sx={{ marginBottom: 5 }}>
@@ -611,6 +622,7 @@ const Panier = () => {
             ))}
           </Box>
         )}
+        {(menus.length!==0&&
         <div>
           <div className="pageTitleHeader"
             style={{ fontSize: 25, height: 30 }} >
@@ -636,6 +648,7 @@ const Panier = () => {
             })}
           </ul>
         </div>
+        )}
         <div>
           <Button
             style={{
@@ -647,6 +660,7 @@ const Panier = () => {
             }}
 
             onClick={showChart}
+            disabled={menus.length===0}
           >
             Valider le Panier
             <CheckCircleOutlineIcon sx={{ ml: 1 }} />

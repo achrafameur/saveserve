@@ -215,8 +215,10 @@ const ManageAvailability = () => {
   const [menus, setMenus] = useState([]);
   const [isVerified, setIsVerified] = useState(false); // Assume true initially
   const userId = localStorage.getItem("id");
-  const [isDeclined,setIsDeclined] = useState(false);
+  const [isDeclined, setIsDeclined] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [seats, setSeats] = useState('');
+  const [reloadSeats, setReloadSeats] = useState(false);
 
 
   useEffect(() => {
@@ -249,6 +251,60 @@ const ManageAvailability = () => {
     fetchUserProfile();
     fetchMenus();
   }, [userId]);
+
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/profile/`,
+          { admin_id: userId }
+        );
+        setIsVerified(response.data.is_verified);
+        setIsDeclined(response.data.is_declined);
+        setLoading(false);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const fetchMenus = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/superadmin/admin/${userId}/menus/`
+        );
+        setMenus(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUserProfile();
+    fetchMenus();
+  }, [userId]);
+
+
+
+
+  useEffect(() => {
+
+    const fetchSeats = async () => {
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/professionnel/seats/`,
+          { user_id: userId }
+        );
+        setSeats(response.data.available_seats)
+
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchSeats()
+  }, [userId, reloadSeats]);
+
+
 
   const handleIncrement = async (id) => {
     try {
@@ -297,6 +353,41 @@ const ManageAvailability = () => {
     }
   };
 
+
+
+
+
+
+  const handleIncrementSeats = async () => {
+    try {
+      const response = await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/professionnel/seats/update/${userId}/`,
+        {
+          available_seats: seats + 1
+
+        }
+      );
+      setReloadSeats(!reloadSeats)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDecrementSeats = async () => {
+    try {
+      const response = await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/professionnel/seats/update/${userId}/`,
+        {
+          available_seats: seats - 1
+
+        }
+      );
+      setReloadSeats(!reloadSeats)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const getStatusBanner = (menu) => {
     if (menu.is_declined) {
       return { text: "Refusé", color: "red" };
@@ -309,9 +400,9 @@ const ManageAvailability = () => {
 
 
   if (loading) {
-    return null; 
+    return null;
   }
-  if (!isVerified && !isDeclined ) {
+  if (!isVerified && !isDeclined) {
     return (
       <Box
         sx={{
@@ -408,7 +499,7 @@ const ManageAvailability = () => {
               color: "red",
             }}
           >
-            < ReportProblemRoundedIcon style={{ fontSize: 80 }}/>
+            < ReportProblemRoundedIcon style={{ fontSize: 80 }} />
           </Box>
           <Typography
             variant="h4"
@@ -430,7 +521,51 @@ const ManageAvailability = () => {
 
   return (
     <Container>
-      <div className="pageTitleHeader">Gérer les disponibilités</div>
+      <div className="pageTitleHeader"
+        style={{ justifyContent: 'space-between', width: '94%' }}>Gérer les disponibilités
+        <div
+          style={{ display: 'flex', alignItems: 'center' }}>
+          <div>seats :</div>
+          <div
+          style={{ display: 'flex', alignItems: 'center' }}>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+             
+            >
+
+              <Box display="flex" alignItems="center">
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={() => handleIncrementSeats()}
+                  style={{
+                    background:
+                      "linear-gradient(45deg, rgba(42, 161, 92, 1) 12%, rgba(3, 162, 194, 1) 100%)",
+                  }}
+                >
+                  +
+                </Button>
+                <Typography variant="body1" mx={1}>
+                  {seats || 0}
+                </Typography>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => handleDecrementSeats()}
+                  style={{
+                    background:
+                      "linear-gradient(45deg, rgb(152 17 45) 12%, rgb(254 75 75) 100%)",
+                  }}
+                >
+                  -
+                </Button>
+              </Box>
+            </Box>
+          </div>
+        </div>
+      </div>
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
         {menus.length > 0 ? (
           menus.map((menu) => (
@@ -467,7 +602,7 @@ const ManageAvailability = () => {
                   <Typography variant="h5" component="div">
                     {menu.nom}
                   </Typography>
-                  
+
                   <Box
                     sx={{
                       backgroundColor: getStatusBanner(menu).color,

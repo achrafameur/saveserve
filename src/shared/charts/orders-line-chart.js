@@ -5,7 +5,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const OrdersLineChart = ({ ordersData }) => {
 
   return (
-    <Card variant="outlined">
+    <Card variant="outlined"
+    style={{borderRadius:15}}>
       <CardContent>
         <Typography variant="h6">Tendances des Commandes</Typography>
         <ResponsiveContainer width="100%" height={200}>
@@ -14,7 +15,7 @@ const OrdersLineChart = ({ ordersData }) => {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="orders" stroke="#8884d8" />
+            <Line type="monotone" dataKey="orders" stroke="rgb(6, 174, 212)" strokeWidth={3}/>
           </LineChart>
         </ResponsiveContainer>
       </CardContent>

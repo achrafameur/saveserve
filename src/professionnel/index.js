@@ -9,8 +9,11 @@ import EuroRoundedIcon from '@mui/icons-material/EuroRounded';
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
-import { Typography, Box } from "@mui/material";
+import { Typography, Box,Grid } from "@mui/material";
 import ReportProblemRoundedIcon from '@mui/icons-material/ReportProblemRounded';
+import RevenueBarChart from '../shared/charts/revenue-bar-chart';
+import RevenuePieChart from '../shared/charts/revenue-pie-chart';
+import OrdersLineChart from '../shared/charts/orders-line-chart';
 
 const ProfessionnelDashboard = () => {
   const userId = localStorage.getItem('id');
@@ -170,7 +173,7 @@ const ProfessionnelDashboard = () => {
   }
   return (
       <>
-      <div className="pageTitleHeader">Bienvenue, Professionnel</div>
+      <div className="pageTitleHeader">Tableau De Board</div>
       {/* <div className="pageTitleHeader"
       style={{fontSize:20,fontWeight:300,height:25}}>Ceci est votre tableau de bord professionnel.</div> */}
       <div
@@ -194,7 +197,18 @@ const ProfessionnelDashboard = () => {
      
       <StatCard name={'Anaual Revenues'} value={stats.annual_revenue} icon={CalendarMonthRoundedIcon} money={true}/>
       </div>
-      
+      <Grid container spacing={3}
+      style={{padding:20}}>
+        <Grid item xs={12} md={6}>
+          <RevenueBarChart monthlyRevenue={stats.monthly_revenue} annualRevenue={stats.annual_revenue} todayRevenue={stats.today_revenue} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <RevenuePieChart ourShare={stats.restaurant_share} totalRevenue={stats.total_revenue} />
+        </Grid>
+        {/* <Grid item xs={12}>
+          <OrdersLineChart ordersData={ordersData} />
+        </Grid> */}
+      </Grid>
       
       </>
   );
