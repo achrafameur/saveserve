@@ -39,10 +39,9 @@ import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 import altImage from "../imgs/food.png";
 import Tooltip from "@mui/material/Tooltip";
-import ToggleOnRoundedIcon from '@mui/icons-material/ToggleOnRounded';
-import ToggleOffRoundedIcon from '@mui/icons-material/ToggleOffRounded';
+import ToggleOnRoundedIcon from "@mui/icons-material/ToggleOnRounded";
+import ToggleOffRoundedIcon from "@mui/icons-material/ToggleOffRounded";
 import InfoPopup from "../components/infoPopUp";
-
 
 const ProfessionnelsTable = () => {
   const [professionnels, setProfessionnels] = useState([]);
@@ -62,8 +61,6 @@ const ProfessionnelsTable = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [reload, setReload] = useState(false);
 
-
-
   const [openInfoPopup, setInfoOpenPopup] = useState(false);
   const [popUpMsg, setPopUpMsg] = useState(false);
 
@@ -74,8 +71,6 @@ const ProfessionnelsTable = () => {
   const handleCloseInfoPopUp = () => {
     setInfoOpenPopup(false);
   };
-
-
 
   useEffect(() => {
     const fetchProfessionnels = async () => {
@@ -139,7 +134,7 @@ const ProfessionnelsTable = () => {
   };
 
   const changeStatus = async () => {
-    console.log(selectedProfessionnel)
+    console.log(selectedProfessionnel);
     if (selectedProfessionnel.is_verified === true) {
       try {
         await axios.get(
@@ -163,8 +158,8 @@ const ProfessionnelsTable = () => {
         console.error("Erreur lors de la validation du professionnel", error);
       }
     }
-    setStatusOpen(false)
-    setReload(!reload)
+    setStatusOpen(false);
+    setReload(!reload);
   };
 
   const closeModal = () => {
@@ -212,7 +207,6 @@ const ProfessionnelsTable = () => {
   return (
     <>
       <Box component="main" sx={{ flexGrow: 1, py: 8 }}>
-
         <InfoPopup
           open={openInfoPopup}
           handleClose={handleCloseInfoPopUp}
@@ -240,7 +234,7 @@ const ProfessionnelsTable = () => {
                 fontSize: 30,
                 color: "rgb(40, 148, 163)",
                 fontWeight: 500,
-                fontFamily:'Century Gothic'
+                fontFamily: "Century Gothic",
               }}
             >
               Available Menus
@@ -300,8 +294,9 @@ const ProfessionnelsTable = () => {
           <Box sx={{ mb: 4 }}>
             <Grid container justifyContent="space-between" spacing={3}>
               <Grid item>
-                <div className="pageTitleHeader"
-                  style={{ height: 20 }}>Professionnels</div>
+                <div className="pageTitleHeader" style={{ height: 20 }}>
+                  Professionnels
+                </div>
               </Grid>
             </Grid>
             <Box sx={{ mt: 3 }}>
@@ -435,34 +430,37 @@ const ProfessionnelsTable = () => {
                           >
                             <Delete />
                           </IconButton>
-                          {(professionnel.is_verified === true &&
-                            <IconButton
-                              onClick={() => openStatus(professionnel)}
-                              sx={{
-                                backgroundColor: "green",
-                                color: "white",
-                                "&:hover": { backgroundColor: "#d0d0d0" },
-                                ml: 2,
-                              }}
-                            >
-                              < ToggleOnRoundedIcon />
-                            </IconButton>
+                          {professionnel.is_verified === true && (
+                            <Tooltip title="Désactiver le compte de ce restaurant">
+                              <IconButton
+                                onClick={() => openStatus(professionnel)}
+                                sx={{
+                                  backgroundColor: "green",
+                                  color: "white",
+                                  "&:hover": { backgroundColor: "#d0d0d0" },
+                                  ml: 2,
+                                }}
+                              >
+                                <ToggleOnRoundedIcon />
+                              </IconButton>
+                            </Tooltip>
                           )}
 
-                          {(professionnel.is_verified === false &&
-                            <IconButton
-                              onClick={() => openStatus(professionnel)}
-                              sx={{
-                                backgroundColor: "red",
-                                color: "white",
-                                "&:hover": { backgroundColor: "#d0d0d0" },
-                                ml: 2,
-                              }}
-                            >
-                              < ToggleOffRoundedIcon />
-                            </IconButton>
+                          {professionnel.is_verified === false && (
+                            <Tooltip title="Activer le compte de ce restaurant">
+                              <IconButton
+                                onClick={() => openStatus(professionnel)}
+                                sx={{
+                                  backgroundColor: "red",
+                                  color: "white",
+                                  "&:hover": { backgroundColor: "#d0d0d0" },
+                                  ml: 2,
+                                }}
+                              >
+                                <ToggleOffRoundedIcon />
+                              </IconButton>
+                            </Tooltip>
                           )}
-
                         </TableCell>
                       </TableRow>
                     ))
@@ -616,8 +614,6 @@ const ProfessionnelsTable = () => {
         </Box>
       </Modal>
 
-
-
       <Modal
         open={statusOpen}
         onClose={closeStatus}
@@ -637,28 +633,29 @@ const ProfessionnelsTable = () => {
             p: 4,
           }}
         >
-          {(selectedProfessionnel && selectedProfessionnel.is_verified === true &&
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              sx={{ mb: 5, mt: 1, ml: 2 }}
-            >
-              Voulez-vous désactiver ce compte?
-            </Typography>
-          )}
-          {(selectedProfessionnel && selectedProfessionnel.is_verified === false &&
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              sx={{ mb: 5, mt: 1, ml: 2 }}
-            >
-              Voulez-vous activer ce compte?
-            </Typography>
-          )}
+          {selectedProfessionnel &&
+            selectedProfessionnel.is_verified === true && (
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+                sx={{ mb: 5, mt: 1, ml: 2 }}
+              >
+                Voulez-vous désactiver ce compte?
+              </Typography>
+            )}
+          {selectedProfessionnel &&
+            selectedProfessionnel.is_verified === false && (
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+                sx={{ mb: 5, mt: 1, ml: 2 }}
+              >
+                Voulez-vous activer ce compte?
+              </Typography>
+            )}
           <Box sx={{ mt: 2 }}>
-
             <Button
               variant="contained"
               color="primary"

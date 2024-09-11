@@ -173,29 +173,29 @@ const ProfessionnelDashboard = () => {
   }
   return (
       <>
-      <div className="pageTitleHeader">Tableau De Board</div>
+      <div className="pageTitleHeader">Tableau De Bord</div>
       {/* <div className="pageTitleHeader"
       style={{fontSize:20,fontWeight:300,height:25}}>Ceci est votre tableau de bord professionnel.</div> */}
       <div
       style={{display:'flex',justifyContent:'space-between',gap:20,marginTop:20,padding:20}}>
-      <StatCard name={'Total Orders'} value={stats.total_orders} icon={ListAltRoundedIcon}/>
-      <StatCard name={'Total Revenues'} value={stats.total_revenue} icon={AccountBalanceRoundedIcon} money={true}/>
-      <StatCard name={'Restaurant Shares'} value={stats.restaurant_share} icon={AccountBalanceWalletRoundedIcon} money={true}/>
+      <StatCard name={'Total des commandes'} value={stats.total_orders} icon={ListAltRoundedIcon}/>
+      <StatCard name={'Chiffre d\'affaires total'} value={stats.total_revenue} icon={AccountBalanceRoundedIcon} money={true}/>
+      <StatCard name={'Part du restaurant'} value={stats.restaurant_share} icon={AccountBalanceWalletRoundedIcon} money={true}/>
       
       </div>
       <div
       style={{display:'flex',justifyContent:'space-between',gap:20,padding:20}}>
       
-      <StatCard name={'Today Orders'} value={stats.today_orders} icon={ReceiptLongOutlinedIcon}/>
-      <StatCard name={'Today Revenues'} value={stats.today_revenue} icon={EuroRoundedIcon} money={true}/>
-      <StatCard name={'Monthly Revenues'} value={stats.monthly_revenue} icon={DateRangeRoundedIcon} money={true}/>
+      <StatCard name={'Commandes du jour'} value={stats.today_orders} icon={ReceiptLongOutlinedIcon}/>
+      <StatCard name={'Revenus d\'aujourd\'hui'} value={stats.today_revenue} icon={EuroRoundedIcon} money={true}/>
+      <StatCard name={'Revenus mensuels'} value={stats.monthly_revenue} icon={DateRangeRoundedIcon} money={true}/>
       
       </div>
       <div
       style={{display:'flex',justifyContent:'flex-start',padding:20}}>
       
      
-      <StatCard name={'Anaual Revenues'} value={stats.annual_revenue} icon={CalendarMonthRoundedIcon} money={true}/>
+      <StatCard name={'Chiffre d\'affaires annuel'} value={stats.annual_revenue} icon={CalendarMonthRoundedIcon} money={true}/>
       </div>
       <Grid container spacing={3}
       style={{padding:20}}>
