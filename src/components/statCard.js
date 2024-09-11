@@ -22,7 +22,7 @@ const StatCard = (props) => {
   return (
     <>
       <Box
-        sx={{ display: "flex", flexWrap: "wrap", gap: "25px", marginTop: 0 }}
+        sx={{ display: "flex", flexWrap: "wrap", gap: "25px", marginTop: 0,fontFamily:'Century Gothic' }}
       >
         <Card
           sx={{ flexBasis: "100%", minWidth: 470 }}
@@ -42,10 +42,10 @@ const StatCard = (props) => {
               }}
             >
               <div>
-                <Typography variant="h5" component="div">
+                <Typography variant="h5" component="div" style={{fontFamily:'Century Gothic' }}>
                   {props.name}
                 </Typography>
-                <Typography variant="h6" color="text.secondary">
+                <Typography variant="h6" color="text.secondary" style={{fontFamily:'Century Gothic' }}>
                   <div style={{ display: "flex", gap: 5 }}>
                     {props.value}
                     {props.money && <div>€</div>}

@@ -13,10 +13,10 @@ const RevenuePieChart = ({ ourShare, totalRevenue }) => {
   return (
     <Card variant="outlined"
     style={{borderRadius:15,boxShadow:
-      "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",border:0}}>
+      "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",border:0,fontFamily:'Century Gothic'}}>
       <CardContent
       >
-        <Typography variant="h6">Répartition des Revenus</Typography>
+        <Typography variant="h6" style={{fontFamily:'Century Gothic' }}>Répartition des Revenus</Typography>
         <ResponsiveContainer width="100%" height={200}>
           <PieChart>
             <Pie data={data} dataKey="value" outerRadius={80} fill="rgb(3 194 190)" label>
