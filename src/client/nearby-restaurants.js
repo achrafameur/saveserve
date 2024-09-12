@@ -46,7 +46,7 @@ const NearbyRestaurantsMap = () => {
           setUserLocation({
             latitude: response.data.latitude,
             longitude: response.data.longitude,
-          });
+          }); 
 
           const nearbyRestaurantsResponse = await axios.post(
             `${process.env.REACT_APP_BACKEND_URL}/client/get-nearby-restaurants/`,

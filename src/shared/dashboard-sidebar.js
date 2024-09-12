@@ -12,10 +12,10 @@ import {
 import HomeIcon from "@mui/icons-material/Home"; // Example icons
 import PeopleIcon from "@mui/icons-material/People";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import ListIcon from "@mui/icons-material/List";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { Link as RouterLink, useLocation } from "react-router-dom";
@@ -223,11 +223,22 @@ const DashboardSidebar = ({ open, onClose }) => {
       style={{}}
     >
       <Toolbar>
-        <Box sx={{ display: "flex", alignItems: "center", width: "100%",border:0 }}>
-          <RouterLink to="/"
-          style={{display:'flex',alignItems:'center'}}>
-            <img src="https://res.cloudinary.com/dubrka8it/image/upload/v1725749848/logo_t9zbro.png" alt="Logo" style={{ height: 35, width: 35,marginRight:5 }} />
-          </RouterLink>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            width: "100%",
+            border: 0,
+          }}
+        >
+          {/* <RouterLink to="/"
+          style={{display:'flex',alignItems:'center'}}> */}
+          <img
+            src="https://res.cloudinary.com/dubrka8it/image/upload/v1725749848/logo_t9zbro.png"
+            alt="Logo"
+            style={{ height: 35, width: 35, marginRight: 5 }}
+          />
+          {/* </RouterLink> */}
           <Typography
             variant="h6"
             noWrap

@@ -78,7 +78,7 @@ const ImageRequests = () => {
       );
       console.log(response.data);
       
-      setPopUpMsg(`Request ${adminResp}ed successfully! `);
+      setPopUpMsg(`Demande ${adminResp}é avec succés! `);
       setInfoOpenPopup(true);
       setReload(!reload);
     } catch (error) {
