@@ -365,7 +365,7 @@ const Panier = () => {
                 }}
               >
                 <Typography variant="body1" component="div" sx={{ flex: 2 }}>
-                  Fees
+                  Frais de services
                 </Typography>
                 <Typography variant="body1" component="div" sx={{ flex: 2 }}>
                   _
@@ -382,7 +382,7 @@ const Panier = () => {
                   padding: "10px",
                 }}
               ><Typography variant="body1" component="div" sx={{ flex: 2 }}>
-                  Table Fees
+                  Frais de tables
                 </Typography>
                 <Typography variant="body1" component="div" sx={{ flex: 2 }}>
                   {fees.total_tables / 3}
@@ -406,72 +406,6 @@ const Panier = () => {
                 </Typography>
               </Box>
             </Box>
-            {/* <Box sx={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
-              {menus.map((menu, index) => (
-                <Card
-                  key={menu.id}
-                  sx={{ flexBasis: "30%", minWidth: 300 }}
-                  style={{
-                    borderRadius: 15,
-                    boxShadow:
-                      "rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Button
-                      id="deleteButton"
-                      onClick={() => removeFromChart(menu.id)}
-                    >
-                      X
-                    </Button>
-                  </div>
-
-                  <Link to={`/menu/${menu.id}`}>
-                    <CardMedia
-                      component="img"
-                      height="140"
-                      image={
-                        menu.menu.image !== "image/upload/null"
-                          ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.menu.image}`
-                          : altImage
-                      }
-                      alt={menu.menu.nom}
-                    />
-                  </Link>
-
-                  <CardContent>
-                    <Typography variant="h5" component="div">
-                      {menu.menu.nom}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {menu.menu.description}
-                    </Typography>
-                    <Box
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                      mt={2}
-                    >
-                      <Typography variant="body1">
-                        {menu.menu.prix} €
-                      </Typography>
-                      <Box display="flex" alignItems="center">
-                        <Button onClick={() => removeFromFavMenu(menu.id)}>
-                          <FavoriteBorderIcon />
-                        </Button>
-                      </Box>
-                    </Box>
-                  </CardContent>
-                </Card>
-              ))}
-            </Box> */}
             <div>
               <Button
                 style={{

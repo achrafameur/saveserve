@@ -525,7 +525,7 @@ const ManageAvailability = () => {
         style={{ justifyContent: 'space-between', width: '94%' }}>Gérer les disponibilités
         <div
           style={{ display: 'flex', alignItems: 'center' }}>
-          <div>seats :</div>
+          <div>Nombre de places disponibles :</div>
           <div
           style={{ display: 'flex', alignItems: 'center' }}>
             <Box
