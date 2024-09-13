@@ -82,7 +82,7 @@ const getSections = (userAccess) => {
             icon: <RuleRoundedIcon />,
           },
           {
-            title: "Liste des Réclamations",
+            title: "Liste des Litiges",
             path: "/admin/réclamations",
             icon: <ContactSupportIcon />,
           },
@@ -95,7 +95,7 @@ const getSections = (userAccess) => {
         title: "Génerale",
         icon: <HomeIcon />,
         items: [
-          { title: "Tableau de bord", path: "/client", icon: <HomeIcon /> },
+          { title: "Accueil", path: "/client", icon: <HomeIcon /> },
           {
             title: "Activer la localisation",
             path: "/localisation",

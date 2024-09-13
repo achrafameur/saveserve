@@ -186,17 +186,18 @@ const ProfessionnelDashboard = () => {
       <div
       style={{display:'flex',justifyContent:'space-between',gap:20,padding:20}}>
       
-      <StatCard name={'Commandes du jour'} value={stats.today_orders} icon={ReceiptLongOutlinedIcon}/>
+      {/* <StatCard name={'Commandes du jour'} value={stats.today_orders} icon={ReceiptLongOutlinedIcon}/> */}
       <StatCard name={'Revenus d\'aujourd\'hui'} value={stats.today_revenue} icon={EuroRoundedIcon} money={true}/>
       <StatCard name={'Revenus mensuels'} value={stats.monthly_revenue} icon={DateRangeRoundedIcon} money={true}/>
+      <StatCard name={'Chiffre d\'affaires annuel'} value={stats.annual_revenue} icon={CalendarMonthRoundedIcon} money={true}/>
       
       </div>
-      <div
+      {/* <div
       style={{display:'flex',justifyContent:'flex-start',padding:20}}>
       
      
       <StatCard name={'Chiffre d\'affaires annuel'} value={stats.annual_revenue} icon={CalendarMonthRoundedIcon} money={true}/>
-      </div>
+      </div> */}
       <Grid container spacing={3}
       style={{padding:20}}>
         <Grid item xs={12} md={6}>

@@ -86,7 +86,7 @@ const AddLitige = () => {
           }}
           className="pageTitleHeader"
         >
-          Envoyer une réclamation{" "}
+          Ouvrir un litige{" "}
         </div>
         <Box
           component="form"

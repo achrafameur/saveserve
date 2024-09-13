@@ -45,7 +45,7 @@ const SuperAdminDashboard = () => {
       <div
       style={{display:'flex',justifyContent:'space-between',gap:20,padding:20}}>
       
-      <StatCard name={'Commandes du jourToday Orders'} value={stats.today_orders} icon={ReceiptLongOutlinedIcon}/>
+      <StatCard name={'Commandes du jour'} value={stats.today_orders} icon={ReceiptLongOutlinedIcon}/>
       <StatCard name={'Revenus d\'aujourd\'hui'} value={stats.today_revenue} icon={EuroRoundedIcon} money={true}/>
       <StatCard name={'Revenus mensuels'} value={stats.monthly_revenue} icon={DateRangeRoundedIcon} money={true}/>
       

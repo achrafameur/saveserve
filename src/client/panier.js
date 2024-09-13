@@ -490,7 +490,7 @@ const Panier = () => {
                     component="img"
                     height="140"
                     image={
-                      menu.menu.image !== "image/upload/null" && menu.is_approved
+                      menu.menu.image !== "image/upload/null" && (menu.is_approved = true)
                         ? `${process.env.REACT_APP_CLOUDINARY_URL}/${menu.menu.image}`
                         : "https://res.cloudinary.com/dubrka8it/image/upload/v1724978765/food_kyvzbf.png"
                     }
